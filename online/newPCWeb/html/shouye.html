@@ -1,0 +1,410 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/headerAndFooter.css">
+    <link rel="stylesheet" href="../css/shouye.css">
+    <script charset="utf-8" src="../js/jquery.min.js"></script>
+</head>
+<script>
+    $(function () {
+        $('#footer').load('footer.html')
+        $('#header').load('header.html');
+    })
+</script>
+<style>
+    .glyphicon-chevron-left:before {
+        display: none;
+    }
+    .glyphicon-chevron-right:before {
+        display: none;
+    }
+</style>
+<body>
+<!--<div class="top-nav clearfix">
+    <div class="container">
+        <div class="top-nav-left pull-left">
+            <span><img src="../img/headerAndFooter/phone.png" alt=""></span>
+            <span>手机理财</span>
+            <span class="line">丨</span>
+            <span>客服热线：400-888-714（9:00 - 20:00）</span>
+        </div>
+        <div class="top-nav-right pull-right">
+            <span>免费注册</span>
+            <span class="line">丨</span>
+            <span>立即登录</span>
+            <span><img src="../img/headerAndFooter/weixin.png" alt=""></span>
+            <span><img src="../img/headerAndFooter/xinlang.png" alt=""></span>
+        </div>
+    </div>
+</div>
+<div class="container contentT">
+    <div class="main-nav clearfix">
+        <img src="../img/headerAndFooter/logo.png" alt="" class="pull-left">
+        <ul class="list-inline pull-left">
+            <li><a href="">首页</a></li>
+            <li><a href="">产品推荐</a></li>
+            <li><a href="">安全保障</a></li>
+            <li><a href="">信息披露</a></li>
+            <li><a href="">关于我们</a></li>
+            <li><a href="">我的账户</a></li>
+        </ul>
+    </div>
+</div>-->
+<!--header开始-->
+<div id="header"></div>
+<!--header结束-->
+
+<div class="lunbo">
+    <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+        <!-- Indicators -->
+        <ol class="carousel-indicators">
+        </ol>
+
+        <!-- Wrapper for slides -->
+        <div class="carousel-inner" role="listbox">
+
+        </div>
+
+        <!-- Controls -->
+        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
+                <img src="../img/shouye/left.png" alt="">
+            </span>
+            <span class="sr-only">
+                Prev
+            </span>
+        </a>
+        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
+                <img src="../img/shouye/right.png" alt="">
+            </span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+<div class="bg">
+    <div class="container">
+        <div class="contentT clearfix">
+            <ul class="list-inline indexMoney">
+                <li class="col-lg-3">
+                    <span class="moneyO"></span>
+                    <p>累计交易<span class="addUpMoney">291524421.00</span>元</p>
+                </li>
+                <li class="col-lg-3">
+                    <span class="moneyT"></span>
+                    <p>为用户赚取<span class="addUpInterest">29152231.00</span>元</p>
+                </li>
+                <li class="col-lg-3">
+                    <span class="moneyS"></span>
+                    <p>近七天成交<span class="sevenGetMoney">1524421.00</span>元</p>
+                </li>
+                <li class="col-lg-3">
+                    <span class="moneyF"></span>
+                    <p>安全运营<span class="offsetDay">365</span>天</p>
+                </li>
+            </ul>
+            <ul class="list-inline indexLogo">
+                <li class="col-lg-3">
+                    <span class="logoO"></span>
+                    <div>
+                        <p>银行存管</p>
+                        <p>上海银行存管对接中</p>
+                    </div>
+                </li>
+                <li class="col-lg-3">
+                    <span class="logoT"></span>
+                    <div>
+                        <p>安全合规</p>
+                        <p>获得ICP经营许可证</p>
+                    </div>
+                </li>
+                <li class="col-lg-3">
+                    <span class="logoS"></span>
+                    <div>
+                        <p>坚实风控</p>
+                        <p>专业多级风控审核</p>
+                    </div>
+                </li>
+                <li class="col-lg-3">
+                    <span class="logoF"></span>
+                    <div>
+                        <p>优质项目</p>
+                        <p>优质资产稳健增值 </p>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        <div class="title">
+            <div>
+                <span></span>
+                <p>新手专享</p>
+                <span></span>
+            </div>
+        </div>
+        <div class="xinshou clearfix">
+            <img class="xsImg" src="../img/shouye/9.png" alt="">
+            <div class="xinshouContent xsDiv xsDivTop">
+                <p class="xinshouTitle xsName"></p>
+                <div class="pull-left nianhuaDiv">
+                    <p class="nianhua clearfix"><span class="xsApr"></span><span class="beifen">%</span></p>
+                    <span class="nianhuaZi">期望年化利率</span>
+                </div>
+                <div class="nianhuaDivT pull-left">
+                    <p class="nianhuaTwo">
+                        项目期限<span class="tianshu xsTimeLimitDay"></span><span class="tianZi">天</span>
+                    </p>
+                    <div class="jindu">
+                        <span class="jinduAll pull-left">
+                            <span class="jinduNow pull-left xsJindu"></span>
+                        </span>
+                        <p class="pull-left jinduBaifen xsScales">15%</p>
+                    </div>
+                </div>
+                <div class="buyBtn pull-left" id="xsBiao">
+                    立即购买
+                </div>
+            </div>
+        </div>
+
+        <div class="title">
+            <div>
+                <span></span>
+                <p>精选投资</p>
+                <span></span>
+            </div>
+        </div>
+        <div class="xinshou clearfix jxtz">
+            <div class="col-lg-3 clearfix jxImgDiv">
+                <img class="jxImg" src="../img/shouye/10.png" alt="" >
+
+            </div>
+            <div class="col-lg-9 clearfix jxList">
+                <!--<div class="xinshouContent marginB xsContent xsDiv">
+                    <p class="xinshouTitle clearfix"><span class="pull-left">供应链SEFNV2849</span><span class="jxTehui pull-left">双十二特惠</span></p>
+                    <div class="pull-left nianhuaDiv">
+                        <p class="nianhua">15.00<span class="beifen">%</span></p>
+                        <span class="nianhuaZi">期望年化利率</span>
+                    </div>
+                    <div class="nianhuaDivT pull-left">
+                        <p class="nianhuaTwo nianhuaTwos">
+                            <span class="tianshu">7</span><span class="tianZi">天</span>
+                        </p>
+                        <p class="nianhuaZi">项目期限</p>
+
+                    </div>
+                    <div class="nianhuaDivS pull-left">
+                        <p class="syMoney">
+                            <span class="nianhuaZi">剩余金额</span>
+                            <span>62550</span>元
+                        </p>
+                        <div class="jindu">
+                        <span class="jinduAll pull-left jxAll">
+                            <span class="jinduNow pull-left"></span>
+                        </span>
+                            <p class="pull-left jinduBaifen">15%</p>
+                        </div>
+                    </div>
+                    <div class="buyBtn pull-left">
+                        立即购买
+                    </div>
+                </div>
+                <div class="xinshouContent marginB xsContent xsDiv">
+                    <p class="xinshouTitle">供应链SEFNV2849</p>
+                    <div class="pull-left nianhuaDiv">
+                        <p class="nianhua">15.00<span class="beifen">%</span></p>
+                        <span class="nianhuaZi">期望年化利率</span>
+                    </div>
+                    <div class="nianhuaDivT pull-left">
+                        <p class="nianhuaTwo nianhuaTwos">
+                            <span class="tianshu">7</span><span class="tianZi">天</span>
+                        </p>
+                        <p class="nianhuaZi">项目期限</p>
+
+                    </div>
+                    <div class="nianhuaDivS pull-left">
+                        <p class="syMoney">
+                            <span class="nianhuaZi">剩余金额</span>
+                            <span>62550</span>元
+                        </p>
+                        <div class="jindu">
+                        <span class="jinduAll pull-left jxAll">
+                            <span class="jinduNow pull-left"></span>
+                        </span>
+                            <p class="pull-left jinduBaifen">15%</p>
+                        </div>
+                    </div>
+                    <div class="buyBtn pull-left">
+                        立即购买
+                    </div>
+                </div>
+                <div class="xinshouContent marginB xsContent xsDiv">
+                    <p class="xinshouTitle">供应链SEFNV2849</p>
+                    <div class="pull-left nianhuaDiv">
+                        <p class="nianhua">15.00<span class="beifen">%</span></p>
+                        <span class="nianhuaZi">期望年化利率</span>
+                    </div>
+                    <div class="nianhuaDivT pull-left">
+                        <p class="nianhuaTwo nianhuaTwos">
+                            <span class="tianshu">7</span><span class="tianZi">天</span>
+                        </p>
+                        <p class="nianhuaZi">项目期限</p>
+
+                    </div>
+                    <div class="nianhuaDivS pull-left">
+                        <p class="syMoney">
+                            <span class="nianhuaZi">剩余金额</span>
+                            <span>62550</span>元
+                        </p>
+                        <div class="jindu">
+                        <span class="jinduAll pull-left jxAll">
+                            <span class="jinduNow pull-left"></span>
+                        </span>
+                            <p class="pull-left jinduBaifen">15%</p>
+                        </div>
+                    </div>
+                    <div class="buyBtn pull-left">
+                        立即购买
+                    </div>
+                </div>
+            </div>-->
+            </div>
+        </div>
+
+        <div class="title">
+            <div>
+                <span></span>
+                <p>平台动态</p>
+                <span></span>
+            </div>
+        </div>
+        <div class="newBox clearfix">
+            <div class="newWrap pull-left ptgg">
+                <div class="newWrapP">
+                    <span class="pull-left">公告中心</span>
+                    <div class="clearfix pull-right">
+                        <span class="pull-right">更多</span>
+                        <span class="pull-right"></span>
+                    </div>
+                </div>
+                <img  class="newImg" src="../img/shouye/11.png" alt="">
+                <p class="ptTitle"></p>
+                <p class="ptTitle"></p>
+                <p class="ptTitle"></p>
+            </div>
+            <div class="newWrap pull-left zxdt">
+                <div class="newWrapP">
+                    <span class="pull-left">官方通知</span>
+                    <div class="clearfix pull-right">
+                        <span class="pull-right">更多</span>
+                        <span class="pull-right"></span>
+                    </div>
+                </div>
+                <img  class="newImg" src="../img/shouye/12.png" alt="">
+                <p class="ptTitle"></p>
+                <p class="ptTitle"></p>
+                <p class="ptTitle"></p>
+            </div>
+            <div class="newWrap pull-left marginR yybg">
+                <div class="newWrapP">
+                    <span class="pull-left">运营报告</span>
+                    <div class="clearfix pull-right">
+                        <span class="pull-right">更多</span>
+                        <span class="pull-right"></span>
+                    </div>
+                </div>
+                <img  class="newImg" src="../img/shouye/13.png" alt="">
+                <p class="ptTitle"></p>
+                <p class="ptTitle"></p>
+                <p class="ptTitle"></p>
+            </div>
+        </div>
+
+
+        <div class="title">
+            <div>
+                <span></span>
+                <p>合作伙伴</p>
+                <span></span>
+            </div>
+        </div>
+        <div class="list-inline hzImg clearfix">
+            <img  class="pull-left" src="../img/shouye/aliyun.png" alt="">
+            <img  class="pull-left" src="../img/shouye/hengfeng.png" alt="">
+            <img  class="pull-left" src="../img/shouye/huifu.png" alt="">
+            <img  class="pull-left" src="../img/shouye/tiance.png" alt="">
+            <img  class="pull-left" src="../img/shouye/zhaoshang.png" alt="">
+        </div>
+
+
+    </div>
+</div>
+<!--footer开始-->
+<div id="footer"></div>
+<!--footer结束-->
+
+<!--footer开始-->
+<!--<footer class="clearfix">
+    <div class="container">
+        <div class="footer-top">
+            <div class="footer-top-left pull-left">
+                <div class="footer-top-left-item pull-left">
+                    <img src="../img/headerAndFooter/1.png" alt="">
+                    <p class="text-center">APP下载</p>
+                </div>
+                <div class="footer-top-left-item pull-left">
+                    <img src="../img/headerAndFooter/wxgzh.png" alt="">
+                    <p class="text-center">微信公众号</p>
+                </div>
+            </div>
+            <div class="footer-top-right pull-left clearfix">
+                <ul class="list-inline ulf">
+                    <li><a href="">公司简介</a></li>
+                    <li><a href="">安全保障</a></li>
+                    <li><a href="">平台动态</a></li>
+                    <li><a href="">新手指引</a></li>
+                    <li><a href="">帮助中心</a></li>
+                    <li><a href="">联系我们</a></li>
+                </ul>
+                <ul class="uls pull-left text-left">
+                    <li>客服热线：400-888-7140</li>
+                    <li>服务时间：09:00-20:00</li>
+                </ul>
+                <ul class="ult pull-left">
+                    <li>投资咨询QQ群：457698407</li>
+                    <li>地址：杭州市上城区西湖大道18号新东方大厦B楼701室</li>
+                </ul>
+                <img src="../img/headerAndFooter/kefu.png" alt="" class="pull-left">
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <div class="mid-line clearfix">
+        </div>
+        <div class="footer-bottom">
+            <ul class="list-inline text-center ul1">
+                <li>杭州一桶金互联网金融服务有限公司</li>
+                <li><img src="../img/headerAndFooter/ICP.png" alt=""></li>
+                <li><img src="../img/headerAndFooter/u119.png" alt=""></li>
+                <li><img src="../img/headerAndFooter/u121.png" alt=""></li>
+                <li><img src="../img/headerAndFooter/u123.png" alt=""></li>
+            </ul>
+            <ul class="list-inline ul2 text-center">
+                <li><img src="../img/headerAndFooter/gov.png" alt=""> 浙公网安备 33010602002236号</li>
+                <li>浙ICP备15015966号</li>
+                <li>ICP许可证：浙B2-20160403</li>
+                <li>理财有风险，投资需谨慎 <img src="../img/headerAndFooter/u84.png" alt=""></li>
+            </ul>
+        </div>
+
+    </div>
+</footer>-->
+<!--footer结束-->
+</body>
+<script charset="utf-8" src="../js/myjs/jumpToProductDetailed.js"></script>
+<script charset="utf-8" src="../js/myjs/index.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/zoomify.min.js"></script>
+<script src="../js/echarts.min.js"></script>
+</html>

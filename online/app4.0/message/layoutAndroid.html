@@ -1,0 +1,1924 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>信息披露</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1">
+	<script src="../js/jquery.min.js" type="text/javascript"></script>
+	<script type="text/javascript" src="../js/fastclick.js"></script>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<!-- Link Swiper's CSS -->
+	<link rel="stylesheet" href="css/swiper.min.css">
+	<link rel="stylesheet" href="lay/layui.css" rel="stylesheet" type="text/css">
+	<script src="lay/layui.js"></script>
+	<script src="../../common.js"></script>
+	<!-- Demo styles -->
+	<style>
+		html,body,div,img,span,p{
+			margin: 0;
+			padding: 0;
+		}
+		html,body{
+			width: 100%;
+			height: 100%;
+			position: relative;
+		}
+		body {
+			font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
+			font-size: 14px;
+			color:#000;
+			margin: 0;
+			/*padding-top: 0.88rem;*/
+		}
+		.swiper-container {
+			width: 100%;
+			height:0.88rem;
+			position: relative;
+			/*position: fixed!important;
+            top:0;*/
+			z-index: 100;
+			background-color: white;
+		}
+		.swiper-slide {
+			text-align: center;
+			/*width:1.2rem!important;*/
+			/*margin-right: 0!important;*/
+			height: 0.88rem;
+			font-size: 0.28rem;
+			display: -webkit-box;
+			display: -ms-flexbox;
+			display: -webkit-flex;
+			display: flex;
+			-webkit-box-pack: center;
+			-ms-flex-pack: center;
+			-webkit-justify-content: center;
+			justify-content: center;
+			-webkit-box-align: center;
+			-ms-flex-align: center;
+			-webkit-align-items: center;
+			align-items: center;
+		}
+		.showBox{
+			width: 100%;
+			-webkit-overflow-scrolling: touch;
+		}
+		.showBox>div{
+			width: 100%;
+			display: none;
+		}
+
+		/*公司介绍*/
+		.gsjs{
+			display: block;
+		}
+		.gsjs img{
+			display: block;
+			width: 100%;
+		}
+		.content{
+			width: 100%;
+			box-sizing: border-box;
+			padding: 0.5rem 0.24rem;
+			color:rgba(102,102,102,1);
+			font-size: 0.28rem;
+			line-height: 0.44rem;
+		}
+		.content p{
+			display: block;
+			margin-bottom: 0.6rem;
+			text-indent: 0.56rem;
+			font-family: 微软雅黑;
+		}
+		.content p:last-child{
+			margin-bottom: 0.1rem;
+		}
+		.yewu{
+			width: 100%;
+			height: 0.32rem;
+			font-size: 0.32rem;
+			color: rgba(255,94,51,1);
+			line-height: 0.32rem;
+			text-align: center;
+			font-family: 微软雅黑;
+		}
+		.rongyu{
+			width: 100%;
+			height: 6.8rem;
+			position: relative;
+		}
+		.rongyu .ryImg{
+			width:3.2rem;
+			height: 3.2rem;
+			float: left;
+		}
+		.rongyu .ryImg img{
+			margin-bottom: 0.21rem;
+		}
+		.rongyu .ryImg p{
+			display: block;
+			width: 2.5rem;
+			font-size: 0.28rem;
+			line-height: 0.38rem;
+			color: #666666;
+			text-align: center;
+			padding: 0 0.35rem;
+		}
+		.hzImg{
+			box-sizing: border-box;
+			padding:0 0.24rem ;
+			margin-bottom: 0.23rem;
+			height: 3.5rem;
+		}
+		.hzImg img{
+			display: block;
+			width: 2.2rem;
+			height: 0.8rem;
+			float: left;
+			margin-bottom: 0.28rem;
+		}
+		.imgC{
+			margin:0 0.21rem;
+		}
+		.address{
+			width: 100%;
+			box-sizing: border-box;
+			padding: 0 0.5rem 0 0.36rem;
+			margin-bottom: 0.5rem;
+		}
+		.address span{
+			display: flex;
+			align-items: center;
+			width:100%;
+			height: 0.3rem;
+			margin-bottom: 0.3rem;
+		}
+		.address span img{
+			display: inline-block;
+			width: 0.3rem;
+			height: 0.3rem;
+			margin-right: 0.1rem;
+		}
+		.address span p{
+			display: inline-block;
+			width: 2rem;
+			font-size: 0.26rem;
+			color: #999999;
+			font-family: 微软雅黑;
+			line-height: 0.28rem;
+			margin-right: 0.1rem;
+
+		}
+		.address span p:last-child{
+			display: inline-block;
+			width: 4.5rem;
+			font-size: 0.28rem;
+			color: #333333;
+			font-family: 微软雅黑;
+			line-height: 0.36rem;
+
+		}
+		/*备案信息*/
+		ul{
+			list-style: none;
+		}
+		.beianxinxi {
+			background-color: #F9F9F9;
+		}
+
+		.container {
+			padding: 0.31rem 0.24rem;
+		}
+
+		.baxx-title {
+			font-size: 0.3rem;
+			padding: 0.43rem 0 0.31rem 0.25rem;
+			color: #FF5E33;
+		}
+
+		.container > ul {
+			font-size: 0.28rem;
+			color: #666666;
+			background-color: #fff;
+			border: 0.01rem solid #E2E2E2;
+		}
+
+		.container > ul li {
+			padding: 0.31rem 0.26rem;
+		}
+
+		.container > ul:nth-of-type(1) li:nth-of-type(1), .container > ul:nth-of-type(1) li:nth-of-type(2) {
+			border-bottom: 0.01rem solid #E2E2E2;
+		}
+
+		.container > ul:nth-of-type(1) li:nth-of-type(2) {
+			display: flex;
+			align-items: center;
+		}
+
+		.container > ul:nth-of-type(1) li:nth-of-type(2) img {
+			width: 0.38rem;
+		}
+
+		.container > ul:nth-of-type(2) li, .container > ul:nth-of-type(4) li {
+			color: #0096FF;
+		}
+
+		.container > ul:nth-of-type(3) li:nth-of-type(1), .container > ul:nth-of-type(3) li:nth-of-type(2) {
+			border-bottom: 0.01rem solid #E2E2E2;
+		}
+
+		.gltx img {
+			width: 100%;
+		}
+
+		.gzfx {
+			margin-top: -0.25rem;
+			padding-top: 0.14rem;
+			padding-bottom: 0.3rem;
+			padding-left: 0.41rem;
+			background-color: #ffffff;
+		}
+
+		.gzfx p:nth-of-type(1) {
+			font-size: 0.28rem;
+			color: #333333;
+			margin-bottom: 0.21rem;
+		}
+
+		.gzfx p:nth-of-type(2) {
+			font-size: 0.24rem;
+			color: #666666;
+		}
+
+		.sqlx {
+			color: #666666;
+			font-size: 0.24rem;
+			background-color: #ffffff;
+			padding:0.3rem 0.3rem;
+			line-height: 0.4rem;
+			margin-bottom: 0.24rem;
+		}
+
+		.sqlx > p:nth-of-type(1) {
+			color: #333333;
+			font-size: 0.3rem;
+			padding-bottom: 0.24rem;
+		}
+		.zjjg {
+			margin-bottom: 0;
+		}
+		.baxx-text {
+			color: #666666;
+			font-size: 0.24rem;
+			background-color: #fff;
+			padding: 0.31rem 0.3rem;
+			line-height: 0.4rem;
+		}
+
+
+		/*组织信息*/
+		.zzxx{
+			box-sizing: border-box;
+			padding: 0.4rem 0.24rem;
+			background-color: #f9f9f9;
+		}
+
+		.zzxx table{
+			width: 100%;
+			margin-bottom: 0.4rem;
+		}
+		tr,td{
+			border:1px solid #E2E2E2;
+		}
+		.zzxx table tr td{
+			height: 0.8rem;
+			font-family: 微软雅黑;
+			font-size: 0.24rem;
+			line-height: 0.36rem;
+
+		}
+		.zzxx table tr td:first-child{
+			width: 2.12rem;
+			box-sizing: border-box;
+			padding: 0.19rem 0.38rem 0.18rem 0.31rem;
+		}
+		.zzxx table tr td:last-child{
+			box-sizing: border-box;
+			padding: 0.21rem 0.27rem 0.21rem 0.32rem;
+		}
+		.zuzhi{
+			display: block;
+			width: 100%;
+			height: 4.2rem;
+			margin-bottom: 0.7rem;
+			background-color: white;
+		}
+		.structure{
+			font-family: 微软雅黑;
+			color: #333333;
+			font-size: 0.28rem;
+			line-height: 0.30rem;
+			margin-bottom: 0.2rem;
+		}
+		.structureImg{
+			width: 100%;
+			height: 2rem;
+		}
+		.zzxxfoot{
+			width: 100%;
+			height: 1.8rem;
+			padding-bottom: 1.11rem;
+			background-color: white;
+		}
+		.fzjgP span:first-child{
+			display: inline-block;
+			width:85%;
+			text-align: left;
+		}
+		.fzjgP span:last-child{
+			display: inline-block;
+			width:15%;
+			text-align: right;
+		}
+		.fzjgP span{
+			font-size: 0.28rem;
+			color:#333333;
+		}
+		.fzjgP{
+			padding: 0.25rem;
+			border-bottom:1px solid #E2E2E2;
+			margin-bottom: 0;
+		}
+		/*安全保障*/
+		.safetitle{
+			display: block;
+			width: 100%;
+			height: 5.5rem;
+		}
+		.safetitleWord{
+			display: block;
+			width: 100%;
+			height: 0.7rem;
+			background:url(img/2.png) no-repeat 0 0;
+			background-size: cover;
+			font-family: 微软雅黑;
+			font-size: 0.36rem;
+			color: #408CFF;
+			line-height: 0.7rem;
+			text-align: center;
+			margin-bottom: 0.57rem;
+		}
+		.safeCommon{
+			width: 100%;
+			height: 1.6rem;
+			margin-bottom: 0.24rem;
+		}
+		.safeCommon span{
+			display: inline-block;
+			width: 2.2rem;
+			height: 1.6rem;
+		}
+		.safeCommon span img{
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+		.safeCommon p{
+			display: inline-block;
+			width: 4.9rem;
+			height: 1.6rem;
+			font-family: 微软雅黑;
+			font-size: 0.28rem;
+			color: #666666;
+			line-height: 0.48rem;
+		}
+		.left{
+			float: left;
+		}
+		.right{
+			float: right;
+		}
+		.detail{
+			width: 6.74rem;
+			font-family: 微软雅黑;
+			font-size: 0.28rem;
+			color: #666666;
+			margin: 0 auto;
+			line-height: 0.48rem;
+			margin-bottom: 0.9rem;
+		}
+		.safefoot{
+			width:100%;
+			height: 0.9rem;
+			margin-bottom: 0.07rem;
+			display: flex;
+			justify-content: center;
+			align-items: center;
+		}
+		.safefoot span{
+			display: inline-block;
+			width: 1.84rem;
+			height: 0.9rem;
+			margin-right: 0.15rem;
+		}
+		.safefoot span img{
+			display: block;
+			width: 100%;
+			height: 100%;
+		}
+		.safefoot p{
+			display: inline-block;
+			width: 5.5rem;
+			height: 0.9rem;
+			text-align: left;
+			line-height: 0.9rem;
+			font-family: 微软雅黑;
+			font-size: 0.28rem;
+			color: #666666;
+		}
+		/*运营报告*/
+
+		.headL{
+			float: left;
+			width: 49%;
+			height: 100%;
+			border-right: 1px solid #FFFFFF;
+		}
+		.headR{
+			float: left;
+			width: 49%;
+			height: 100%;
+		}
+		.headL span:first-child,.headR span:first-child{
+
+			width: 100%;
+			height: 0.36rem;
+			font-family: 微软雅黑;
+			font-size: 0.36rem;
+			line-height: 0.36rem;
+			text-align: center;
+			margin-bottom: 0.18rem;
+			color: #ffffff;
+		}
+		.headL span:first-child,.headL span:last-child{
+			float: left;
+		}
+		.headR span:first-child,.headR span:last-child{
+			float: right;
+		}
+		.headL span:last-child,.headR span:last-child{
+			width: 100%;
+			height: 0.24rem;
+			font-family: 微软雅黑;
+			font-size: 0.24rem;
+			line-height: 0.24rem;
+			text-align: center;
+			color: #ffffff;
+		}
+		.yycommon{
+			width: 100%;
+			height: 4.5rem;
+			box-sizing: border-box;
+			padding: 0.3rem 0.24rem;
+		}
+		.yycommon img{
+			display: block;
+			width: 100%;
+			height:3.4rem;
+			margin-bottom: 0.22rem;
+		}
+		.yycommon p{
+			display: block;
+			width:100%;
+			height: 0.28rem;
+			font-family: 微软雅黑;
+			font-size: 0.28rem;
+			line-height: 0.28rem;
+		}
+
+		/*运营数据*/
+
+		.yysj .yyContent{
+			padding:0 0.25rem;
+			box-sizing: border-box;
+		}
+		.yyTitle{
+			display: block;
+			width:100%;
+			font-size: 0.32rem;
+			color:#333333;
+			padding:0.4rem 0 0.3rem;
+			text-align: center;
+		}
+		.tjsj{
+			width: 100%;
+			background-color: #F9F9F9;
+			font-size: 0.24rem;
+			color: #CACACA;
+			text-align: center;
+			padding: 0.2rem 0;
+		}
+		.head{
+			width: 100%;
+			height: 3.1rem;
+			margin-bottom: 0.24rem;
+			background-color: #FF7B58;
+			border-radius: 6px;
+		}
+		.headTop{
+			width: 100%;
+			height:1.55rem;
+			box-sizing: border-box;
+			padding: 0.5rem 0 0 0;
+		}
+		.headL{
+			float: left;
+			width: 49%;
+			height: 1.55rem;
+		}
+		.headL,.headR{
+			box-sizing: border-box;
+			padding-top: 0.2rem;
+		}
+		.headR{
+			float: left;
+			width: 49%;
+			height: 1.55rem;
+		}
+		.headTop span{
+			display: block;
+		}
+		.headL span:first-child,.headR span:first-child{
+
+			width: 100%;
+			height: 0.28rem;
+			font-family: 微软雅黑;
+			font-size: 0.28rem;
+			line-height: 0.28rem;
+			text-align: center;
+			margin-bottom: 0.18rem;
+			color: #ffffff;
+		}
+		.headTop span:first-child{
+			width: 100%;
+			height: 0.30rem;
+			font-family: 微软雅黑;
+			font-size: 0.30rem;
+			line-height: 0.30rem;
+			text-align: center;
+			margin-bottom: 0.18rem;
+			color: #ffffff;
+		}
+		.headTop span:last-child{
+			width: 100%;
+			height: 0.48rem;
+			font-family: 微软雅黑;
+			font-size: 0.48rem;
+			line-height: 0.48rem;
+			text-align: center;
+			color: #ffffff;
+		}
+		.headL span:first-child,.headL span:last-child{
+			float: left;
+		}
+		.headR span:first-child,.headR span:last-child{
+			float: right;
+		}
+		.headL span:last-child,.headR span:last-child{
+			width: 100%;
+			height: 0.36rem;
+			font-family: 微软雅黑;
+			font-size: 0.36rem;
+			line-height: 0.36rem;
+			text-align: center;
+			color: #ffffff;
+		}
+		.head .headL{
+			border-right:none;
+		}
+		.cjrBox{
+			padding-bottom: 0.4rem;
+		}
+		.guanlian,.dhzb,.contentTitle{
+			border-top:1px solid #EEEEEE;
+		}
+		.cjrBox .headL span:first-child,.cjrBox .headR span:first-child{
+			color:#666666;
+		}
+		.cjrBox .headL span:last-child,.cjrBox .headR span:last-child{
+			color:#333333;
+		}
+		.cjrBox .headR,.cjrBox .headL{
+			height: 1.4rem;
+		}
+		.headL{
+			border-right:1px solid #EEEEEE;
+		}
+		.guanlian{
+			display: block;
+			width:100%;
+			font-size: 0.28rem;
+			color: #666666;
+			box-sizing: border-box;
+			padding:0.25rem 0;
+			text-align: center;
+		}
+		.dhzb{
+			box-sizing: border-box;
+			padding: 0.4rem 0 0 0.1rem;
+		}
+		.dhzb p{
+			display: block;
+			margin-bottom: 0.4rem;
+			font-size: 0.28rem;
+			color: #666666;
+			text-align: center;
+		}
+		.dhzb p:first-child{
+			font-size: 0.32rem;
+		}
+		.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+		.yycommon{
+			width: 100%;
+			height: 4.5rem;
+			box-sizing: border-box;
+			padding: 0.3rem 0.24rem;
+		}
+		.yycommon img{
+			display: block;
+			width: 100%;
+			height:3.4rem;
+			margin-bottom: 0.22rem;
+		}
+		.yycommon p{
+			display: block;
+			width:100%;
+			height: 0.28rem;
+			font-family: 微软雅黑;
+			font-size: 0.28rem;
+			line-height: 0.28rem;
+		}
+		.contentTitle{
+			float: left;
+			width:100%;
+			font-size: 0.32rem;
+			color: #666666;
+			box-sizing: border-box;
+			padding: 0.2rem 0;
+			text-align: center;
+		}
+		.mianfei{
+			float: left;
+			width: 100%;
+			box-sizing: border-box;
+			font-size: 0.28rem;
+			border-bottom: 1px solid #EFEFEF;
+		}
+		.mianfei span{
+			float: left;
+			width: 50%;
+			text-align: center;
+			padding: 0.3rem 0;
+		}
+		.mianfei span:first-child{
+			color: #666666;
+		}
+		.miamfei span:last-child{
+			color: #333333;
+		}
+
+		.yueNumber{
+			font-size: 0.36rem;
+			color:#333333;
+		}
+
+		/*新闻媒体*/
+		.banner{
+			width: 100%;
+			height: 3.4rem;
+			background:url(img/banner.png) no-repeat 0 0;
+			background-size: cover;
+		}
+		.newCommon:nth-of-type(1) {
+			margin-top: -0.36rem;
+		}
+		.newCommon{
+			width: 6.6rem;
+			box-sizing: border-box;
+			padding: 0.4rem 0.35rem;
+			margin: 0 auto;
+			margin-bottom: 0.3rem;
+			background-color: white;
+			border-radius: 0.06rem;
+			box-shadow:5px 0px 10px #EEEEEE;
+		}
+		.newCommon p{
+			display: block;
+			width: 100%;
+			margin:0 auto;
+			font-family: 微软雅黑;
+			font-size: 0.28rem;
+			line-height: 0.44rem;
+			color: #666666;
+			margin-bottom: 0.3rem;
+		}
+		.newCommon img{
+			display: block;
+			width: 4.6rem;
+			height: 2.8rem;
+			margin: 0 auto;
+		}
+		/*其他信息*/
+		.qtxx{
+			box-sizing: border-box;
+			padding: 0.4rem 0.24rem;
+			background-color: #f9f9f9;
+		}
+		.title{
+			display: block;
+			width: 100%;
+			height: 0.88rem;
+			font-family: 微软雅黑;
+			font-size: 0.3rem;
+			line-height: 0.88rem;
+			color: #FF5E33;
+			text-indent: 0.24rem;
+		}
+		.common{
+			width: 100%;
+			height: 0.88rem;
+			font-family: 微软雅黑;
+			font-size: 0.28rem;
+			line-height: 0.88rem;
+			text-align: center;
+			color: #666666;
+			border:1px solid #e2e2e2;
+			border-top:none;
+			background-color: #ffffff;
+		}
+		table{
+			width: 100%;
+			margin-bottom: 0.4rem;
+			background-color: white;
+		}
+		tr,td{
+			border:1px solid #E2E2E2;
+		}
+		td{
+			height: 0.8rem;
+			font-family: 微软雅黑;
+			font-size: 0.24rem;
+			line-height: 0.36rem;
+
+		}
+		tr td:first-child{
+			width: 6rem;
+			box-sizing: border-box;
+			padding: 0.19rem 0.38rem 0.18rem 0.31rem;
+		}
+		tr td:last-child{
+			box-sizing: border-box;
+			padding: 0.21rem 0.27rem 0.21rem 0.32rem;
+		}
+		.blue{
+			color: #0096FF;
+		}
+		.zhong{
+			color: #333333;
+		}
+		.mark{
+			width: 3.4rem;
+			height: 3rem;
+			box-sizing: border-box;
+			padding: 0.3rem;
+			background-color: #ffffff;
+
+		}
+		.mark img{
+			display: block;
+			width: 2rem;
+			height: 2rem;
+			margin:0 auto;
+			margin-bottom: 0.2rem;
+		}
+		.mark p{
+			width: 100%;
+			height: 0.24rem;
+			font-family: 微软雅黑;
+			font-size: 0.24rem;
+			line-height: 0.24rem;
+			text-align: center;
+			color: #999999;
+			margin-bottom: 0.25rem;
+		}
+		.copyImg{
+			display: inline-block;
+			width: 0.38rem;
+			height: 0.38rem;
+			background:url(img/other5.png) no-repeat 0 0;
+			background-size: cover;
+		}
+	</style>
+</head>
+<body>
+<!-- Swiper -->
+<div class="swiper-container">
+	<div class="swiper-wrapper">
+		<div class="swiper-slide firstDemo">公司介绍</div>
+		<div class="swiper-slide">备案信息</div>
+		<div class="swiper-slide">组织信息</div>
+		<div class="swiper-slide">安全保障</div>
+		<div class="swiper-slide">平台数据</div>
+		<div class="swiper-slide">运营报告</div>
+		<div class="swiper-slide">新闻媒体</div>
+		<div class="swiper-slide">其他信息</div>
+	</div>
+</div>
+
+<!-- 展示区域 -->
+<div class="showBox">
+	<!-- 公司介绍 -->
+	<div class="gsjs">
+		<img src="img/banner@2x.png">
+		<div class="content">
+			<p>杭州一桶金互联网金融服务有限公司（以下简称“一桶金”）成立于2015年4月，是经杭州市政府金融主管部门核准，首批具有互联网金融资质的公司，注册资金5000万，是国内最具创新活力的首家消费金融和供应链金融服务的专业性互联网金融服务平台之一，同时也是浙江省大数据科技协会理事单位。</p>
+			<p>自上线以来，一桶金依托于健全的风控管理体系、成熟的信息技术、系统的大数据分析能力和多样化的产品创新，一方面，服务于中小微企业和个人消费者，解决他们最迫切的融资需求；另一方面，为广大投资用户提供安全可靠、真实透明、小额分散的多种投融资项目信息，涵盖消费金融、供应链金融等，以满足用户多样化的投资需求，为他们提供安全、稳健、高效的投资服务。</p>
+			<p>一桶金创始人及核心团队均来自于知名的金融公司、银行、网络公司和风投管理机构，发展过程中，一桶金不断引入新鲜血液，夯实团队建设，推动一桶金保持高速稳定的发展。</p>
+			<p>未来，一桶金将继续深耕消费金融与供应链金融，建立更成熟、更专业、更严格的风控体系，开发更多优质的金融产品，合规经营，为实现普惠金融发展做出更多的贡献。</p>
+		</div>
+		<div class="yewu">业务模式</div>
+		<img src="img/zjlx@2x.png" style="margin-bottom: 0.26rem;">
+		<div class="yewu" style="margin-bottom: 0.5rem;">公司荣誉</div>
+		<div class="rongyu">
+			<div class="ryImg" style="margin-left: 0.34rem;margin-right: 0.42rem;">
+				<img src="img/rongyu1@2x.png">
+				<p>中国互联网金融行业十大影响力品牌</p>
+			</div>
+			<div class="ryImg" style="margin-right: 0.34rem;">
+				<img src="img/rongyu3@2x.png">
+				<p>2015年最具投资价值互联网金融公司</p>
+			</div>
+			<div class="ryImg" style="position: absolute;left:50%;top:3.2rem;margin-left:-1.6rem;margin-bottom: 0.76rem;">
+				<img src="img/rongyu2@2x.png">
+				<p>中国电子商务协会数字服务中心诚信认证</p>
+			</div>
+		</div>
+		<div class="yewu" style="margin-bottom: 0.5rem;">合作伙伴</div>
+		<div class="hzImg">
+			<img src="img/aliyun @2x.png">
+			<img class="imgC" src="img/hengfeng@2x.png">
+			<img src="img/huifu@2x.png">
+			<img src="img/xiongmao@2x.png">
+			<img class="imgC" src="img/tiance@2x.png">
+			<img src="img/zhaoshang@2x.png">
+			<img src="img/gold@2x.png">
+			<img class="imgC" src="img/pingan@2x.png">
+			<img src="img/mogu@2x.png">
+		</div>
+		<div class="yewu" style="margin-bottom: 0.5rem;">联系我们</div>
+		<div class="address">
+			<span style="margin-bottom: 0.66rem;"><img src="img/address@2x.png"><p>公司地址:</p><p style="margin-top: 0.3rem;">杭州市上城区西湖大道18号新东方大厦B幢701室</p></span>
+			<span><img src="img/phone@2x.png"><p>客服电话:</p><p>400-888-7140</p></span>
+			<span><img src="img/QQ@2x.png"><p>客服QQ群号:</p><p>457698407</p></span>
+			<span><img src="img/weixin@2x.png"><p>微信公众号:</p><p>etongjin001</p></span>
+			<span style="margin-bottom: 1rem;"><img src="img/youxiang@2x.png"><p>公共客服邮箱:</p><p>support@etongjin.com.cn</p></span>
+		</div>
+	</div>
+
+	<!--备案信息-->
+	<div class="baxx">
+		<div class="beianxinxi">
+			<div class="container">
+				<p class="baxx-title">网站备案信息</p>
+				<ul>
+					<li>公安机关出具的网站备案图标及编号</li>
+					<li>图标：<img src="img/jinghui.png " alt=""></li>
+					<li>编号：浙公网安备33010602002236号</li>
+				</ul>
+				<p class="baxx-title">电信许可信息</p>
+				<ul>
+					<li class="tanImg" data-image="https://www.etongjin.net/app4.0/message/img/newdxywxkz.jpg">电信业务经营许可证号:浙B2-20160403</li>
+				</ul>
+				<p class="baxx-title">备案登记信息</p>
+				<ul>
+					<li>金融监管部门：备案完成后披露</li>
+					<li>登记备案时间：备案完成后披露</li>
+					<li>登记备案编号：备案完成后披露</li>
+				</ul>
+				<p class="baxx-title">资金存管信息</p>
+				<ul>
+					<li>资金存管银行：对接中</li>
+				</ul>
+				<p class="baxx-title">风控管理体系</p>
+				<div class="gltx">
+					<img src="img/gltx.png" alt="">
+				</div>
+
+				<div class="gzfx">
+					<p>财务风险</p>
+					<p>企业负债情况分析、企业盈利能力分析、企业成长性预判</p>
+				</div>
+				<div class="gzfx">
+					<p>市场风险</p>
+					<p>宏观环境分析、行业前景研判</p>
+				</div>
+				<div class="gzfx">
+					<p>运营风险</p>
+					<p>企业竞争力对比、第三方数据对接</p>
+				</div>
+				<div class="gzfx">
+					<p>法律风险</p>
+					<p>实际控制人分析、增信措施、风险预警催收</p>
+				</div>
+				<div class="gzfx">
+					<p>技术风险</p>
+					<p>阿里云服务、实时监控实时备份、SSL加密</p>
+				</div>
+				<p class="baxx-title">风险评估流程</p>
+				<div class="sqlx">
+					<p>申请立项</p>
+					<p>	产品申请立项，风控部门负责对产品的市场风险、操作风险等进行分析，对产品的政策和监管风险、法律风险等进行分析。  </p>
+					<p>初步分析产品风险后，若符合条件则进行立项，若不符合立项条件则予以驳回。</p>
+				</div>
+				<div class="sqlx">
+					<p>申请立项</p>
+					<p>	1、	营业执照原件或复印件加盖公章（正副本均有效）。</p>
+					<p>                2、	企业征信报告。
+					</p>
+					<p>                3、	工商信息查询网、人法网、失信网等无不良信息。
+					</p>
+					<p>                4、	法人及持股50%以上的股东、实际控制人身份证、征信报告。
+					</p>
+					<p>                5、	公司股东、高管简历及员工整体素质情况。
+					</p>
+					<p>                6、	公司历史沿革、股东构成及重大事项说明。
+					</p>
+					<p>                7、	公司组织结构图。
+					</p>
+					<p>                8、	关联企业信息（各独立法人公司名称、关联关系）
+					</p>
+					<p>                9、	公司章程。
+					</p>
+					<p>                10、	企业资产证明（如验资报告，有工商局备案章）。
+					</p>
+					<p>11、经营场所证明（如企业办公场地购买或租赁合同及土地证、房产证）等。</p>
+					<p>                12、	缴税凭证、纳税申报表及电费缴费凭证等。
+					</p>
+					<p>                13、	财务报表及重要科目明细、银行流水，包括但不限于资产负债表、利润表、现金流量表（加盖公章）。
+					</p>
+					<p>14、员工工资、社保缴纳原始凭证等。</p>
+					<p>15、业务合同。</p>
+					<p>                16、	或有负债及说明。
+					</p>
+					<p>                所有借款人必须符合1至3项要求，具体产品可增加准入要求，但是，不得与所列其它要求冲突。
+					</p>
+				</div>
+				<div class="sqlx">
+					<p>尽调评估</p>
+					<p>尽调人员对采集的信息进行检验，并实地尽调，出具尽调报告。上报风险管理部负责人。由风控团队进行风险评估。</p>
+				</div>
+				<div class="sqlx zjjg">
+					<p>资金监控</p>
+					<p>设立风险预警机制，定期对借款人抽查并出具检查报告，根据警示级别配备催收。
+					</p>
+				</div>
+				<p class="baxx-title">风险分类及预警</p>
+				<div class="baxx-text">
+					<p>风险评估等级主要分为：正常、关注、次级、可疑和损失五类；</p>
+					<p>正常：借款人能够履行合同，没有足够理由怀疑贷款本息不能按时足额偿还。</p>
+					<p>关注：尽管借款人目前有能力偿还贷款本息，但存在一些可能对偿还产生不利影响的因素。</p>
+					<p>次级：借款人的还款能力出现明显问题，完全依靠其正常营业收入无法足额偿还贷款本息，即使执行担保，也可能会造成一定损失。</p>
+					<p>可疑：借款人无法足额偿还贷款本息，即使执行担保，也肯定要造成较大损失。</p>
+					<p>损失：在采取所有可能的措施或一切必要的法律程序之后，本息仍然无法收回，或只能收回极少部分。</p>
+					<p>后三类合称为不良借款。不良借款应及时上报，并启动风险预警机制，加强检查频率，及时采取增信措施。</p>
+				</div>
+				<p class="baxx-title">催收管理</p>
+				<div class="baxx-text ">
+					<p>贷后检查分为定期检查，不定期抽查，飞行检查三类。</p>
+					<p>1、定期检查。每月一次，登记台账，出具检查报告。</p>
+					<p>2、不定期抽查。不少于一季度一次。</p>
+					<p>3、飞行检查。不少于一季度一次。</p>
+					<p>调查内容 </p>
+					<p>（一）对借款人经营/工作情况进行检查；</p>
+					<p>（二）对借款人信用进行检查；</p>
+					<p>（三）对借款人管理状况进行检查；</p>
+					<p>（四）对借款人财务和债务状况进行检查；</p>
+					<p>（五）对保证人进行检查；</p>
+					<p>（六）对抵/质押物进行检查。</p>
+					<p>调查人员在完成检查后应填写检查记录，提出切实可行的意见和建议并上报。</p>
+				</div>
+
+			</div>
+		</div>
+	</div>
+
+	<!-- 组织信息 -->
+	<div class="zzxx">
+		<p class="title">组织信息</p>
+		<table  cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+			<tr>
+				<td>全称</td>
+				<td>杭州一桶金互联网金融服务有限公司</td>
+			</tr>
+			<tr>
+				<td>简称</td>
+				<td>一桶金</td>
+			</tr>
+			<tr>
+				<td>统一社会信用代码</td>
+				<td>91330106328238952C</td>
+			</tr>
+			<tr>
+				<td>注册资本</td>
+				<td>5000万元</td>
+			</tr>
+			<tr>
+				<td>实缴注册资本</td>
+				<td>5000万元</td>
+			</tr>
+			<tr>
+				<td>注册地址</td>
+				<td>浙江省杭州市上城区西湖大道18号701室</td>
+			</tr>
+			<tr>
+				<td>经营地址</td>
+				<td>浙江省杭州市上城区西湖大道18号701室</td>
+			</tr>
+			<tr>
+				<td>成立时间</td>
+				<td>2015年04月15日</td>
+			</tr>
+			<tr>
+				<td>经营期限</td>
+				<td>2015年04月15日至2025年04月14日</td>
+			</tr>
+			<tr>
+				<td>经营状态</td>
+				<td>开业</td>
+			</tr>
+			<tr>
+				<td>经营范围</td>
+				<td>服务,投资管理,投资咨询</td>
+			</tr>
+			<tr>
+				<td>董事</td>
+				<td>季立思</td>
+			</tr>
+			<tr>
+				<td>监事</td>
+				<td>费献华</td>
+			</tr>
+			<tr>
+				<td>实际控制人</td>
+				<td>吴新军</td>
+			</tr>
+		</table>
+		<p class="title">组织架构</p>
+		<img class="zuzhi" src="img/o1.png" style="border:1px solid #e2e2e2;">
+
+		<p class="title">股权结构</p>
+		<div style="border:1px solid #e2e2e2;box-sizing: border-box;padding: 0.41rem 0.24rem;background-color: white;">
+			<p class="structure">股东全称：杭州渊明贸易有限公司</p>
+			<p class="structure" style="margin-bottom: 0.4rem;">股东股权占比：股权占比60%</p>
+			<p class="structure">股东全称：中房交建控股集团有限公司</p>
+			<p class="structure">股东股权占比：股权占比40%</p>
+			<img class="structureImg" src="img/o2.png">
+		</div>
+
+
+		<p class="title">分支机构</p>
+		<div style="border:1px solid #e2e2e2;box-sizing: border-box;background-color: white;">
+			<p class="structure fzjgP"><span>分支机构全称</span><span>无</span></p>
+			<p class="structure fzjgP"><span>分支机构所在地</span><span>无</span></p>
+			<p class="structure fzjgP"><span>分支机构成立时间</span><span>无</span></p>
+			<p class="structure fzjgP"><span>分支机构负责人</span><span>无</span></p>
+			<p class="structure fzjgP"><span>分支机构联系电话</span><span>无</span></p>
+			<p class="structure fzjgP"><span>分支机构投诉电话</span><span>无</span></p>
+			<p class="structure fzjgP"><span>分支机构员工人数</span><span>无</span></p>
+			<p class="structure fzjgP" style="border-bottom: none;"><span>与保险机构、担保机构等各类涉及个体网络借贷业务相关的第三方机构合作情况</span><span>无</span></p>
+		</div>
+
+
+		<p class="title">员工情况</p>
+		<div style="border:1px solid #e2e2e2;">
+			<div style="box-sizing: border-box;padding: 0.37rem 0.24rem;background-color: white;">
+				<p class="structure">截止2018年2月底，公司人员分布情况如下：</p>
+				<p class="structure">总人数：52人</p>
+				<p class="structure" style="line-height: 0.4rem;">年龄分布情况：&gt30岁的12人，27岁至30岁的22人，&lt27岁的18人；平均年龄 27.92；</p>
+				<p class="structure" style="line-height: 0.4rem;margin-bottom: 0.26rem;">学历分布情况：硕士9人，本科25人，大专16人，其他2人。</p>
+			</div>
+			<img class="zzxxfoot" src="img/o3.png">
+		</div>
+
+	</div>
+
+	<!-- 安全保障 -->
+	<div class="aqbz">
+		<img class="safetitle" src="img/1.png">
+		<p class="safetitleWord">专业的产品风控体系</p>
+		<div class="safeCommon">
+			<span class="bg left"><img src="img/3.png"></span>
+			<p class="left">贷款前多维度审查严格的行业选择标准和多维度审查体系，甄选低风险资产、覆盖风险点</p>
+		</div>
+		<div class="safeCommon">
+			<span class="bg right"><img src="img/4.png"></span>
+			<p class="right">贷款中持续性监管随时跟进线上资产，追踪各项信息变动，及时发现风险</p>
+		</div>
+		<div class="safeCommon" style="margin-bottom: 1.02rem;">
+			<span class="bg left"><img src="img/5.png"></span>
+			<p class="left">贷后完善还款专业催收团队第一时间催收，紧急联系人督促还款，质押物变现，逾期标的先行赔付</p>
+		</div>
+
+		<p class="safetitleWord">技术全面安全</p>
+		<div class="safeCommon" style="margin-bottom: 0.6rem;">
+			<span class="bg left"><img src="img/6.png"></span>
+			<p class="left">数据信息安全使用金融级加密算法，保障用户信息的私密、真实、安全。数据机房为五星级机房安全标准，并配有备份机房，保障用户服务的安全与稳定</p>
+		</div>
+		<div class="safeCommon">
+			<span class="bg right"><img src="img/7.png"></span>
+			<p class="right">配备数据中心级别的硬件防火墙和防入侵设备，有效抵御各种安全风险、有效防止病毒入侵</p>
+		</div>
+		<div class="safeCommon" style="margin-bottom: 1.02rem;">
+			<span class="bg left"><img src="img/8.png"></span>
+			<p class="left">系统冗余安全采用双机热备功能，读写分离，数据备份，增强平台数据库的稳定性</p>
+		</div>
+
+		<p class="safetitleWord">安全周到的资金存管</p>
+		<div class="safeCommon" style="margin-bottom: 1.02rem;">
+			<span class="bg left"><img src="img/9.png"></span>
+			<p class="left">资金实行第三方存管制度，保障投资人资金安全，用户的理财资金直接交由指定银行进行三方”专款专用“存管，一桶金不接触用户资金</p>
+		</div>
+
+		<p class="safetitleWord">强劲全面的团队支持</p>
+		<p class="detail">核心管理团队中多名来自银行高管，从基层历练至行长。人均20年的银行从业经验，同时团队成员横跨所有金融业态，可以为投资人提供全方位的金融服务。技术、运营团队成员来自阿里巴巴、支付宝、蚂蚁金服等顶尖互联网公司。无论从产品研发、风控管理、业务流程、创新金融上具有很强的风险把控力。</p>
+
+		<p class="safetitleWord">投资同卡进出保障</p>
+		<p class="detail">针对APP交易用户，只能绑定一张银行卡，充值、提现等只能通过该卡完成。<br>即使发生手机丢失、银行卡账号泄露等情况，资金也不能被提取到其他银行卡上，可最大程度保障用户资金安全。</p>
+
+		<p class="safetitleWord">三证齐全 行业领先</p>
+		<div class="safefoot">
+			<span><img src="img/10.png"></span>
+			<p>ICP许可证:   浙B2-20160403</p>
+		</div>
+		<div class="safefoot">
+			<span><img src="img/11.png"></span>
+			<p>浙公网安备:  33010602002236号</p>
+		</div>
+		<div class="safefoot" style="margin-bottom: 0.84rem;">
+			<span><img src="img/12.png"></span>
+			<p>三级等保证书:  330117-13026-00001</p>
+		</div>
+	</div>
+
+	<!-- 运营数据 -->
+	<div class="yysj">
+		<div class="tjsj">
+			<p>数据统计时间：<span class="nowTime">2018-03-31 24:00</span></p>
+		</div>
+		<div class="yyContent">
+			<p class="yyTitle">平台数据</p>
+			<div class="head">
+				<div class="headTop">
+					<span>累计交易总额(元)</span>
+					<span class="tradMoney"></span>
+				</div>
+				<div class="headL">
+					<span>累计交易笔数(笔)</span>
+					<span class="borrowMoney"></span>
+				</div>
+				<div class="headR">
+					<span>累计用户收益(元)</span>
+					<span class="ljsy"></span>
+				</div>
+			</div>
+			<div class="cjrBox clearfix ">
+				<div class="headL">
+					<span>累计出借人数量(人)</span>
+					<span class="ljcjrzs"></span>
+				</div>
+				<div class="headR">
+					<span>累计借款人数量(人)</span>
+					<span class="ljjkrzs"></span>
+				</div>
+				<div class="headL">
+					<span>当前出借人数量(人)</span>
+					<span class="dqcjrsl"></span>
+				</div>
+				<div class="headR">
+					<span>当前借款人数量(人)</span>
+					<span class="dqjkrsl"></span>
+				</div>
+				<div class="headL">
+					<span>当前出借金额(元)</span>
+					<span class="dhje"></span>
+				</div>
+				<div class="headR">
+					<span>当前借款金额(元)</span>
+					<span class="dhje"></span>
+				</div>
+			</div>
+			<p class="guanlian">
+				关联关系借款余额<span class="glMoney yueNumber">0.00元</span>
+			</p>
+			<div class="dhzb">
+				<p>单户占比</p>
+				<p>最大单一借款人待还金额占比<span class="zddhcjyezb yueNumber"></span></p>
+				<p>前十大借款人待还金额占比<span class="zdshtzcjzb yueNumber"></span></p>
+			</div>
+			<div class="cjrBox clearfix ">
+				<p class="contentTitle">风险控制</p>
+				<div class="headL">
+					<span>逾期金额(元)</span>
+					<span class="yqje">0.00</span>
+				</div>
+				<div class="headR">
+					<span>逾期笔数(笔)</span>
+					<span class="">0</span>
+				</div>
+				<div class="headL">
+					<span>逾期90天以上金额(元)</span>
+					<span class="jstysyqje">0.00</span>
+				</div>
+				<div class="headR">
+					<span>逾期90天以上笔数(笔)</span>
+					<span class="">0</span>
+				</div>
+				<div class="headL">
+					<span>代偿金额(元)</span>
+					<span class="">0.00</span>
+				</div>
+				<div class="headR">
+					<span>代偿笔数(笔)</span>
+					<span class="">0</span>
+				</div>
+			</div>
+			<div>
+				<p class="contentTitle">收费标准</p>
+				<p class="mianfei">
+					<span>用户注册</span>
+					<span>免费</span>
+				</p>
+				<p class="mianfei">
+					<span>提现</span>
+					<span>免费</span>
+				</p>
+				<p class="mianfei">
+					<span>充值</span>
+					<span>免费</span>
+				</p>
+			</div>
+			<!--<section class=" page-wfbd">
+                <div class="flow-default" style="background: #fff;padding:0.1rem 0;" id="showMsg">
+                </div>
+            </section>-->
+		</div>
+	</div>
+
+	<!-- 运营报告 -->
+	<div class="yybg">
+		<!--<div class="head">
+            <div class="headL">
+                <span class="tradMoney">35000000</span>
+                <span>累计交易金额</span>
+            </div>
+            <div class="headR">
+                <span class="borrowMoney">120000000</span>
+                <span>累计借款笔数</span>
+            </div>
+        </div>-->
+		<section class=" page-wfbd">
+			<div class="flow-default" style="background: #fff;padding:0.1rem 0;" id="showMsg">
+			</div>
+		</section>
+	</div>
+
+	<!-- 新闻媒体 -->
+	<div class="xwmt">
+		<div class="banner"></div>
+		<section class=" page-wfbd">
+			<div class="flow-default" style="background: #f9f9f9;padding:0.1rem 0;" id="showNew">
+				<div class='newCommon'>
+					<p>2018年6月20日，浙江省金融科技协会办公室主任娄俊一行莅临一桶金（杭州一桶金互联网金融服务有限公司），一桶金总经理陈静、主要团队管理人员出席了交流座谈会。双方就一桶金平台开展的互联网金融服务情况、行业政策监管、及互金发展热点进行了深入的交流。
+					</p>
+					<img class='bg' src="img/welcome.png">
+				</div>
+				<div class='newCommon'>
+					<p>2018年6月7日至8日，以“数字赋能 质胜未来”为主题的第15届浙商（投融资）大会暨2018数字经济峰会在杭州洲际酒店举行。数十位全球政商界顶级大咖，3000多位财经界精英共飨这一场饕餮盛宴。一桶金作为受邀公司之一，有幸参与了这次盛大深刻的峰会。
+					</p>
+					<img class='bg' src="img/number.png">
+				</div>
+				<div class='newCommon'>
+					<p>为广泛宣传与百姓生活息息相关的互联网金融知识，进一步提高居民理财意识和理性投资理财的能力，2018年6月5日，一桶金法务钟如华老师走进长明寺巷社区，开展了一次以“普及互联网金融知识 社区公益行”为主题的知识讲座。
+					</p>
+					<img class='bg' src="img/puji.png">
+				</div>
+				<!--<div class='newCommon'>-->
+					<!--<p>2018年1月一桶金员携手浙江聚心公益举办“温情腊八节 暖心敬老情”公益活动，走进杭州市余杭区元墅仓前老人公寓，给这里40多位老人送去新春祝福，引发中国社会报、浙江在线、杭州日报等权威媒体广泛关注。</p>-->
+					<!--<img class='bg' src="img/new1.png">-->
+				<!--</div>-->
+				<div class='newCommon'>
+					<p>2018年1月 一桶金荣获国资入股！  一桶金与国资企业中房交建集团签署协议，此次国资企业入股，一桶金实缴注册资本增至5000万，平台不仅拥有了国资背景，资本实力和品牌形象得到进一步提升，也将成为一桶金发展道路上一次里程碑式的飞跃。</p>
+					<img class='bg' src="img/new2.png">
+				</div>
+				<div class='newCommon'>
+					<p>2017年12月26日 一桶金获得“互联网金融行业实名网站”认证。一桶金正式获得中国电子商务协会“互联网金融行业实名网站”认证，成为拥有行业权威认证资质的互联网金融平台，网站被收录至“全国诚信网站认证评测权威档案数据库”。</p>
+					<img class='bg' src="img/new3.png">
+				</div>
+				<div class='newCommon'>
+					<p>2017年12月一桶金荣获信用等级：AAA认证，本信用等级已纳入政府信用建设体系。</p>
+					<img class='bg' src="img/new4.png">
+				</div>
+				<div class='newCommon'>
+					<p>2017年一桶在浙江省市场导报、浙江信用网、浙江省区域经济促进会共同举办的评选活动中，一桶金凭借优异的信用记录以及合规经营模式，成功荣获“浙江省诚信经营示范单位”称号。</p>
+					<img class='bg' src="img/new5.png">
+				</div>
+
+			</div>
+		</section>
+	</div>
+
+	<!-- 其他信息 -->
+	<div class="qtxx">
+		<!--<p class="title">备案信息</p>
+		<p class="common zhong" style="color: #333333;border-top:1px solid #e2e2e2;">网站备案信息</p>
+		<p class="common" style="text-align: left;text-indent: 1.27rem;">公安机关出具的网站备案图标及编号</p>
+		<p class="common" style="display: flex;align-items: center;text-align: left;text-indent: 1.27rem;">图标：<span class="copyImg"></span></p>
+		<p class="common" style="margin-bottom: 0.4rem;text-align: left;text-indent: 1.27rem;">编号：浙公网安备33010602002236号</p>
+		<p class="common zhong" style="border-top:1px solid #e2e2e2;">电信许可信息</p>
+		<p class="common blue tanImg" style="margin-bottom: 0.4rem;" data-image="https://www.etongjin.net/app4.0/message/img/other.png">电信业务经营许可证号</p>
+		<p class="common zhong" style="border-top:1px solid #e2e2e2;">备案登记信息</p>
+		<p class="common">金融监管部门：备案完成后披露</p>
+		<p class="common">备案登记时间：备案完成后披露</p>
+		<p class="common">备案登记编号：备案完成后披露</p>-->
+
+		<p class="title">审计信息</p>
+		<p class="common blue tanImg" data-image="https://www.etongjin.net/app4.0/message/img/shenji.png,https://www.etongjin.net/app4.0/message/img/shenji2.png,https://www.etongjin.net/app4.0/message/img/shenji3.png,https://www.etongjin.net/app4.0/message/img/shenji4.png,https://www.etongjin.net/app4.0/message/img/shenji5.png" style="border-top:1px solid #e2e2e2;">2017年审计报告意见</p>
+		<p class="common goUrl">重点环节审计结果：暂无</p>
+		<p class="common goUrl">合规性审查报告：暂无</p>
+
+		<p class="title">法律法规</p>
+		<p class="common blue goUrl"  style="border-top:1px solid #e2e2e2;" data-url="https://www.etongjin.net/app4.0/message/temporalmethod.html">《网络借贷信息中介机构业务活动管理暂行办法》</p>
+		<p class="common blue goUrl" data-url="https://www.etongjin.net/app4.0/message/informationdisclosure.html">《网络借贷信息中介机构业务活动信息披露指引》</p>
+		<p class="common blue goUrl" data-url="https://www.etongjin.net/app4.0/message/accountdirector.html">《网络借贷资金存管业务指引》</p>
+		<p class="common blue goUrl" data-url="https://www.etongjin.net/app4.0/message/Guidance.html">《关于促进互联网金融健康发展的指导意见》</p>
+
+		<p class="title">重大事项</p>
+		<table  cellpadding="0" cellspacing="0" style="border-collapse:collapse">
+			<tr>
+				<td>合并、分立、解散或者申请破产</td>
+				<td>无</td>
+			</tr>
+			<tr>
+				<td>公司依法进入破产程序</td>
+				<td>无</td>
+			</tr>
+			<tr>
+				<td>公司被责令停业、整顿、关闭</td>
+				<td>无</td>
+			</tr>
+			<tr>
+				<td>公司涉及重大诉讼、仲裁，或涉嫌违法违规被有权机关调查，或受到刑事处罚、重大行政处罚</td>
+				<td>无</td>
+			</tr>
+			<tr>
+				<td>公司法定代表人、实际控制人、主要负责人、董事、监事、高级管理人员涉及重大诉讼、仲裁，或涉嫌违法违规被有权机关调查，或受到刑事处罚、重大行政处罚，或被采取强制措施</td>
+				<td>无</td>
+			</tr>
+			<tr>
+				<td>公司主要或者全部业务陷入停顿</td>
+				<td>无</td>
+			</tr>
+			<tr>
+				<td>存在欺诈、损害出借人利益等其他网络借贷信息中介机构经营活动的重大事项</td>
+				<td>无</td>
+			</tr>
+			<tr>
+				<td>其他重大事项</td>
+				<td>无</td>
+			</tr>
+		</table>
+
+		<p class="title">注册协议模版</p>
+		<p class="common blue goUrl"  style="border-top:1px solid #e2e2e2;" data-url="https://www.etongjin.net/app4.0/message/Userserviceprotocol.html">《一桶金注册协议模版》</p>
+
+		<p class="title">官方渠道</p>
+		<p class="common" style="border-top:1px solid #e2e2e2;">平台网址：<span class="blue goUrl" data-url="http://www.etongjin.com.cn">http://www.etongjin.com.cn</span></p>
+		<p class="common">官网IP地址：121.43.72.244</p>
+		<p class="common">官方网站上线运营时间：2015年4月</p>
+		<p class="common" style="border:1px solid #e2e2e2;border-top:none;margin-bottom: 0.4rem">平台APP上线运营时间：2015年4月</p>
+
+		<div class="mark" style="float: left">
+			<img src="img/q1.png">
+			<p>一桶金APP二维码</p>
+		</div>
+		<div class="mark" style="float: right;">
+			<img src="img/q2.png">
+			<p style="margin-bottom: 0.78rem;">一桶金官方微信二维码</p>
+		</div>
+	</div>
+</div>
+
+
+<!-- Swiper JS -->
+<script src="js/swiper.min.js"></script>
+
+<!-- Initialize Swiper -->
+<script>
+    var swiper = new Swiper('.swiper-container', {
+        pagination: '.swiper-pagination',
+        slidesPerView: 4,
+        paginationClickable: true,
+        spaceBetween: 0
+    });
+    FastClick.attach(document.body);
+    var u = navigator.userAgent, app = navigator.appVersion;
+    var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+    var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //isiOS终端
+</script>
+<script type="text/javascript">
+    $(function(){
+
+        $(window).scroll(function(){
+            $(".swiper-container").css("top",$(window).scrollTop());
+            if($(window).scrollTop() > -3){
+                $(".swiper-container").css("position","fixed");
+                $(".swiper-container").css("top","0");
+                $(".swiper-container").css("left","0");
+                $(".showBox").css("margin-top","0.88rem");
+
+            }else{
+                $(".swiper-container").css("position","relative");
+                $(".swiper-container").css("z-index","99");
+                $(".showBox").css("margin-top","0.88rem");
+            }
+        })
+        $(".showBox").children("div").eq(0).css("display","block");
+        $(".firstDemo").css({"color":"#FF5E33","border-bottom":"4px solid #FF5E33"});
+        $(".swiper-wrapper div").click(function(){
+            $(document).scrollTop(0);
+            var showIndex = $(this).index();
+            /*$(this).css({"color":"#FF5E33","border-bottom":"4px solid #FF5E33"});*/
+            $(this).css("color","#FF5E33");
+            $(this).css("border-bottom","4px solid #FF5E33");
+            $(this).siblings().css({"color":"black","border-bottom":"none"});
+            $(".showBox").children("div").eq(showIndex).css("display","block");
+            $(".showBox").children("div").eq(showIndex).siblings().css("display","none");
+        })
+    })
+</script>
+</body>
+<!-- 运营数据 -->
+<script type="text/javascript">
+    $(function(){
+        if(isiOS){
+            function setupWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+                if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+                window.WVJBCallbacks = [callback];
+                var WVJBIframe = document.createElement('iframe');
+                WVJBIframe.style.display = 'none';
+                WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                document.documentElement.appendChild(WVJBIframe);
+                setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+            }
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+
+                    token = response.token;
+                    uid = response.uuid;
+                    getIndex(uid);
+                })
+            });
+        }else{
+            function setupWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) {
+                    callback(WebViewJavascriptBridge)
+                }else{
+                    document.addEventListener(
+                        'WebViewJavascriptBridgeReady'
+                        , function() {
+                            callback(WebViewJavascriptBridge)
+                        },
+                        false
+                    );
+                }
+            }
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.init(function(message, responseCallback) {
+                    var responseData = '默认接收收到来自Java的数据，回传数据给你';
+                    responseCallback(responseData);
+                });
+                bridge.callHandler('getUserTokenAndUUID',"",function(responseData) {
+                        var responseData = JSON.parse(responseData);
+                        token = responseData.token;
+                        uid = responseData.uuid;
+                        getIndex(uid);
+                    }
+                );
+            })
+        }
+
+        var strAdd = function(str){
+            str = str.split('').reverse().join('').replace(/(\d{3})/g,'$1,').replace(/\,$/,'').split('').reverse().join('');
+        }
+
+
+
+        //获取当前时间
+        function getNowFormatDate() {
+            var date = new Date();
+            var seperator1 = "-";
+            var seperator2 = ":";
+            var month = date.getMonth() + 1;
+            var strDate = date.getDate();
+            if (month >= 1 && month <= 9) {
+                month = "0" + month;
+            }
+            if (strDate >= 0 && strDate <= 9) {
+                strDate = "0" + strDate;
+            }
+            var currentdate = date.getFullYear() + seperator1 + month + seperator1 + strDate
+                + " " + ("0"+date.getHours()).slice(-2) + seperator2 + ("0"+date.getMinutes()).slice(-2)
+                + seperator2 + ("0"+date.getSeconds()).slice(-2);
+            return currentdate;
+        }
+        $(".nowTime").text(getNowFormatDate());
+        var getIndex = function(uid){
+            $.ajax({
+                type: 'post',
+                url: "https://www.etongjin.net/borrow/getDataCollection",
+                headers:{"uid":uid},
+                data:{},
+                success:function(data,status,req) {
+                    /*data.cumulativeMoney = strAdd(data.cumulativeMoney);
+                    data.cumulativeCount = strAdd(data.cumulativeCount);*/
+                    console.log(data);
+                    $(".tradMoney").text(data.data.ljcjje);
+                    $(".borrowMoney").text(data.data.ljcjbs);
+                    $(".ljsy").text(data.data.ljyhsy);
+                    $(".ljcjrzs").text(data.data.ljcjrzs);
+                    $(".ljjkrzs").text(data.data.ljjkrzs);
+                    $(".dqcjrsl").text(data.data.dqcjrsl);
+                    $(".dqjkrsl").text(data.data.dqjkrsl);
+                    $(".dhje").text(data.data.dhje);
+                    $(".dhje").text(data.data.dhje);
+                    $(".zddhcjyezb").text(data.data.zddhcjyezb+"%");
+                    $(".zdshtzcjzb").text(data.data.zdshtzcjzb+"%");
+
+
+                    localStorage.setItem("uid",uid);
+                    /*getYy();*/
+
+                },
+                error:function(){
+
+                }
+            });
+        }
+
+        /*function getYy(){
+               layui.use('flow', function(){
+                  var flow = layui.flow;
+                  flow.load({
+                elem: '#showMsg', //流加载容器
+                //scrollElem: '#LAY_demo1', //滚动条所在元素，一般不用填，此处只是演示需要。
+                done: function(page, next){ //执行下一页的回调
+                      $.ajax({
+                          type: 'POST',
+                          url: "https://www.etongjin.net/activity/imagesCenter" ,
+                          headers:{"uid":localStorage.getItem("uid")},
+                          data:{"type":4,"page":page},
+                          success:function(data){
+                             setTimeout(function(){
+                                 var lis = [];
+                                   var jsonData = data;
+                                   var jsonPac = data.data;
+
+                               jQuery.each(jsonPac, function(i, item){
+                                var json = {"jumurl":jsonPac[i].jumurl,"surl":jsonPac[i].surl==undefined?"":jsonPac[i].surl,"stitle":jsonPac[i].stitle==undefined?"":jsonPac[i].stitle,"scontent":jsonPac[i].scontent==undefined?"":jsonPac[i].scontent,"simgurl":jsonPac[i].simgurl==undefined?"":jsonPac[i].simgurl};
+                                json = JSON.stringify(json);
+
+                                var ht = "<div class='yycommon' data-json="+json+">";
+                                ht += "<img class='bg' src="+jsonPac[i].imgurl+">";
+                                ht += "<p>"+jsonPac[i].name+"</p>";
+                                ht += "</div>";
+                                lis.push(ht);
+
+
+                            });
+                                next(lis.join(''), page < parseInt(jsonData.msg/10)+1); //假设总页数为 10  jsonData["totalSize"]
+                            }, 500);
+                         }
+                    })
+                  }
+                  });
+              });
+        }
+          $("#showMsg").on("click",".yycommon",function(){
+            var json = $(this).attr("data-json");
+            json = JSON.parse(json);
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.callHandler('InformationNativeJump',json,function callback(response) {
+                })
+            });
+        })*/
+    })
+</script>
+
+<!-- 运营报告 -->
+<script type="text/javascript">
+    $(function(){
+        if(isiOS){
+            function setupWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+                if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+                window.WVJBCallbacks = [callback];
+                var WVJBIframe = document.createElement('iframe');
+                WVJBIframe.style.display = 'none';
+                WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                document.documentElement.appendChild(WVJBIframe);
+                setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+            }
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+
+                    token = response.token;
+                    uid = response.uuid;
+                    getNew(uid);
+                })
+            });
+        }else{
+            function setupWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) {
+                    callback(WebViewJavascriptBridge)
+                }else{
+                    document.addEventListener(
+                        'WebViewJavascriptBridgeReady'
+                        , function() {
+                            callback(WebViewJavascriptBridge)
+                        },
+                        false
+                    );
+                }
+            }
+            setupWebViewJavascriptBridge(function(bridge) {
+                /*bridge.init(function(message, responseCallback) {
+                    var responseData = '默认接收收到来自Java的数据，回传数据给你';
+                    responseCallback(responseData);
+                });*/
+                bridge.callHandler('getUserTokenAndUUID',"",function(responseData) {
+                        var responseData = JSON.parse(responseData);
+                        token = responseData.token;
+                        uid = responseData.uuid;
+                        getNew(uid);
+                    }
+                );
+            })
+        }
+
+        var strAdd = function(str){
+            str = str.split('').reverse().join('').replace(/(\d{3})/g,'$1,').replace(/\,$/,'').split('').reverse().join('');
+        }
+
+        var getNew = function(uid){
+            $.ajax({
+                type: 'post',
+                url: url + "/borrow/getCumulativeData",
+                headers:{"uid":uid},
+                data:{},
+                success:function(data,status,req) {
+                    /*data.cumulativeMoney = strAdd(data.cumulativeMoney);
+                    data.cumulativeCount = strAdd(data.cumulativeCount);*/
+                    $(".tradMoney").text(data.data.cumulativeMoney);
+                    $(".borrowMoney").text(data.data.cumulativeCount);
+                    localStorage.setItem("uid",uid);
+                    getYy();
+
+                },
+                error:function(){
+
+                }
+            });
+        }
+
+        function getYy(){
+            layui.use('flow', function(){
+                var flow = layui.flow;
+                flow.load({
+                    elem: '#showMsg', //流加载容器
+                    //scrollElem: '#LAY_demo1', //滚动条所在元素，一般不用填，此处只是演示需要。
+                    done: function(page, next){ //执行下一页的回调
+                        $.ajax({
+                            type: 'POST',
+                            url: url + "/activity/imagesCenter" ,
+                            headers:{"uid":localStorage.getItem("uid")},
+                            data:{"type":4,"page":page},
+                            success:function(data){
+                                setTimeout(function(){
+                                    var lis = [];
+                                    var jsonData = data;
+                                    var jsonPac = data.data;
+
+                                    jQuery.each(jsonPac, function(i, item){
+                                        var json = {"jumurl":jsonPac[i].jumurl,"surl":jsonPac[i].surl==undefined?"":jsonPac[i].surl,"stitle":jsonPac[i].stitle==undefined?"":jsonPac[i].stitle,"scontent":jsonPac[i].scontent==undefined?"":jsonPac[i].scontent,"simgurl":jsonPac[i].simgurl==undefined?"":jsonPac[i].simgurl};
+                                        json = JSON.stringify(json);
+
+                                        var ht = "<div class='yycommon' data-json="+json+">";
+                                        ht += "<img class='bg' src="+jsonPac[i].imgurl+">";
+                                        ht += "<p>"+jsonPac[i].name+"</p>";
+                                        ht += "</div>";
+                                        lis.push(ht);
+
+
+                                    });
+                                    next(lis.join(''), page < parseInt(jsonData.msg/10)+1); //假设总页数为 10  jsonData["totalSize"]
+                                }, 500);
+                            }
+                        })
+                    }
+                });
+            });
+        }
+        $("#showMsg").on("click",".yycommon",function(){
+            var json = $(this).attr("data-json");
+            json = JSON.parse(json);
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.callHandler('InformationNativeJump',json,function callback(response) {
+                })
+            });
+        })
+    })
+</script>
+
+<!-- 新闻媒体 -->
+<!--<script type="text/javascript">
+    $(function(){
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+        }
+        setupWebViewJavascriptBridge(function(bridge) {
+            bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+
+                token = response.token;
+                uid = response.uuid;
+                getNew(uid);
+            })
+        });
+        var strAdd = function(str){
+            str = str.split('').reverse().join('').replace(/(\d{3})/g,'$1,').replace(/\,$/,'').split('').reverse().join('');
+        }
+
+
+
+        function getNew(uid){
+            layui.use('flow', function(){
+                var flow = layui.flow;
+                flow.load({
+                    elem: '#showNew', //流加载容器
+                    done: function(page, next){ //执行下一页的回调
+                        $.ajax({
+                            type: 'POST',
+                            url: "https://www.etongjin.net/activity/imagesCenter" ,
+                            headers:{"uid":uid},
+                            data:{"type":6,"page":page},
+                            success:function(data){
+                                setTimeout(function(){
+                                    var lis = [];
+                                    var jsonData = data;
+                                    var jsonPac = data.data;
+                                    jQuery.each(jsonPac, function(i, item){
+                                        var json = {"jumurl":jsonPac[i].jumurl,"surl":jsonPac[i].surl==undefined?"":jsonPac[i].surl,"stitle":jsonPac[i].stitle==undefined?"":jsonPac[i].stitle,"scontent":jsonPac[i].scontent==undefined?"":jsonPac[i].scontent,"simgurl":jsonPac[i].simgurl==undefined?"":jsonPac[i].simgurl};
+                                        json = JSON.stringify(json);
+
+                                        var ht = "<div class='newCommon' data-json="+json+">";
+                                        ht += "<p>"+jsonPac[i].name+"</p>";
+                                        ht += "<img class='bg' src="+jsonPac[i].imgurl+">";
+                                        ht += "</div>";
+                                        lis.push(ht);
+                                    });
+                                    next(lis.join(''), page < parseInt(jsonData.msg/10)+1); //假设总页数为 10  jsonData["totalSize"]
+                                }, 500);
+                            }
+                        })
+                    }
+                });
+            });
+        }
+        $("#showNew").on("click",".newCommon",function(){
+            var json = $(this).attr("data-json");
+            json = JSON.parse(json);
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.callHandler('InformationNativeJump',json,function callback(response) {
+                })
+            });
+        })
+    })
+</script>-->
+<!-- 其他信息 -->
+<script type="text/javascript">
+    $(function(){
+        $(".tanImg").click(function(){
+            var imgUrl =$(this).attr("data-image");
+            if(isiOS){
+                function setupWebViewJavascriptBridge(callback) {
+                    if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+                    if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+                    window.WVJBCallbacks = [callback];
+                    var WVJBIframe = document.createElement('iframe');
+                    WVJBIframe.style.display = 'none';
+                    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                    document.documentElement.appendChild(WVJBIframe);
+                    setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+                }
+                setupWebViewJavascriptBridge(function(bridge) {
+                    bridge.callHandler('ShowImages',{"images":imgUrl},function callback(response) {
+                    })
+                });
+            }else{
+                function setupWebViewJavascriptBridge(callback) {
+                    if (window.WebViewJavascriptBridge) {
+                        callback(WebViewJavascriptBridge)
+                    }else{
+                        document.addEventListener(
+                            'WebViewJavascriptBridgeReady'
+                            , function() {
+                                callback(WebViewJavascriptBridge)
+                            },
+                            false
+                        );
+                    }
+                }
+                setupWebViewJavascriptBridge(function(bridge) {
+                    /*bridge.init(function(message, responseCallback) {
+                        var responseData = '默认接收收到来自Java的数据，回传数据给你';
+                        responseCallback(responseData);
+                    });*/
+                    bridge.callHandler('ShowImages',{"images":imgUrl},function(responseData) {
+                        }
+                    );
+                })
+            }
+
+        })
+
+        $(".goUrl").click(function(){
+
+            var url =$(this).attr("data-url");
+            if(isiOS){
+                function setupWebViewJavascriptBridge(callback) {
+                    if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+                    if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+                    window.WVJBCallbacks = [callback];
+                    var WVJBIframe = document.createElement('iframe');
+                    WVJBIframe.style.display = 'none';
+                    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                    document.documentElement.appendChild(WVJBIframe);
+                    setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+                }
+                setupWebViewJavascriptBridge(function(bridge) {
+                    bridge.callHandler('JumpWebURL',{"url":url},function callback(response) {
+                    })
+                });
+            }else{
+                function setupWebViewJavascriptBridge(callback) {
+                    if (window.WebViewJavascriptBridge) {
+                        callback(WebViewJavascriptBridge)
+                    }else{
+                        document.addEventListener(
+                            'WebViewJavascriptBridgeReady'
+                            , function() {
+                                callback(WebViewJavascriptBridge)
+                            },
+                            false
+                        );
+                    }
+                }
+                setupWebViewJavascriptBridge(function(bridge) {
+                    /*bridge.init(function(message, responseCallback) {
+                        var responseData = '默认接收收到来自Java的数据，回传数据给你';
+                        responseCallback(responseData);
+                    });*/
+                    bridge.callHandler('JumpWebURL',{"url":url},function(responseData) {
+                        }
+                    );
+                })
+            }
+
+        })
+    })
+</script>
+<script>
+    var docEl = document.documentElement;
+    var width = docEl.getBoundingClientRect().width;
+    if (width > 450) {width = 450};
+    var rootRem = width / 375 * 50;
+    docEl.style.fontSize = rootRem + 'px';
+</script>
+</html>

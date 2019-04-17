@@ -1,0 +1,335 @@
+*{
+    margin:0;
+    padding: 0;
+}
+
+.lunbo{
+    width: 100%;
+    height: 440px;
+}
+.contentT  .indexMoney li{
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.moneyO,.moneyT,.moneyS,.moneyF{
+    display: inline-block;
+    width:40px;
+    height:40px;
+}
+.moneyO{
+    background: url(../img/shouye/1.png) no-repeat 0 0;
+}
+.moneyT{
+    background: url(../img/shouye/2.png) no-repeat 0 0;
+}
+.moneyS{
+    background: url(../img/shouye/3.png) no-repeat 0 0;
+}
+.moneyF{
+    background: url(../img/shouye/4.png) no-repeat 0 0;
+}
+.indexMoney li p{
+    margin:0;
+    margin-left:10px;
+}
+.contentT  .indexLogo li{
+    padding: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.logoO,.logoT,.logoS,.logoF{
+    display: inline-block;
+    width:80px;
+    height:80px;
+}
+.logoO{
+    background: url(../img/shouye/5.png) no-repeat 0 0;
+}
+.logoT{
+    background: url(../img/shouye/6.png) no-repeat 0 0;
+}
+.logoS{
+    background: url(../img/shouye/7.png) no-repeat 0 0;
+}
+.logoF{
+    background: url(../img/shouye/8.png) no-repeat 0 0;
+}
+.indexLogo li div{
+    margin-left: 20px;
+}
+.indexLogo li div p{
+    margin:0;
+}
+.indexLogo li div p:first-child{
+    font-family: 微软雅黑;
+    font-size: 20px;
+    color: #333;
+    margin-bottom:5px;
+}
+.indexLogo li div p:last-child{
+    font-size: 14px;
+    color: #666;
+}
+.bg{
+    background-color: #F9F9F9;
+}
+.contentT{
+    background-color:#FFFFFF;
+}
+.title{
+    padding:60px 0 40px;
+}
+.title div{
+    display: flex;
+    justify-content: center;
+    align-items: center
+}
+.title div p{
+    display: inline-block;
+    /*width: 120px;
+    height: 28px;*/
+    font-size: 28px;
+    color: #111111;
+    margin: 0 20px;
+
+}
+.title div span{
+    display: inline-block;
+    width:20px;
+    height:4px;
+    background-color: #333;
+}
+.xinshou{
+    min-height:200px;
+}
+.xsImg{
+    float: left;
+    width: 45%;
+    height: 200px;
+}
+.xsDiv{
+    float: left;
+    box-sizing: border-box;
+    position: relative;
+}
+.xinshouTitle{
+    font-size: 20px;
+    color: #333;
+    margin-bottom: 20px;
+}
+.nianhuaDiv .nianhua{
+    font-size: 36px;
+    color: #FF5E33;
+    margin-bottom: 6px;
+}
+.nianhuaDiv{
+    width:120px;
+    margin-right: 60px;
+}
+.nianhuaDiv p {
+    margin:0;
+}
+.beifen{
+    font-size: 24px;
+}
+.tianshu{
+    font-size:36px;
+    color: #FF5E33;
+}
+.tianZi{
+    font-size:18px;
+    color: #FF5E33;
+}
+.nianhuaTwo{
+    margin:0;
+    margin-bottom: 10px;
+    color: #999;
+}
+.jindu{
+    height: 14px;
+    display: flex;
+    -webkit-align-items: center;
+    align-items: center;
+}
+.jinduAll{
+    display: block;
+    width:120px;
+    height:6px;
+    background-color: #EDEDED;
+    position: relative;
+    margin-right: 10px;
+    border-radius: 4px;
+}.ptgg p,.yybg p,.zxdt p {
+     display: block;
+     height:22px;
+     line-height: 22px;
+ }
+.jinduNow{
+    border-radius: 4px;
+    display: block;
+    width:0px;
+    height:6px;
+    background: linear-gradient(#FFB169, #FF5E33);
+    position: absolute;
+    z-index: 10;
+    top: 0;
+    left:0;
+}
+.jxtz .jxImgDiv{
+    padding:0;
+}
+.jxImg{
+    width:100%;
+}
+.jxTehui{
+    width:80px;
+    height:22px;
+    font-size:14px;
+    color: #FF7633;
+    border-radius: 10px;
+    line-height: 22px;
+    text-align: center;
+    margin-left: 12px;
+    background-color: #FFE6C8;
+}
+.jinduBaifen{
+    font-size: 14px;
+    color: #999999;
+    margin:0;
+}
+.nianhuaDivT{
+    margin-right: 50px;
+}
+.buyBtn{
+    width: 120px;
+    height:40px;
+    border-radius: 2px;
+    border:1px solid #FF5E33;
+    font-size: 18px;
+    color: #FF5E33;
+    text-align: center;
+    line-height: 40px;
+    position: relative;
+    right: 0;
+    bottom: -32px;
+}
+.nianhuaZi{
+    color: #999;
+}
+
+.jxAll{
+    width:180px;
+}
+.jxtz{
+    background-color: #F9F9F9;
+}
+.marginB{
+    margin-bottom: 10px;
+}
+.xinshou .xsContent{
+    height: 180px;
+    padding: 30px 40px;
+    background-color: #ffffff;
+    width: 102%;
+}
+.xsDivTop{
+    height: 200px;
+    padding:40px 40px 40px 45px;
+    background-color: #ffffff;
+    width: 54%;
+    margin-left: 1%;
+}
+.nianhuaDivS{
+    margin-right: 40px;
+    padding-top: 25px;
+}
+.nianhuaTwos{
+    margin-bottom: 6px;
+}
+.syMoney{
+    margin-bottom: 16px;
+}
+.xinshou .xsContent div{
+    margin-right: 78px;
+}
+.xinshou .xsContent div:last-child{
+    margin-right: 0px;
+}
+.xinshou .xsContent:last-child{
+    margin-bottom: 0;
+}
+
+.newWrap{
+    width:390px;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    padding:40px 40px 30px 40px;
+    margin-right: 15px;
+}
+.newWrapP{
+    width:100%;
+    height:30px;
+    margin-bottom: 15px;
+}
+.newWrapP div{
+    display: flex;
+    align-items: center;
+    -webkit-align-items: center;
+    padding-top: 8px;
+}
+.newWrapP div span:first-child{
+    font-size: 14px;
+    color: #999;
+}
+.newWrapP span:first-child{
+    font-size: 20px;
+    color: #333;
+}
+.newWrapP div span:last-child{
+
+    width: 8px;
+    height: 14px;
+    background: url(../img/shouye/dayu.png) no-repeat 0 0;
+    /* padding-top: 10px;*/
+}
+.newImg{
+    display: block;
+    width:310px;
+    height:150px;
+    margin-bottom: 30px;
+}
+.newWrap p{
+    font-size:16px;
+    color: #666666;
+    margin-bottom: 10px;
+}
+.newWrap p:last-child{
+    margin-bottom: 0;
+}
+.marginR{
+    margin-right: 0;
+}
+.hzImg{
+    margin-bottom: 40px;
+}
+.hzImg img{
+    display: block;
+    width: 230px;
+    margin-right: 13px;
+}
+.hzImg img:last-child{
+    margin-right:0 ;
+}
+.glyphicon-chevron-left:before,.glyphicon-chevron-right:before {
+    content: "";
+}
+.col-lg-3,.col-lg-9{
+    padding:0;
+}
+.buyBtn:hover{
+    background-color:#FF5E33;
+    color: #ffffff;
+}

@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一桶金-产品列表</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/headerAndFooter.css">
+    <link rel="stylesheet" href="../css/productList.css">
+    <link rel="stylesheet" href="../css/pageNav.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/pageNav.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/myjs/productList.js"></script>
+    <script type="text/javascript" charset="utf-8" src="../js/myjs/jumpToProductDetailed.js"></script>
+    <script>
+        $(function () {
+            $('#footer').load('footer.html')
+            $('#header').load('header.html');
+        })
+    </script>
+</head>
+<body>
+<!--header开始-->
+<div id="header"></div>
+<!--header结束-->
+
+<div class="content">
+    <div class="container">
+        <p><span>产品推荐</span><span> ></span><span>理财产品列表</span></p>
+        <div class="filter">
+            <p>筛选条件</p>
+            <ul class="list-inline">
+                <li>产品类型：</li>
+                <li class="isxs" id="cplx" value=-1>全部</li>
+                <li class="isxs" value=0>新手标</li>
+                <li class="isxs"  value=1>供应链金融</li>
+            </ul>
+            <ul class="list-inline">
+                <li>投资期限：</li>
+                <li class="time" value=-1" id="tzqx">全部</li>
+                <li class="time" value=7>7天</li>
+                <li class="time" value=30>30天</li>
+                <li class="time" value=60>60天</li>
+                <li class="time" value=90>90天</li>
+            </ul>
+        </div>
+        <div id="products" >
+
+        </div>
+        <nav aria-label="Page navigation" class="page-nav-outer" id="PageNavId">
+        </nav>
+
+    </div>
+
+</div>
+
+<!--footer开始-->
+
+<div id="footer"></div>
+</body>
+<script>
+    $(document).ready(function(){
+        readyToRun();
+        productListDefault(null,null,null);
+        // jumpToProductDetailed();
+        //筛选选中效果
+        $('#cplx').addClass('color');
+        $('#tzqx').addClass('color');
+        $('.isxs').on('click',function () {
+            $(this).addClass('color').siblings().removeClass('color');
+        })
+        $('.time').on('click',function () {
+            $(this).addClass('color').siblings().removeClass('color');
+        })
+
+
+    });
+</script>
+</html>

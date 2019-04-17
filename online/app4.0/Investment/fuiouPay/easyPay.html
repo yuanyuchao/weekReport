@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<!-- <script type="text/javascript" src="../js/rem.js"></script>
+<link rel="stylesheet" type="text/css" href="contract.css"> -->
+<script src="../js/jquery.min.js"></script>
+<script src="../fuiouPay/js/fuyou.js"></script>
+<script src="../fuiouPay/js/fuiouPay.js"></script>
+<meta charset="utf-8">
+<style type="text/css">
+p {
+	margin-bottom: 0.2rem;
+}
+
+h5, h6 {
+	display: block;
+	width: 100%;
+	font-family: DFKai-SB;
+	margin-bottom: 0.2rem;
+}
+
+h5 {
+	font-size: 0.44rem;
+}
+
+h6 {
+	font-size: 0.32rem;
+}
+
+.moban {
+	border-bottom: 1px solid black;
+	padding: 0 0.15rem;
+}
+</style>
+<script type="text/javascript">
+	$(function(){
+		var u = navigator.userAgent, app = navigator.appVersion;   
+		var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器   
+		var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端   
+   	/* 	if(isAndroid){  
+		    //注册事件监听
+	        function setupWebViewJavascriptBridge(callback) {
+
+	            if (window.WebViewJavascriptBridge) {
+	                callback(WebViewJavascriptBridge)
+	            }else{
+	                document.addEventListener(
+	                    'WebViewJavascriptBridgeReady'
+	                    , function() {
+	                        callback(WebViewJavascriptBridge)
+	                    },
+	                    false
+	                );
+	            }
+	        }
+		} */
+		if(isiOS){
+			function setupWebViewJavascriptBridge(callback) {
+
+		    if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+		    if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+		    window.WVJBCallbacks = [callback];
+		    var WVJBIframe = document.createElement('iframe');
+		    WVJBIframe.style.display = 'none';
+		    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+		    document.documentElement.appendChild(WVJBIframe);
+		    setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+		    }
+		    setupWebViewJavascriptBridge(function(bridge) {		                             
+			    bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+			    	token = response.token;
+			    	uid = response.uuid;
+			    	fuiouPayUrl = response.fuiouPayUrl;
+			    	storageParams(token, uid, fuiouPayUrl);
+			    })
+			});
+		}
+		
+		var storageParams = function(token,uid,fuiouPayUrl){
+			localStorage.setItem("token",token);
+			localStorage.setItem("uid",uid);
+            //console.log("fuiouPayUrl----"+fuiouPayUrl);
+			QueryString.Initial(fuiouPayUrl);
+			pageDomInitial();
+		}
+		
+		function pageDomInitial(){
+			issendmes = 0;
+			//logoDisplay();
+			$('#amt').html(yuan2Fen(QueryString.GetValue('AMT')));//初始化金额
+			var ctp = QueryString.GetValue('CTP');
+			var cnm=QueryString.GetValue('CNM');
+			$('#bank_name').html(cnm+'(' + QueryString.GetValue('BANKCARD').substring( QueryString.GetValue('BANKCARD').length -4)+')');
+			if (ctp =='01') $('#bank_type').html('借记卡');
+			if (ctp =='02') $('#bank_type').html('信用卡');
+			$('#mobileNmb').html(QueryString.GetValue('MOBILE').substring(0,3)+'****'+QueryString.GetValue('MOBILE').substring(7));
+			$('#getYzm').attr('disabled',false);
+			
+			/* $("button[name='paybtn']").attr('disabled', true);
+			$("button[name='paybtn']").addClass('grey'); */
+		}
+		
+	});
+
+	function yzmClickOpr(){
+			//	$("#getYzm").on("click",function() {
+					//$('.sj_concent').showLoading();
+				    // setParamVal();
+					var reqXml = createReqXml();
+					var ret = new Array(2);
+					$.ajax({
+						type : 'post',
+						url : $.getConst('INTERFACE_URL_YZM_CHECK'),
+						data : {FM : reqXml},
+						dataType : 'xml',
+						async : true,
+						success : function(data) {
+							//$('.sj_concent').hideLoading();
+							ret[0] = $(data).find('RESPONSECODE').text();
+							ret[1] = $(data).find('RESPONSEMSG').text();
+							if (ret[0] != '0000') {
+								/*$('#error_msg').html("<img src='images/b_error.png' />"+ ret[1]);
+								$(".sj_fixedbox").popfixed();*/
+								return false;
+							} else {
+								QueryString.SetValue('SIGN',$(data).find('SIGN').text());
+								QueryString.SetValue('SIGNPAY',$(data).find('SIGNPAY').text());
+			                	QueryString.SetValue('TYPEID',$(data).find('TYPEID').text());
+								issendmes = 1;
+								/*$("#getYzm").css({
+									"background-color" : "#f3f3f3"
+								});
+								$("#getYzm").attr('disabled', true);
+								var times = 180;
+								$("#getYzm").html("180");
+								var timer = window.setInterval(function() {
+									times--;
+									$("#getYzm").html(times);
+									if (times <= 0) {
+										window.clearInterval(timer);
+										$("#getYzm").css({
+											"background-color" : "#fff"
+										});
+										$("#getYzm").html("获取验证码");
+										$("#getYzm").attr('disabled', false);
+									}
+								}, 1000);*/
+							}
+						},
+						error : function(data) {
+							/*$('.sj_concent').hideLoading();
+							$('#error_msg').html("<img src='images/b_error.png' />"+ "网络异常，请稍后重试");
+							$(".sj_fixedbox").popfixed();*/
+							return false;
+						}
+					});
+			//	});
+		}
+
+		function payClickOpr(){
+			//	$("button[name='paybtn']").bind('click',function(){
+					if(issendmes==0){
+			            /*$('#error_msg').html("<img src='images/b_error.png' />" + '请点击获取验证码');
+			            $(".sj_fixedbox").popfixed();*/
+			            // return false;
+					}
+					/*$("button[name='paybtn']").attr('disabled',true);
+				    $("button[name='paybtn']").addClass('grey');
+				    $('.sj_concent').showLoading();*/
+				    QueryString.SetValue('VERCD',$("input[name='yzm']").val());
+				    // setParamVal();
+				    var reqXml = createReqXml(),ret;
+				    var reqUrl = $.getConst('INTERFACE_URL_PAY_NEW');
+				    $.ajax({
+			            type:'post',
+			            url: reqUrl,
+			            data:{FM:reqXml},
+			            dataType:'xml',
+			            async:true,
+			            success:function(data){
+			            	
+			                ret = {
+			                    Rcd: $(data).find('RESPONSECODE').text(),
+			                    RDesc: $(data).find('RESPONSEMSG').text()
+			                };
+			//                $('.sj_concent').hideLoading();
+			                QueryString.SetValue('RESPONSECODE',ret.Rcd);
+			        		QueryString.SetValue('RESPONSEMSG',ret.RDesc);
+			                if (ret.Rcd=='8110' || ret.Rcd=='8143' || ret.Rcd=='8010') {
+			                    /*$('#error_msg').html("<img src='images/b_error.png' />" + ret.RDesc);
+			                    $(".sj_fixedbox").popfixed();
+			                    $("button[name='paybtn']").attr('disabled',false);
+			                    $("button[name='paybtn']").removeClass('grey');*/
+			                	//location.href = "error.html?" + createUrlParam();
+			                	alert(ret.RDesc);
+			                }else{
+			                	if (ret.Rcd !='0000') { //失败跳转界面
+			                          location.href = "error.html?" + createUrlParam();
+			                    }else{ //成功调整界面\
+			                    	  QueryString.SetValue('SIGN',$(data).find('SIGN').text());
+			                    	  QueryString.SetValue('TYPEID',$(data).find('TYPEID').text());
+			                          location.href = "success.html?" + createUrlParam();
+			                    }
+			                }
+			            },
+			            error:function(data){
+			            	/*$('.sj_concent').hideLoading();
+			            	$('#error_msg').html("<img src='images/b_error.png' />" + "网络异常，请稍后重试");
+			                $(".sj_fixedbox").popfixed();*/
+			                return false;
+			            }
+			//        }); 
+				});
+			}
+</script>
+<head>
+<title>支付</title>
+</head>
+<body>
+	<ul>
+		<li><label>金额</label><span><em id="amt">00.00</em>元</span></li>
+		<li><label>付款</label> 
+			<span>
+				<big id='bank_name'></big>
+				<bfn id='bank_type'></bfn> 
+			</span></li>
+		<li class="xyell">
+			<p>
+				本次交易需进行短信确认，短信验证码将发送至您手机<em id="mobileNmb"></em>
+			</p>
+		</li>
+		<li><label>验证码</label> <span>
+			<input type="text" name="yzm" class="sj_whiteinp" style="width: 60%;" value="" oninput="maxLengthCheck(this);" maxlength="10" placeholder="请输入短信验证码" />
+			<button id="getYzm" class="sj_yzmbtn" onclick="yzmClickOpr()" >获取验证码</button></span></li>
+	</ul>
+	<div class="sj_botbtn">
+		<button class="btn_oranbtn" name="paybtn" onclick="payClickOpr()"  >确认支付</button>
+	</div>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+

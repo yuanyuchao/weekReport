@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+</head>
+<body>
+<ul>
+
+</ul>
+</body>
+<script src="../js/jquery.min.js"></script>
+<script>
+
+    var a = {
+        code: 200,
+        data: {
+            name: 'yyc',
+            sex: 'man',
+            age: 28,
+            friends: [
+                {
+                    name: 'zhangsan',
+                    sex: 'man',
+                    age: 25,
+                },
+                {
+                    name: 'lisi',
+                    sex: 'man',
+                    age: 29,
+                },
+                {
+                    name: 'samallRed',
+                    sex: 'woman',
+                    age: 26,
+                },
+                {
+                    name: 'xiaohua',
+                    sex: 'woman',
+                    age: 27,
+                },
+                {
+                    name: 'hanmeimei',
+                    sex: 'woman',
+                    age: 28,
+                },
+            ],
+        },
+        msg: 'hello world',
+    }
+    var str = '';
+    var f = a.data.friends;
+    console.log(f[0].name)
+    for (let i = 0; i < f.length; i++) {
+        str += `<li>姓名：${f[i].name},</li><li>性别：${f[i].sex},</li><li class="age">年龄：${f[i].age},</li>`
+    }
+
+    $('ul').html(str);
+    for (let i = 0; i<f.length;i++){
+        if(f[i].age==28){
+            // $('.age')[i].innerHTML = 'marry me ';
+            $('.age')[i].style.color = 'red';
+        }
+    }
+
+
+
+</script>
+
+</html>

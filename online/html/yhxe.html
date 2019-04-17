@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../rem.js"></script>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<meta charset="utf-8">
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	html,body{
+		height: 100%;
+		width: 100%;
+	}
+	body{
+		background-color: #f9f9f9;
+		padding: 0.12rem 0;
+		overflow: hidden;
+	}
+	.contentTop{
+		width: 100%;
+		height: 1rem;
+		box-sizing: border-box;
+		padding: 0.36rem 0.24rem;
+		display: flex;
+		align-items: center;
+		background-color: #ffffff;
+	}
+	.contentTop p{
+		float: left;
+		width: 6.72rem;
+		height: 0.28rem;
+		font-size: 0.28rem;
+		line-height: 0.28rem;
+		font-family: 微软雅黑;
+
+	}
+	.pCheck{
+		color: #FF5E33;
+	}
+	.spanCheck{
+		/*background-color: yellow;*/
+		background: url(../img/arrow_click@2x.png) no-repeat 0 0;
+		background-size: contain;
+	}
+	.contentDown{
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0 0.24rem;
+		font-size: 0.28rem;
+		line-height: 0.44rem;
+		background-color: #ffffff;
+	}
+	table tr{
+		width: 100%;
+		height: 0.72rem;
+	}
+	table tr td{
+		text-align: center;
+	}
+	.foot{
+		width: 100%;
+		height: 1.8rem;
+		box-sizing: border-box;
+		padding: 0.36rem 0.24rem;
+		background-color: white;
+	}
+	.foot p{
+		display: block;
+		width: 100%;
+		font-size: 0.24rem;
+		font-family: 微软雅黑;
+		color: rgba(102,102,102,1);
+		line-height: 0.44rem;
+	}
+</style>
+<head>
+	<title>支持银行及限额</title>
+</head>
+<body>
+		<div class="content">
+			<div class="contentTop">
+				<p>支持银行及限额如下:</p>
+			</div>
+			<div class="contentDown">
+				<table  border="0" style="border-collapse:collapse;width: 100%;">
+					<tr>
+						<td style="width: 31.6%;">支持银行</td>
+						<td style="width: 22.8%;">单笔</td>
+						<td style="width: 22.8%;">单日</td>
+						<td style="width: 22.8%;">单月</td>
+					</tr>
+					<tr>
+						<td>工商银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>农业银行</td>
+						<td>-</td>
+						<td>-</td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td>中国银行</td>
+						<td>5万</td>
+						<td>20万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>建设银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>-</td>
+					</tr>
+					<tr>
+						<td>邮政储蓄银行</td>
+						<td>0.5万</td>
+						<td>0.5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>平安银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>光大银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>广发银行</td>
+						<td>10万</td>
+						<td>20万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>中信银行</td>
+						<td>0.1万</td>
+						<td>0.1万</td>
+						<td>0.2万</td>
+					</tr>
+					<tr>
+						<td>兴业银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>华夏银行</td>
+						<td>0.1万</td>
+						<td>0.5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>招商银行</td>
+						<td>1万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>浦发银行</td>
+						<td>10万</td>
+						<td>20万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>交通银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>上海银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+
+				</table>
+			</div>
+			<div class="foot">
+				<p>
+					支付限额可参考上表，具体的额度以发卡行为准。如果您在发卡银行设置的支付额度低于此表额度，以您的设置为准。
+				</p>
+				<p>农业，邮储和上海银行交易需要开通银联在线支付功能。</p>
+			</div>
+		</div>
+
+
+</body>
+<script type="text/javascript">
+	$(function(){
+		$('table tr:even').css("backgroundColor","rgba(249,249,249,1)");
+		$('table tr:first').css("backgroundColor","rgba(202,202,202,1)");
+	})
+</script>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>财务审计</title>
+   <!-- <link rel="stylesheet" href="../css/bootstrap.min.css">-->
+    <link rel="stylesheet" href="../css/caiwushenji.css">
+    <!--<link rel="stylesheet" href="../css/headerAndFooter.css">-->
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/zoomify.min.css">
+    <!--header开始-->
+    <div id="header"></div>
+    <div id="headerXXPL"></div>
+    <!--header结束-->
+<div class="container">
+    <div class="content clearfix example">
+        <h3>2016年度审计报告</h3>
+        <ul>
+            <li class="col-lg-4"><img src="../img/caiwushenji/11.png" alt=""></li>
+            <li class="col-lg-4"><img src="../img/caiwushenji/12.png" alt=""></li>
+            <li class="col-lg-4"><img src="../img/caiwushenji/13.png" alt=""></li>
+        </ul>
+    </div>
+</div>
+<!--footer开始-->
+
+
+<script src="../js/jquery.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../js/zoomify.min.js"></script>
+<script>
+    $('.example img').zoomify();
+</script>
+
+<script>
+    $(function(){
+        $('#footer').load('footer.html')
+        $('#headerXXPL').load('headerXXPL.html');
+        $('#header').load('header.html');
+    })
+</script>
+<div id="footer"></div>

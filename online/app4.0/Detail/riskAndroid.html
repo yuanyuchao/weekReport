@@ -1,0 +1,434 @@
+ <!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script src="../js/jquery.min.js" type="text/javascript"></script>
+<script src="../js/rem.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/fastclick.js"></script>
+<meta http-equiv="content-type" content="txt/html; charset=utf-8" />
+<script src="../../common.js"></script>
+
+<head>
+	<title>风险测评</title>
+</head>
+<style type="text/css">
+	html,body,div,img,span,p{
+		margin: 0;
+		padding: 0;
+	}
+	html,body{
+		width: 100%;
+		height: 100%;
+	}
+	body{
+		box-sizing: border-box;
+		padding:0.36rem 0.3rem;
+	}
+	.titleImg{
+		width: 2.35rem;
+		height: 0.66rem;
+		background:url(img/bg.jpg) no-repeat 0 0 ;
+		background-position: 0 0;
+		background-size: contain;
+		margin:0 auto;
+		position: relative;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		margin-bottom: 0.34rem;
+	}
+	.nowNum{
+		display:block;
+		width: 0.1rem;
+		height: 0.22rem;
+		line-height: 0.22rem;
+		margin-top: -0.1rem;
+		margin-right: 0.1rem;
+		font-size: 0.28rem;
+		color: rgba(255,255,255,1);
+	}
+	.tolNum{
+		display:block;
+		width: 0.22rem;
+		height: 0.22rem;
+		line-height: 0.22rem;
+		margin-top: -0.07rem;
+		font-size: 0.16rem;
+		color: rgba(255,255,255,0.5);
+	}
+	.bar{
+		width: 100%;
+		height: 0.08rem;
+		background-color: #E9E9E9;
+		border-radius: 3px;
+		margin-bottom: 0.4rem;
+		position: relative;
+	}
+	.progressBar{
+		/*width:12.5%;*/
+		height: 100%;
+		border-radius: 3px;
+		background-color: #FF5E33;
+		position: absolute;
+		left: 0;
+	}
+	.question{
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0.6rem 0 0.46rem 0.4rem;
+
+	}
+	.title{
+		font-family: 微软雅黑;
+		font-size: 0.32rem;
+		color: #333333;
+		margin-bottom: 0.74rem;
+	}
+	.question div{
+		display: flex;
+    	align-items: center;
+    	line-height: 0.32rem;
+    	width: 100%;
+    	height: 0.98rem;
+    	box-sizing: border-box;
+    	padding: 0.37rem 0;
+    	/*margin-bottom: 0.74rem;*/
+	}
+	.question div span{
+		display: inline-block;
+		width: 0.32rem;
+		height: 0.32rem;
+		background:url(img/uncheck.png) no-repeat 0 0;
+		background-size: cover;
+		margin-right: 0.6rem;
+	}
+	.question div p{
+		display: inline-block;
+		/*height: 0.32rem;
+		line-height: 0.32rem;
+		width: 60%;*/
+		width: 5rem;
+		font-family: 微软雅黑;
+		font-size: 0.28rem;
+		color: #666666;
+	}
+	.prop{
+		width: 1.4rem;
+		height: 0.68rem;
+		background-color: #FF5E33;
+		font-family: 微软雅黑;
+		font-size: 0.28rem;
+		color: #FFFFFF;
+		text-align: center;
+		line-height: 0.68rem;
+		border-radius: 0.06rem;
+	}
+</style>
+<body>
+	<div class="titleImg">
+			<span class="nowNum">1</span>
+			<span class="tolNum">/8</span>	
+	</div>
+	<div class="bar">
+		<div class="progressBar"></div>
+	</div>
+	<!-- 第一题 -->
+	<div class="question" data-num="1">
+		<p class="title">1.您的家庭可支配年收入为：</p>
+		<div>
+			<span class="A" data-score="2"></span>
+			<p>50万元以下</p>
+		</div>
+		<div>
+			<span class="B" data-score="3"></span>
+			<p>50—100万元</p>
+		</div>
+		<div>
+			<span class="C" data-score="6"></span>
+			<p>100—500万元</p>
+		</div>
+		<div>
+			<span class="D" data-score="9"></span>
+			<p>500—1000万元</p>
+		</div>
+		<div>
+			<span class="E" data-score="10"></span>
+			<p>1000万元以上</p>
+		</div>
+	</div>
+
+	<!-- 第二题 -->
+	<div class="question" data-num="2">
+		<p class="title">2.在您每年的家庭可支配收入中，可用于金融出借（非存款）的比例为：</p>
+		<div>
+			<span class="A"  data-score="2"></span>
+			<p>小于10%</p>
+		</div>
+		<div>
+			<span class="B"  data-score="5"></span>
+			<p>10%至25%</p>
+		</div>
+		<div>
+			<span class="C" data-score="8"></span>
+			<p>25%至50%</p>
+		</div>
+		<div>
+			<span class="D" data-score="10"></span>
+			<p>大于50%</p>
+		</div>
+	</div>
+
+	<!-- 第三题 -->
+	<div class="question" data-num="3">
+		<p class="title">3.您的出借知识可描述为：</p>
+		<div>
+			<span class="A" data-score="3"></span>
+			<p>基本不了解</p>
+		</div>
+		<div>
+			<span class="B" data-score="7"></span>
+			<p>有一定的了解</p>
+		</div>
+		<div>
+			<span class="C" data-score="12"></span>
+			<p>非常了解</p>
+		</div>
+	</div>
+
+	<!-- 第四题 -->
+	<div class="question" data-num="4">
+		<p class="title">4.您有多少年出借基金、股票等产品的经验？</p>
+		<div>
+			<span class="A" data-score="1"></span>
+			<p>没有经验</p>
+		</div>
+		<div>
+			<span class="B" data-score="3"></span>
+			<p>少于2年</p>
+		</div>
+		<div>
+			<span class="C" data-score="6"></span>
+			<p>2至5年</p>
+		</div>
+		<div>
+			<span class="D" data-score="9"></span>
+			<p>5至10年</p>
+		</div>
+		<div>
+			<span class="E" data-score="12"></span>
+			<p>10年以上</p>
+		</div>
+	</div>
+
+	<!-- 第五题 -->
+	<div class="question" data-num="5">
+		<p class="title">5.您计划的出借期限是多久？</p>
+		<div>
+			<span class="A" data-score="2"></span>
+			<p>1年以下</p>
+		</div>
+		<div>
+			<span class="B" data-score="5"></span>
+			<p>1至3年</p>
+		</div>
+		<div>
+			<span class="C" data-score="8"></span>
+			<p>3至5年</p>
+		</div>
+		<div>
+			<span class="D" data-score="10"></span>
+			<p>5年以上</p>
+		</div>
+	</div>
+
+	<!-- 第六题 -->
+	<div class="question" data-num="6">
+		<p class="title">6.您的出借目的是：</p>
+		<div>
+			<span class="A" data-score="3"></span>
+			<p>资产保值</p>
+		</div>
+		<div>
+			<span class="B" data-score="7"></span>
+			<p>资产稳健增长</p>
+		</div>
+		<div>
+			<span class="C" data-score="10"></span>
+			<p>资产迅速增长</p>
+		</div>
+	</div>
+
+	<!-- 第七题 -->
+	<div class="question" data-num="7">
+		<p class="title">7.假设有两种出借：出借A预期获得10%的收
+		益，风险小；出借B预期获得30%的收益，风险大。您如何决定：</p>
+		<div>
+			<span class="A" data-score="2"></span>
+			<p>全部出借A</p>
+		</div>
+		<div>
+			<span class="B" data-score="5"></span>
+			<p>同时出借于A和B，但大部分资金出借A</p>
+		</div>
+		<div>
+			<span class="C" data-score="8"></span>
+			<p>同时出借于A和B，但大部分资金出借于收益较大且风险较大的B</p>
+		</div>
+		<div>
+			<span class="D" data-score="12"></span>
+			<p>全部出借B</p>
+		</div>
+	</div>
+
+	<!-- 第八题 -->
+	<div class="question" data-num="8">
+		<p class="title">8.您认为自己能承受的最大出借损失是多少？</p>
+		<div>
+			<span class="A" data-score="2"></span>
+			<p>10%以内</p>
+		</div>
+		<div>
+			<span class="B" data-score="5"></span>
+			<p>10%至30%</p>
+		</div>
+		<div>
+			<span class="C" data-score="8"></span>
+			<p>30%至50%</p>
+		</div>
+		<div>
+			<span class="D" data-score="12"></span>
+			<p>超过50%</p>
+		</div>
+	</div>
+
+	<!-- 上一题 -->
+	<div class="prop">上一题</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		FastClick.attach(document.body);
+		var index = 0;
+		if(index == 0){
+			$(".prop").css("display","none");
+		}else{
+			$(".prop").css("display","block");
+		}
+		$(".nowNum").text(index+1);
+		var animate = function(){
+			$(".progressBar").animate({width:12.5*(index+1)+"%"},300);
+		}
+		$(".progressBar").animate({width:12.5*(index+1)+"%"},300);
+		var obj = $(".question").eq(index);
+		obj.css("display","block");
+		obj.siblings(".question").css("display","none");
+
+		$(".question").on("click", "div", function(){  
+		    var questionIndex = $(this).parent().attr("data-num");
+		    if(questionIndex != 0){
+		    	$(".prop").css("display","block");
+		    }else{
+		    	$(".prop").css("display","none");
+		    }
+		    $(this).children().eq(0).css("background-image","url(img/check.png)");
+		    $(this).children().eq(0).attr("class","check");
+		    $(this).siblings().find('span').attr("class","");
+		    $(this).css("background-color","rgba(255,143,71,0.11)");
+		    $(this).siblings().css("background-color","white");
+		    $(this).siblings().find('span').css("background-image","url(img/uncheck.png)");
+		    
+		    if(questionIndex < 8){
+		    	$(this).parent().css("display","none");
+			    $(".progressBar").animate({width:12.5*(parseInt(questionIndex)+1)+"%"},300);
+			    $(".question").eq(questionIndex).css("display","block");
+		    	$(".nowNum").text(parseInt(questionIndex)+1);
+		    	index = questionIndex;
+		    }else{
+		    	var totalScore = 0;
+		    	var number = 0;
+		    	for(var i = 0;i< $(".check").length;i++){
+		    		totalScore = totalScore + parseInt($($(".check")[i]).attr("data-score"));
+		    	}
+		    	$(".nowNum").text(8);
+		    	index == 8;
+		    	if(totalScore < 22){
+		    		number = 1;
+		    	}else if(totalScore >= 22 && totalScore < 40){
+		    		number = 2;
+		    	}else if(totalScore >= 40 && totalScore < 46){
+		    		number = 3;
+		    	}else if(totalScore >= 46 && totalScore < 65){
+		    		number = 4;
+		    	}else if(totalScore >= 65){
+		    		number = 5;
+		    	}
+
+		    	var getIndex = function(token,uid){
+		    		$.ajax({
+			            type: 'post',
+			            url: url + "/user/addUserRating/auth",
+			            headers:{"token":token,"uid":uid},
+			            data:{"number":number},
+			            success:function (data,status,req) {
+						    setupWebViewJavascriptBridge(function(bridge) {
+							    bridge.callHandler('RiskLevel',{'level':number},function(responseData) {						                        
+						        })                
+						    });
+						    setupWebViewJavascriptBridge(function(bridge) {
+							    bridge.callHandler('setUserToken',req.getResponseHeader("token"),function(responseData) {						                        
+						        })                
+						    });
+						    window.location.href = "https://www.etongjin.net/app4.0/Detail/riskResultAndroid.html?level="+number;
+			            },
+			            error:function(){
+			            
+			            }
+			        });
+		    	}
+		        function setupWebViewJavascriptBridge(callback) {
+		            if (window.WebViewJavascriptBridge) {
+		                callback(WebViewJavascriptBridge)
+		            }else{
+		                document.addEventListener(
+		                    'WebViewJavascriptBridgeReady'
+		                    , function() {
+		                        callback(WebViewJavascriptBridge)
+		                    },
+		                    false
+		                );
+		            }
+		        }
+		        setupWebViewJavascriptBridge(function(bridge) {
+	                bridge.init(function(message, responseCallback) {
+	                    var responseData = '默认接收收到来自Java的数据，回传数据给你';
+	                    responseCallback(responseData);
+	                });		              
+	                bridge.callHandler('getUserTokenAndUUID',"123456",function(responseData) {
+	                    var responseData = JSON.parse(responseData);
+	                    console.log(responseData);
+	                    token = responseData.token;
+	                    uid = responseData.uuid;
+	                    getIndex(token,uid);
+	                });
+		        });
+		    }
+		}); 
+
+		
+
+		$(".prop").click(function(){
+			if(index > 1){
+				index = index - 1;
+				$(".question").eq(index).css("display","block");
+				$(".question").eq(parseInt(index)+1).css("display","none");
+				$(".progressBar").animate({width:12.5*(parseInt(index) + 1)+"%"},300);
+				$(".nowNum").text(index + 1);
+			}else if(index == 1){
+				$(".question").eq(parseInt(index)-1).css("display","block");
+				$(".question").eq(index).css("display","none");
+				$(".progressBar").animate({width:12.5*(parseInt(index))+"%"},300);
+				$(".nowNum").text(1);
+				$(".prop").css("display","none");
+			}
+		})
+	})
+</script>
+</html>

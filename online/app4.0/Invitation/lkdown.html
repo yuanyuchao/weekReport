@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<head>
+  <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
+	<title></title>
+</head>
+<script type="text/javascript">
+  (function(){
+    var docEl = document.documentElement;
+    var width = docEl.getBoundingClientRect().width;
+    if (width > 450) {width = 450};
+    var rootRem = width / 375 * 50;
+    docEl.style.fontSize = rootRem + 'px';
+
+  })();
+
+  $(function(){
+    $(".android").click(function(){
+        window.location.href ="http://a.app.qq.com/o/simple.jsp?pkgname=com.xiongmao.yitongjin&ckey=CK1379634116040" ;
+	//window.location.href ="https://www.etongjin.com.cn/data/app_downLoad/newapp/yitongjin_v4.0.0_42_yingyongbao.apk" ;
+    })
+
+    $(".ios").click(function(){
+      window.location.href = "https://itunes.apple.com/cn/app/yi-tong-jin/id1024323697?mt=8";
+    }) 
+  })
+</script>
+
+<style type="text/css">
+	html,body,div,input,li,img,span{padding: 0;margin:0;};
+  html,body{
+    width:100%;
+  }
+  body{
+    position: relative;
+    overflow: hidden;
+    background:url(img/invent.png) no-repeat 0 0;
+    background-size: cover;
+  }
+  img{
+    display:block;
+    width: 100%;
+  }
+  .fuwu{
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 0.28rem;
+    line-height: 0.28rem;
+    font-size: 0.28rem;
+    color: #666666;
+    text-align: center;
+    top:10.8rem;
+    margin-bottom: 0.28rem;
+  }
+  .duijie{
+    display: block;
+    position: absolute;
+    top:11.4rem;
+    width: 100%;
+    height: 0.28rem;
+    font-size: 0.28rem;
+    line-height: 0.36rem;
+    text-align: center;
+    color: #999999;
+  }
+  .android,.ios{
+    width: 4.68rem;
+    height: 0.8rem;
+    background-size: contain;
+    position: absolute;
+    left: 50%;
+    margin-left: -2.34rem;
+  }
+  .android{
+    top: 8rem;
+    background:url(img/Android@2x.png) no-repeat 0 0;
+    background-size: cover;
+  }
+  .ios{
+    top: 9.2rem;
+    background:url(img/iphone@2x.png) no-repeat 0 0;
+    background-size: cover;
+  }
+</style>
+<body>
+	<!-- <img src=""> -->
+  <p class="fuwu">服务热线：400-888-1740 (9:00-20:00)</p>
+  <p class="duijie">银行存管对接中</p>
+  <div class="android"></div>
+  <div class="ios"></div>
+</body>
+</html>

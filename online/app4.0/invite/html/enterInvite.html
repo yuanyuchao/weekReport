@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="../../js/rem.js"></script>
+    <title>邀请好友</title>
+    <script src="../../../common.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        ul {
+            list-style: none;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #F9F9F9;
+        }
+
+        a {
+            text-decoration: none;
+            color: #ffffff;
+        }
+        .banner {
+            width: 100%;
+            height: 3.6rem;
+            /*background-color: red;*/
+            padding-top: 0.7rem;
+            box-sizing: border-box;
+            background: url("../img/banner3.png") no-repeat;
+            background-size: cover;
+        }
+        .enter {
+            display: flex;
+            align-items: center;
+            padding: 0.33rem 0;
+            background-color: #fff;
+            margin-bottom: 0.2rem;
+        }
+        .byyq {
+            border-right: 0.01rem solid #DEDEDE;
+        }
+        .byyq ,.detail {
+            text-align: center;
+            width: 49%;
+        }
+        .byyq-top {
+            color: #333333;
+            font-size: 0.32rem;
+            margin-bottom: 0.2rem;
+        }
+        .byyq-bottom {
+            color: #999999;
+            font-size: 0.24rem;
+        }
+
+        .detail  a {
+            display: block;
+            color: #FF5E33;
+            font-size: 0.28rem;
+            margin-bottom: 0.2rem;
+        }
+        .detail>.mine {
+            color: #999999;
+            font-size: 0.24rem;
+        }
+        .content>img {
+            width: 100%;
+            height: 9.8rem;
+        }
+        .content {
+            margin-bottom: 1.1rem;
+        }
+        .button {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            background-color: #fff;
+            padding: 0.26rem 0;
+            width: 100%;
+            /*display: none;*/
+        }
+        .now {
+            width: 6.8rem;
+            height: 0.88rem;
+            box-sizing: border-box;
+            font-size: 0.32rem;
+            color: #fff;
+            background-color: #FF5735;
+            /*padding: 0.26rem ;*/
+            line-height: 0.88rem;
+            text-align: center;
+            border-radius: 0.06rem  ;
+            margin: 0 auto;
+        }
+        .guize {
+            color: #FFFFFF;
+            font-size: 0.24rem;
+            background-color: rgba(0,0,0,1);
+            opacity:0.5;
+            height: 0.6rem;
+            width: 1.47rem;
+            text-align: center;
+            line-height: 0.6rem;
+            border-radius: 0.3rem 0 0 0.3rem;
+            float: right;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <img src="../img/0730.png" alt="" style="width: 100%;">
+    <!--<div class="banner">-->
+        <!--&lt;!&ndash;<img src="" alt="">&ndash;&gt;-->
+        <!--<div class="guize">-->
+            <!--<a href="yijianzhongqing.html">活动规则</a>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="enter">-->
+        <!--<div class="byyq">-->
+            <!--<div class="byyq-top">-人</div>-->
+            <!--<div class="byyq-bottom">成功邀请</div>-->
+        <!--</div>-->
+        <!--<div class="detail">-->
+            <!--<a href="invite.html">点击查看></a>-->
+            <!--<p class="mine">我的邀请</p>-->
+        <!--</div>-->
+    <!--</div>-->
+    <!--<div class="content">-->
+        <!--<img src="../img/wdjl.png" alt="">-->
+    <!--</div>-->
+
+       <div class="button" style="width: 100%;height: 1.4rem;background-color:#D1333A;box-sizing: border-box;">
+           <div class="now" style="width: 5rem;height: 0.9rem;border-radius: 0.45rem; color: #994836;font-size: 0.4rem;background-color: #F7D160;">
+               立即邀请好友
+           </div>
+       </div>
+
+
+</div>
+</body>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/fastclick.js"></script>
+<script>
+
+//     $('.detail>p:nth-of-type(1)').on('click',function () {
+//         location='invite.html';
+//     })
+
+    function count(uid,token) {
+        $.ajax({
+            url:url + '/activity/getInvitation/auth',
+            type:'get',
+            headers: {
+                "uid": uid,
+                "token": token
+            },
+            success:function (data) {
+                $('.byyq-top').html(data.data.invitation+'人');
+            }
+        })
+    }
+
+    // 安卓端
+    function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function () {
+                    callback(WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+    }
+
+    // iOS端
+    function setupWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            return callback(WebViewJavascriptBridge);
+        }
+        if (window.WVJBCallbacks) {
+            return window.WVJBCallbacks.push(callback);
+        }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function () {
+            document.documentElement.removeChild(WVJBIframe)
+        }, 0)
+    }
+
+    var u = navigator.userAgent;
+    if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+        connectWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'getUserTokenAndUUID',
+                '999999'
+                , function (responseData) {
+                    var responseData = JSON.parse(responseData);
+                    console.log(responseData);
+                    token = responseData.token;
+                    uid = responseData.uuid;
+                    count(uid, token);
+                }
+            );
+        })
+    } else {
+        setupWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'getUserTokenAndUUID',
+                '999999'
+                , function (responseData) {
+                    token = responseData.token;
+                    uid = responseData.uuid;
+                    count(uid, token);
+                }
+            );
+        })
+    }
+    $('.button').on('click',function () {
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                return callback(WebViewJavascriptBridge);
+            }
+            if (window.WVJBCallbacks) {
+                return window.WVJBCallbacks.push(callback);
+            }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function () {
+                document.documentElement.removeChild(WVJBIframe)
+            }, 0)
+        }
+
+        var u = navigator.userAgent;
+        if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+            connectWebViewJavascriptBridge(function (bridge) {
+                //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+                window.WebViewJavascriptBridge.callHandler(
+                    'ShareNative',
+                    '999999'
+                    , function (responseData) {
+                        // var responseData = JSON.parse(responseData);
+                        // console.log(responseData);
+                        // token = responseData.token;
+                        // uid = responseData.uuid;
+                        // count(uid, token);
+                    }
+                );
+            })
+        } else {
+            setupWebViewJavascriptBridge(function (bridge) {
+                //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+                window.WebViewJavascriptBridge.callHandler(
+                    'ShareNative',
+                    '999999'
+                    , function (responseData) {
+                        // token = responseData.token;
+                        // uid = responseData.uuid;
+                        // count(uid, token);
+                    }
+                );
+            })
+        }
+    })
+
+    // 安卓端
+    function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function () {
+                    callback(WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+    }
+
+    // iOS端
+    function setupWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            return callback(WebViewJavascriptBridge);
+        }
+        if (window.WVJBCallbacks) {
+            return window.WVJBCallbacks.push(callback);
+        }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function () {
+            document.documentElement.removeChild(WVJBIframe)
+        }, 0)
+    }
+
+    var u = navigator.userAgent;
+    if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+        connectWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'canShare',
+                '999999'
+                , function (responseData) {
+                    var responseData = JSON.parse(responseData);
+                    console.log(responseData);
+                    share = responseData.share;
+                    if(share==1){
+                        $('.button').css('display','block');
+                    }else {
+                        $('.button').css('display','none');
+                    }
+                }
+            );
+        })
+    } else {
+        setupWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'canShare',
+                '999999'
+                , function (responseData) {
+                    share = responseData.share;
+                    if(share==1){
+                        $('.button').css('display','block');
+                    }else {
+                        $('.button').css('display','none');
+                    }
+                }
+            );
+        })
+    }
+</script>
+</html>

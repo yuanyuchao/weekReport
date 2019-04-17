@@ -1,0 +1,109 @@
+.content {
+    width: 1920px;
+    height: 600px;
+    background: url("../img/signUpAndSignIn/bgp.png") no-repeat;
+    background-size: cover;
+    margin-top: 20px;
+    margin-bottom: 41px;
+}
+.content>.container>img {
+    margin-top: 82px;
+}
+.signup {
+    width: 400px;
+    height: 552px;
+    background-color:#FFFFFF;
+    box-shadow:4px 0px 29px rgba(223,69,61,0.89);
+    margin-left: 350px;
+}
+.signup>h3 {
+    display: inline-block;
+    text-align: center;
+    margin-top: 39px;
+}
+.signup>span {
+    margin-left: 17px;
+    font-size: 16px;
+    color: #666666;
+}
+
+.signup span>a {
+color: #FF5E33;
+}
+.signup input {
+    outline: none;
+    text-indent: 21px;
+
+}
+.signup>p:nth-of-type(1)>input ,.signup>p:nth-of-type(2)>input,.tuijian>input{
+    width: 320px;
+    height: 44px;
+}
+.signup>p:nth-of-type(1) {
+        margin: 29px 0 16px 0;
+}
+.signup>p:nth-of-type(3) {
+    color: #999999;
+}
+.tuxing ,.msg {
+    width: 200px;
+    height: 44px;
+    margin-left: 40px;
+}
+.btn {
+    width:100px;
+    height:44px;
+    background:rgba(216,227,255,1);
+    border-radius: 2px;
+    margin-left: 20px;
+
+}
+.btn:nth-of-type(1) {
+    font-size: 26px;
+    color: #2A4589;
+}
+.duanxin {
+    font-size: 14px;
+    color: #ffffff;
+    background-color: #FF5E33;
+    line-height: 30px;
+}
+
+.mt {
+    margin: 16px 0;
+}
+.me {
+    margin-left: 40px;
+}
+.jiekuan {
+    margin-left: 30px;
+}
+.submit {
+    width:320px;
+    height:44px;
+    background:rgba(255,94,51,1);
+    border-radius: 2px;
+    margin-bottom: 16px;
+    margin-left: 0;
+    color: #ffffff;
+    font-size: 18px;
+    text-align: center;
+    line-height: 30px;
+}
+.tuijian {
+    margin-top: 76px;
+}
+
+input::-webkit-input-placeholder {
+    color: #CACACA;
+}
+.radio-t {
+    border: 1px solid   #CACACA;
+}
+p>img {
+    margin-right: 10px;
+    margin-top: -3px;
+}
+p>span {
+    color: #999999;
+}

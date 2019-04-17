@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../rem.js"></script>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<script type="text/javascript" src="../fastclick.js"></script>
+<meta http-equiv="content-type" content="txt/html; charset=utf-8" />
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta charset="utf-8">
+<head>
+    <title>投资</title>
+</head>
+<style type="text/css">
+    html,body,div,p,span,img{
+        margin:0;
+        padding:0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
+    body{
+        margin: 0 auto;
+    }
+    .logo{
+        display: block;
+        width: 0.96rem;
+        height: 0.96rem;
+        background: url(img/success@2x.png) no-repeat 0 0;
+        background-size: cover;
+        margin:0.6rem auto 0.4rem;
+    }
+    .success{
+        width: 100%;
+        height: 0.32rem;
+        line-height: 0.32rem;
+        font-size: 0.32rem;
+        font-family: 微软雅黑;
+        text-align: center;
+        margin-bottom: 0.35rem;
+        color: #333333;
+    }
+    .nowDate{
+        width: 100%;
+        height: 0.4rem;
+        box-sizing: border-box;
+        /*padding-left: 1.88rem;*/
+        font-size: 0.28rem;
+        color: #999999;
+        line-height: 0.4rem;
+        margin-bottom: 0.25rem;
+        text-align: center;
+    }
+    .now,.other{
+        display: inline-block;
+        width: 1.4rem;
+        height: 0.4rem;
+        font-size: 0.24rem;
+        font-family: 微软雅黑;
+        background-color: #FFB169;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 0.4rem;
+        color: white;
+        margin-right: 0.25rem;
+    }
+    .jump{
+        width: 100%;
+        /*height: 80px;*/
+        /*box-sizing: border-box;*/
+        padding:0 0.76rem;
+        /*margin-top: 0.6rem;*/
+    }
+    .qita,.zican{
+        display: inline-block;
+        width: 2.8rem;
+        height: 0.88rem;
+        font-size: 0.32rem;
+        font-family: 微软雅黑;
+        text-align: center;
+        line-height: 0.8rem;
+        border-radius: 6px;
+    }
+    .qita{
+        color: #999999;
+        border:1px solid #666666;
+    }
+    .zican{
+        /*width: 3.2rem;*/
+        /*height: 0.8rem;*/
+        background-color: #FF5E33;
+        color:  white;
+    }
+    
+    .recommend {
+        width: 6.78em;
+        box-sizing: border-box;
+        background-color:#F9F9F9;
+        padding: 0.24rem 0.36rem;
+        margin: 1.21rem auto 0 auto;
+    }
+    .recommend p:nth-of-type(1) {
+        font-size: 0.28rem;
+        color: #666666;
+        margin-bottom: 0.24rem;
+        height: 0.27rem;
+    }
+    .recommend p:nth-of-type(2) {
+        font-size: 0.24rem;
+        color: #666666;
+    }
+    .recommend p:nth-of-type(2)>span:nth-of-type(2){
+        margin-left: 0.24rem;
+    }
+    i {
+        font-style: normal;
+    }
+</style>
+<body>
+<div class="logo"></div>
+<p class="success">恭喜你, 购买成功</p>
+<div class="nowDate">
+    <!--<span class="now"></span>-->
+    成功购买<span class="money"></span>元
+</div>
+<!--<div class="nowDate" style="margin-bottom: 2rem;">-->
+    <!--<span class="other"></span>-->
+    <!--开始计算收益-->
+<!--</div>-->
+<div class="recommend">
+    <p></p>
+    <p><span>期限 <i></i>天
+</span> <span>期望年化收益 <i></i>%
+</span></p>
+</div>
+<div class="jump">
+    <div class="qita">查看其他产品</div>
+    <div class="zican">查看我的资产</div>
+</div>
+</body>
+<script type="text/javascript">
+    $(function(){
+        FastClick.attach(document.body);
+        var myDate = new Date();
+        var month = myDate.getMonth() + 1;
+        var day = myDate.getDate();
+        $(".now").text(month+"-"+day+" 今天");
+        var xinqi = myDate.getDay();
+        var str = "星期";
+        switch (xinqi){
+            case 0:
+                str=str+"一";
+                break;
+            case 1:
+                str=str+"二";
+                break;
+            case 2:
+                str=str+"三";
+                break;
+            case 3:
+                str=str+"四";
+                break;
+            case 4:
+                str=str+"五";
+                break;
+            case 5:
+                str=str+"六";
+                break;
+            case 6:
+                str=str+"日";
+                break;
+        }
+        var next = day + 1;
+        $(".other").text(month+"-"+next+" "+str);
+        //获取key值
+        function getRequest(strParame) {
+            var args = new Object();
+            var query = location.search.substring(1);
+             query = decodeURI(query);
+            var pairs = query.split("&"); // Break at ampersand
+            for (var i = 0; i < pairs.length; i++) {
+                var pos = pairs[i].indexOf('=');
+                if (pos == -1) continue;
+                var argname = pairs[i].substring(0, pos);
+                var value = pairs[i].substring(pos + 1);
+                value = decodeURIComponent(value);
+                args[argname] = value;
+            }
+            return args[strParame];
+        }
+        $(".money").text(getRequest("amt"));
+        $('.recommend>p:nth-of-type(1)').text(getRequest('ytjName'));
+        $('.recommend>p:nth-of-type(2)>span:nth-of-type(1)>i').text(getRequest('ytjTimeLimitDay'));
+        $('.recommend>p:nth-of-type(2)>span:nth-of-type(2)>i').text(getRequest('ytjApr'));
+
+        $(".qita").click(function(){
+            window.location.href = "${weburl}/borrow/search.html?app_page=product_list";
+        })
+        $(".zican").click(function(){
+            window.location.href = "${weburl}/myhome/index.html?app_page=acc";
+        })
+    })
+</script>
+</html>

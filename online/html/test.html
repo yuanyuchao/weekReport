@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .best {
+            width: 800px;
+            height: 300px;
+            background: linear-gradient(#F7D160, #FAE383);;
+        }
+    </style>
+</head>
+<body>
+<div class="best">
+    
+</div>
+</body>
+<script>
+    function add0(m) {
+        return m < 10 ? '0' + m : m
+    }
+   var time = new Date();
+   var year = time.getFullYear();
+   var month = time.getMonth()+1;
+   var day = time.getDate();
+    var hours = time.getHours();
+    var min = time.getMinutes();
+    var s = time.getSeconds();
+    var today = year+'-'+add0(month)+'-'+add0(day)+' '+add0(hours)+':'+add0(min)+':'+add0(s);
+   console.log(today);
+   console.log(parseInt('08'))
+</script>
+</html>

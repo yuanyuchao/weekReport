@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../rem.js"></script>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<script type="text/javascript" src="../fastclick.js"></script>
+<meta charset="utf-8">
+<head>
+    <title>投资</title>
+</head>
+<style type="text/css">
+    html,body,div,p,span,img{
+        margin:0;
+        padding:0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
+    body{
+        margin: 0 auto;
+    }
+    .logo{
+        display: block;
+        width: 0.96rem;
+        height: 0.96rem;
+        background: url(img/fail@2x.png) no-repeat 0 0;
+        background-size: cover;
+        margin:0.6rem auto 0.4rem;
+    }
+    .success{
+        width: 100%;
+        height: 0.4rem;
+        line-height: 0.4rem;
+        font-size: 0.4rem;
+        color: #FF5E33;
+        font-family: 微软雅黑;
+        text-align: center;
+        margin-bottom: 0.55rem;
+    }
+    .nowDate{
+        width: 100%;
+        height: 0.4rem;
+        box-sizing: border-box;
+        text-align: center;
+        font-size: 0.28rem;
+        color: #999999;
+        line-height: 0.4rem;
+        margin-bottom: 0.8rem;
+    }
+    .now,.other{
+        display: inline-block;
+        width: 1.4rem;
+        height: 0.4rem;
+        font-size: 0.24rem;
+        font-family: 微软雅黑;
+        background-color: #FFB169;
+        border-radius: 20px;
+        text-align: center;
+        line-height: 0.4rem;
+        color: white;
+        margin-right: 0.25rem;
+    }
+    .jump{
+        width: 6.8rem;
+        height: 0.88rem;
+        border-radius: 0.06rem;
+        box-sizing: border-box;
+        background-color: #FF5E33;
+        font-family: 微软雅黑;
+        font-size: 0.32rem;
+        color: #ffffff;
+        line-height: 0.88rem;
+        text-align: center;
+        margin:0 auto;
+    }
+</style>
+<body>
+<div class="logo"></div>
+<p class="success">抱歉，无法完成付款！ </p>
+<div class="nowDate">
+    <span class="msg"></span>
+</div>
+<div class="jump">
+    再次投资
+</div>
+</body>
+<script type="text/javascript">
+    $(function(){
+        FastClick.attach(document.body);
+
+        var u = navigator.userAgent, app = navigator.appVersion;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        if(isAndroid){
+            //注册事件监听
+            function setupWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) {
+                    callback(WebViewJavascriptBridge)
+                }else{
+                    document.addEventListener(
+                        'WebViewJavascriptBridgeReady'
+                        , function() {
+                            callback(WebViewJavascriptBridge)
+                        },
+                        false
+                    );
+                }
+            }
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.callHandler('PaySuccess',function(response) {
+                })
+            });
+        }
+
+
+
+        if(isiOS){
+            function setupWebViewJavascriptBridge(callback) {
+                if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+                if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+                window.WVJBCallbacks = [callback];
+                var WVJBIframe = document.createElement('iframe');
+                WVJBIframe.style.display = 'none';
+                WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                document.documentElement.appendChild(WVJBIframe);
+                setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+            }
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.callHandler('PaySuccess',function callback(response) {
+                })
+            });
+        }
+
+        $(".jump").click(function () {
+            window.location.href = "${weburl}/borrow/search.html?app_page=product_list";
+        })
+        //获取key值
+        function getRequest(strParame) {
+            var args = new Object();
+            var query = location.search.substring(1);
+
+            var pairs = query.split("&"); // Break at ampersand
+            for (var i = 0; i < pairs.length; i++) {
+                var pos = pairs[i].indexOf('=');
+                if (pos == -1) continue;
+                var argname = pairs[i].substring(0, pos);
+                var value = pairs[i].substring(pos + 1);
+                value = decodeURIComponent(value);
+                args[argname] = value;
+            }
+            return args[strParame];
+        }
+        var reg = new RegExp("[\\u4E00-\\u9FFF]+","g");
+        console.log(getRequest("RESPONSEMSG") + "------" + !(reg.test(getRequest("RESPONSEMSG"))));
+
+        if(getRequest("RESPONSEMSG") == "" ){
+            $(".msg").text("投资失败。");
+        }else if(reg.test(getRequest("RESPONSEMSG")) == "false" ){
+            console.log(getRequest("RESPONSEMSG") + "------" + !(reg.test(getRequest("RESPONSEMSG"))));
+            $(".msg").text("投资失败。");
+        }else{
+            $(".msg").text(getRequest("RESPONSEMSG"));
+        }
+
+
+
+    })
+</script>
+</html>

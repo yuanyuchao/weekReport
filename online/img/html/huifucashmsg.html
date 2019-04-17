@@ -1,0 +1,119 @@
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta content="initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no" name="viewport" />
+<meta charset="utf-8">
+<title>支付结果</title>
+<script type="text/javascript" src="../rem.js"></script>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<style type="text/css">
+html, body {
+	padding: 0px;
+	margin: 0px;
+	background-color: #eee;
+}
+
+#tab {
+	width: 80%;
+	margin: 0px auto;
+}
+
+#tab td {
+	line-height: 20px;
+	padding: 5px;
+}
+
+#div1 {
+	width: 80%;
+	height: 80%;
+	margin: 0px auto;
+	background-color: #fff;
+	margin-top: 20px;
+	border-radius: 6px;
+	padding-top: 20px;
+}
+
+.btn-a {
+	display: inline-block;
+	width: 80%;
+	height: 40px; 
+	line-height : 40px;
+	text-align: center;
+	background-color: #3CB371;
+	margin-top: 10px;
+	/* line-height: 30px; */
+	font-size:22px;
+	border-radius: 6px;
+	color: white;
+}
+</style>
+</head>
+<script type="text/javascript">
+$(function(){
+
+	var hostParam = window.location.href;
+
+	function fetchRequestParmValue(url,paras) {    
+	    var paraString = url.substring(url.indexOf("?") + 1, url.length).split("&");    
+	    var paraObj = {}    
+	    for (i = 0; j = paraString[i]; i++) {    
+	        paraObj[j.substring(0, j.indexOf("=")).toLowerCase()] = j.substring(j.indexOf("=") + 1, j.length);    
+	    }    
+	    var returnValue = paraObj[paras.toLowerCase()];    
+	    if (typeof (returnValue) == "undefined") {    
+	        return "";    
+	    } else {    
+	        return returnValue;    
+	    }    
+	}  
+
+	/*console.log(fetchRequestParmValue("www.etongjin.net/html/huifucashmsg.html?code=200&msg=1023","msg"))*/
+	if(fetchRequestParmValue(hostParam,"code") == 200){
+		$(".msg").text("提现成功");
+	}else{
+		$("img").remove();
+		$(".msg").text("提现失败");
+	}
+	
+		
+})
+
+</script>
+
+<body>
+	<div id="div1">
+		<div style="text-align: center;">
+			<img alt="" style="width: 80px;" src="../img/ok.png" />
+			<div style="line-height: 50px; font-size: 20px;" class="msg"></div>
+		</div>
+		<!-- <table id="tab" border="0" cellspacing=0 cellpadding=0>
+			<tr>
+				<td style="">流水号</td>
+				<td style="text-align: right;" id="order"></td>
+			</tr>
+			<tr>
+				<td style="">本金</td>
+				<td style="text-align: right;" id="amt"></td>
+			</tr>
+			<tr>
+				<td style="">年化利率</td>
+				<td style="text-align: right;" id="apr"></td>
+			</tr>
+			<tr>
+				<td style="">到期利息</td>
+				<td style="text-align: right;" id="interest"></td>
+			</tr>
+			<tr>
+				<td style="">到期日</td>
+				<td style="text-align: right;" id="dqr"></td>
+			</tr>
+		</table> --><!-- 
+		<div style="text-align: center;">
+			<a class="btn-a" href="${weburl}/borrow/search.html?app_page=product_list">继续理财</a> 
+			<a class="btn-a" style="background-color: #DAA520" href="${weburl}/myhome/index.html?app_page=acc">查看账户</a>
+		</div> -->
+	</div>
+
+</body>
+</html>

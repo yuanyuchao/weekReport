@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/headerAndFooter.css">
+    <link rel="stylesheet" href="../css/signIn.css">
+    <script src="../js/myjs/common.js"></script>
+</head>
+<body>
+<div id="header"></div>
+<!--header结束-->
+<div class="content">
+    <div class="container">
+        <img src="../img/signUpAndSignIn/erweima.png" alt="" class="pull-left">
+        <div class="signin pull-left text-center">
+            <h3>用户登录</h3>
+            <div class="frist">
+                <input type="text" placeholder="请输入手机号/用户名" class="phone">
+            <div class="phone-ts text-left">您输入的手机号格式有误</div>
+            </div>
+            <p><input type="password" placeholder="请输入您的密码" class="password"></p>
+            <div class="password-ts text-left">您的密码不正确</div>
+            <!--<p class="clearfix forget"><a href="forgetPassword.html" class="pull-right">忘记密码？</a></p>-->
+            <div class="button">登 录</div>
+            <p class="pull-right">没有账号？<a href="signup.html">立即注册</a></p>
+        </div>
+    </div>
+</div>
+<!--footer开始-->
+<div id="footer"></div>
+<!--footer结束-->
+</body>
+<script src="../js/jquery.min.js"></script>
+<script src="../js/myjs/uuid.js"></script>
+<script src="../js/myjs/des-util.js"></script>
+<script src="../js/myjs/base64.js"></script>
+<script>
+    $(function () {
+        $('#header').load('header.html');
+        $('#footer').load('footer.html');
+        getUuid().then(function (uuid) {
+            localStorage.setItem("uid",uuid);
+        })
+
+        // DES加密
+        function encryptByDES(message, key) {
+            var keyHex = CryptoJS.enc.Utf8.parse(key);
+            var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+                mode: CryptoJS.mode.ECB,
+                padding: CryptoJS.pad.Pkcs7
+            });
+            return encrypted.toString();
+        }
+
+        console.log(localStorage.getItem("uid"));
+
+        $('.phone').on('blur', function () {
+            var text = $('.phone').val();
+            var phone = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+            if (phone.test(text) == true) {
+                $('.phone-ts').css('display', 'none');
+            }
+        })
+        $('.password').on('blur', function () {
+            var password = $('.password').val();
+            if (password.length >= 6) {
+                $('.password-ts').css('display', 'none');
+            }
+        })
+
+        var key = localStorage.getItem("uid");
+
+        $('.button').on('click', function () {
+            var text = $('.phone').val();
+            var password = $('.password').val();
+            password = encode(password,key);
+            password1 = encryptByDES(password,key);
+            console.log(password + "-----" + password1);
+
+            console.log(password);
+            /*var base = new Base64();*/
+            var password = Base64.encode(password);
+            /*var password1 = base.encode(password1);*/
+            console.log(password + "-----" + password1);
+            var phone = /^[1][3,4,5,6,7,8,9][0-9]{9}$/;
+            if (phone.test(text) == false) {
+                $('.phone-ts').css('display', 'block');
+                return;
+            }
+            else if (password.length < 6) {
+                $('.password-ts').css('display', 'block');
+                return;
+            }
+            $.ajax({
+                type: 'POST',
+                url: localUrl+"/pc/load/auth" ,
+                headers:{"uid":localStorage.getItem("uid")},
+                data: {"phone":text,"pass":password} ,
+                dataType: "json",
+                success:function(data,status,req){
+                    var text = $('.phone').val();
+                    console.log(data);
+                    console.log(req.getResponseHeader('token'));
+                    if(data.code == 200){
+                        alert("登入成功");
+                       window.location.href = 'shouye.html';
+                        localStorage.setItem("token",req.getResponseHeader('token'));
+                        var text = text.substr(0,3)+'****'+text.substr(7);
+                        localStorage.setItem('user',text);
+                    }else if(data.code == 201){
+                        localStorage.setItem("token",req.getResponseHeader('token'));
+                    }else{
+                        alert("登入失败");
+                    }
+
+                },
+                error:function(){
+
+                }
+            });
+
+        })
+
+    })
+</script>
+
+<script>
+
+
+
+
+    /*window.onload = function () {
+        //需要加密的内容
+        var str1 = encryptByDES('helloworld');
+        var str2 = decryptByDESModeEBC(str1);
+        console.log(str1.toString());
+        console.log(str2);
+        //1.加密
+        /!*var str = '124中文内容';*!/
+        var base = new Base64();
+        var result = base.encode(str1);
+        console.log(result);
+        //document.write(result);
+        //2.解密
+        var result2 = base.decode(result);
+        /!*document.write(result2);*!/
+    }*/
+    //加密的私钥
+    /*var key = localStorage.getItem("uid");
+    console.log(key);
+    // DES加密
+    function encryptByDES(message) {
+        //把私钥转换成16进制的字符串
+        var keyHex = CryptoJS.enc.Utf8.parse(key);
+        //模式为ECB padding为Pkcs7
+        var encrypted = CryptoJS.DES.encrypt(message, keyHex, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        //加密出来是一个16进制的字符串
+        return encrypted.ciphertext.toString();
+
+    }
+    //DES  ECB模式解密
+    function decryptByDESModeEBC(ciphertext) {
+        //把私钥转换成16进制的字符串
+        var keyHex = CryptoJS.enc.Utf8.parse(key);
+        //把需要解密的数据从16进制字符串转换成字符byte数组
+        var decrypted = CryptoJS.DES.decrypt({
+            ciphertext: CryptoJS.enc.Hex.parse(ciphertext)
+        }, keyHex, {
+            mode: CryptoJS.mode.ECB,
+            padding: CryptoJS.pad.Pkcs7
+        });
+        //以utf-8的形式输出解密过后内容
+        var result_value = decrypted.toString(CryptoJS.enc.Utf8);
+        return result_value;
+    }*/
+</script>
+</html>

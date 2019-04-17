@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/rem.js"></script>
+    <script src="../../js/fastclick.js"></script>
+    <link rel="stylesheet" href="../js/mescroll.min.css">
+    <script src="../js/mescroll.min.js"></script>
+    <link rel="stylesheet" href="../lay/layui.css">
+    <script src="../lay/layui.js"></script>
+    <script src="../../../common.js"></script>
+    <title>兑换记录</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+        body {
+            width: 100%;
+            height: 100%;
+            background-color: #f9f9f9;
+        }
+
+        .list-top {
+            overflow: auto;
+            padding: 0 0.32rem 0.27rem 0.24rem;
+            border-bottom: 0.01rem solid #DEDEDE;
+        }
+
+        .list-top-left {
+            width: 1.48rem;
+            height: 1.2rem;
+            background-color: #f9f9f9;
+            float: left;
+        }
+
+        .list-top-right {
+            margin-left: 0.18rem;
+            float: left;
+            width: 5.28rem;
+        }
+
+        .list-top-right > p:nth-of-type(1) {
+            font-size: 0.28rem;
+            color: #333333;
+        }
+
+        .list-top-right > p:nth-of-type(2) {
+            float: right;
+            margin-top: 0.2rem;
+            color: #999999;
+            font-size: 0.26rem;
+        }
+
+         li {
+            padding: 0.3rem 0 0.35rem 0;
+            font-size: 0.26rem;
+            margin-bottom: 0.24rem;
+            background-color: #fff;
+            width: 100%;
+        }
+
+        .list-bottom {
+            margin-top: 0.23rem;
+            padding: 0 0.24rem;
+        }
+
+        .list-bottom > p:nth-of-type(1) {
+            float: left;
+            color: #666666;
+            font-size: 0.24rem;
+        }
+
+        .list-bottom > p:nth-of-type(2) {
+            float: right;
+            color: #666666;
+            font-size: 0.26rem;
+        }
+
+        .list-bottom > p:nth-of-type(3) {
+            clear: both;
+            padding-top: 0.3rem;
+            color: #FF5E33;
+            font-size: 0.28rem;
+        }
+        ul>li:nth-of-type(1) {
+            margin-top: 0.05rem;
+        }
+
+        ul > li:last-of-type {
+            margin-bottom: 0.39rem;
+        }
+
+        .list-top-left img {
+            width: 100%;
+            height: 100%;
+        }
+        .layui-flow-more {
+            margin: 0;
+            padding: 0.4rem 0  ;
+            background-color: #f9f9f9;
+        }
+
+
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <section class=" page-wfbd">
+        <ul class="flow-default" id="dhjl">
+        </ul>
+    </section>
+
+</div>
+</body>
+
+<script>
+
+    function dhjl(uid, token) {
+        //console.log("investement----"+localStorage.getItem("uid"));
+        layui.use('flow', function () {
+            var flow = layui.flow;
+            flow.load({
+                elem: '#dhjl', //流加载容器
+                //scrollElem: '#LAY_demo1', //滚动条所在元素，一般不用填，此处只是演示需要。
+                done: function (page, next) { //执行下一页的回调
+                    $.ajax({
+                        type: 'POST',
+                        url: url + "/activity/buy/record/auth",
+                        headers: {
+                            "uid": uid,
+                            "token": token
+                        },
+                        data: {"page": page},
+                        success: function (data) {
+                            var lis = [];
+                            console.log(data);
+                            setTimeout(function () {
+                                var datas = data.data;
+                                var str = '';
+                                function status() {
+                                    if (datas.status == 0) {
+                                        return '待发货';
+                                    } else {
+                                        return '已发货';
+                                    }
+                                }
+                                for (var i = 0; i < datas.list.length; i++) {
+                                    str+='<li><div class="list-top"><div class="list-top-left"><img src="' + datas.list[i].pic + '"></div><div class="list-top-right"> <p>' + datas.list[i].name + '</p> <p>×1</p></div></div> <div class="list-bottom">' +
+                                        ' <p>兑换时间：' + datas.list[i].addTime + '</p> <p>合计：' + datas.list[i].peas + '金豆</p><p>' + status(datas.list[i].status) + '</p></div></li>';
+                                }
+                                lis.push(str);
+                                next(lis.join(''), page < parseInt(datas.total / 10) + 1); //假设总页数为 10  jsonData["totalSize"]
+                            }, 500);
+                        },
+                        error: function () {
+                            console.log('加载失败')
+                        }
+
+                    })
+                }
+            });
+        });
+    };
+
+    // dhjl();
+
+    function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function () {
+                    callback(WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+    }
+
+    // iOS端
+    function setupWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            return callback(WebViewJavascriptBridge);
+        }
+        if (window.WVJBCallbacks) {
+            return window.WVJBCallbacks.push(callback);
+        }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function () {
+            document.documentElement.removeChild(WVJBIframe)
+        }, 0)
+    }
+
+    var u = navigator.userAgent;
+    if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+        connectWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'getUserTokenAndUUID',
+                '999999'
+                , function (responseData) {
+                    var responseData = JSON.parse(responseData);
+                    console.log(responseData);
+                    token = responseData.token;
+                    uid = responseData.uuid;
+                    dhjl(uid, token)
+                }
+            );
+        })
+    } else {
+        setupWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'getUserTokenAndUUID',
+                '999999'
+                , function (responseData) {
+                    token = responseData.token;
+                    uid = responseData.uuid;
+                    dhjl(uid, token);
+                }
+            );
+        })
+    }
+
+</script>
+</html>

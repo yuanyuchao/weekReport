@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../rem.js"></script>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<meta charset="utf-8">
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	html,body{
+		height: 100%;
+		width: 100%;
+	}
+	body{
+		background-color: #f9f9f9;
+		padding: 0.12rem 0;
+	}
+	.module{
+		margin-bottom: 0.24rem;
+	}
+	.head{
+		width: 100%;
+		height: 0.96rem;
+		box-sizing: border-box;
+		padding:0.32rem 0.24rem;
+		display: flex;
+		align-items: center;
+		background-color: #ffffff;
+		border-bottom: 1px solid #dedede;
+	}
+	.head span{
+		display: inline-block;
+		width: 0.3rem;
+		height: 0.3rem;
+		/*background-color: #333333;*/
+		background:url(../img/icon@2x.png) no-repeat 0 0;
+		background-size: contain;
+		margin-right: 0.24rem;
+	}
+	.head p{
+		display: inline-block;
+		height: 0.32rem;
+		font-size: 0.32rem;
+		line-height: 0.32rem;
+	}
+	.contentTop{
+		width: 100%;
+		height: 0.88rem;
+		box-sizing: border-box;
+		padding: 0.3rem 0.24rem;
+		display: flex;
+		align-items: center;
+		background-color: #ffffff;
+		border-bottom: 1px solid #dedede;
+	}
+	.contentTop p{
+		float: left;
+		width: 6.72rem;
+		height: 0.28rem;
+		font-size: 0.28rem;
+		line-height: 0.28rem;
+		font-family: 微软雅黑;
+
+	}
+	span{
+		float: right;
+		width: 0.3rem;
+		height: 0.17rem;
+		/*background-color: pink;*/
+		background: url(../img/arrow_normal@2x.png) no-repeat 0 0;
+		background-size: contain;
+	}
+	.pCheck{
+		color: #FF5E33;
+	}
+	.spanCheck{
+		/*background-color: yellow;*/
+		background: url(../img/arrow_click@2x.png) no-repeat 0 0;
+		background-size: contain;
+	}
+	.contentDown{
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0.32rem 0.24rem;
+		font-size: 0.28rem;
+		line-height: 0.44rem;
+		background-color: #ffffff;
+		display: none;
+		border-bottom: 1px solid #dedede;
+	}
+	table tr{
+		width: 100%;
+		height: 0.72rem;
+	}
+	table tr td{
+		text-align: center;
+	}
+</style>
+<head>
+	<title>帮助中心</title>
+</head>
+<body>
+	<div class="module">
+		<div class="head">
+			<span></span>
+			<p>注册登录：</p>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>1、注册/登陆收不到验证码怎么办？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）请先检查您的手机号码是否填写正确，手机信号是否正常，若您安装了拦截软件，有可能会被拦截，请关闭短信拦截设置；<br/>
+				2）由于短信运营商通道可能会出现阻塞，点击获取验证码后请耐心等待1-2分钟；<br/>
+				3）如长时间未收到验证码请联系客服：400-888-7140（9:00-20:00）。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>2、忘记登陆密码怎么办？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				在登陆页面输入注册的手机号码后，点击右下角忘记密码，按照页面提示完成操作。<br/>
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>3、忘记或修改交易密码如何操作？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				进入“我的”-“设置”-“密码管理”-“修改交易密码”进行修改。
+			</div>
+		</div>
+
+	</div>
+
+	
+
+
+	<div class="module">
+		<div class="head">
+			<span></span>
+			<p>存管开户：</p>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>1、什么是银行存管？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				“银行存管”是指出借人的资金由银行管理，负责资金的流转及存取；平台管理交易，做到资金与交易的分离，使得平台无法直接接触资金，保障出借人资金安全。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>2、为什么要开通银行存管？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				只有通过银行的开户确认后，注册用户才可以在一桶金进行出借、借款等业务操作。开通银行存管账户将极大程度的提升您充值、投标、提现的安全性。另外，未经您授权输入交易密码确认，任何人无法动用您的资金，尽最大可能保证了您的资金安全。			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>3、如何开通银行存管？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）填写身份证信息；<br/>
+				2）绑定银行卡（银行卡预留手机号必须与注册手机号保持一致）；<br/>
+				3）设置交易密码；<br/>
+				4）确认出借授权。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>4、老用户升级存管账户操作指南</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）若您当前注册的手机号已不再使用，请用新手机号码重新注册后，开通存管账户进行购买（开通银行存管后一个身份证号码只能绑定一个手机号）；<br/>
+				2）升级银行存管前，若账户内有在投金额的，到期后将原路返还至银行卡；升级银行存管后购买的资金，将通过江西银行回款至您的账户余额内，您需要自行提现至绑定的银行卡。
+			</div>
+		</div>
+
+	</div>
+
+
+	<div class="module">
+		<div class="head">
+			<span></span>
+			<p>充值交易：</p>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>1、充值需要收费吗？有次数限制吗？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）充值不收费；<br/>
+				2）次数不限；<br/>
+				3）每次充值最低金额为100元。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>2、为什么会充值失败？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）银行卡余额不足；<br/>
+				2）充值金额超过单笔限额或单日限额；<br/>
+				3）您绑定的银行卡不支持快捷充值，建议更换银行卡操作；
+			</div>
+		</div>
+	</div>
+	<div class="module">
+		<div class="head">
+			<span></span>
+			<p>回款提现：</p>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>1、产品到期，什么时候回款？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				产品于到期当天24点前回款至账户余额，如遇节假日则顺延至第一个工作日回款。<br/>
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>2、提现需要收费吗？有次数和额度的限制吗？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）充值后未出借的资金提现需收取提现金额0.3%的手续费；<br/>
+				2）出借后的资金免费提现，每次提现的最低金额为100元；<br/>
+				3）免费提现次数：3次/天（超过3次后每次收取2元手续费）。
+			</div>
+		</div>
+		<div class="content">
+			<div class="contentTop">
+				<p>3、提现什么时候到账？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				单日单笔提现金额≤5万时，当日到账。<br/>
+			</div>
+		</div>
+		<div class="content">
+			<div class="contentTop">
+				<p>4、为什么会提现失败？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）提现金额超过账户可用余额；<br/>
+				2）在提交提现申请后，直接关闭页面，未跳转至江西银行输入交易密码；
+			</div>
+		</div>
+	</div>
+	<div class="module">
+		<div class="head">
+			<span></span>
+			<p>银行卡：</p>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>1、银行卡绑定失败怎么办？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）银行卡信息填写错误：银行卡开户名必须与身份证保持一致<br/>
+				2）不支持绑定此银行卡；
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>2、如何解绑/换绑银行卡？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）进入“我的”-“设置”-“我的银行卡”页面，点击解绑；<br/>
+				2）当前账户余额为0且无出借资金时可取消绑定。<br/>
+			</div>
+		</div>
+		<div class="content">
+			<div class="contentTop">
+				<p>3、一个手机号可以绑定多少张银行卡？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				一个手机号只能绑定一张银行卡（储蓄卡），且该银行卡预留的手机号必须与注册手机号保持一致。<br/>
+			</div>
+		</div>
+		<div class="content">
+			<div class="contentTop">
+				<p>4、支持银行及限额</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				目前仅支持借记卡，不支持贷记卡，限额如下：
+				<table border="1" bordercolor="#eee" style="border-collapse:collapse;width: 100%;margin-top: 0.12rem;">
+					<tr>
+						<td>支持银行</td>
+						<td>单笔</td>
+						<td>单日</td>
+						<td>单月</td>
+					</tr>
+					<tr>
+						<td>工商银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>中国银行</td>
+						<td>5万</td>
+						<td>10万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>建设银行</td>
+						<td>5万</td>
+						<td>10万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>邮政储蓄银行</td>
+						<td>0.5万</td>
+						<td>0.5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>平安银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>光大银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>广发银行</td>
+						<td>10万</td>
+						<td>20万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>中信银行</td>
+						<td>0.1万</td>
+						<td>0.1万</td>
+						<td>0.2万</td>
+					</tr>
+					<tr>
+						<td>兴业银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>华夏银行</td>
+						<td>0.1万</td>
+						<td>0.5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>招商银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>浦发银行</td>
+						<td>10万</td>
+						<td>20万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>交通银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>上海银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+
+				</table>
+				注：农业，邮储和上海银行交易需要开通银联在线支付功能。
+			</div>
+		</div>
+	</div>
+	<div class="module">
+		<div class="head">
+			<span></span>
+			<p>营销活动：</p>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>1、活动奖励何时发放？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				活动奖励一般是在活动结束后的10个工作日内发放。不同的活动有不同的发放时间，详情请见活动页面。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>2、红包使用规则</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）红包是一桶金回馈给用户的福利，每个红包都设有相应的使用规则；<br/>
+				2）在出借时勾选满足条件的红包，红包不抵扣本金，不计算利益，到期后与本金一并回款；<br/>
+				3）红包一次只能使用一个，不可叠加使用。
+			</div>
+		</div>
+		<div class="content">
+			<div class="contentTop">
+				<p>3、如何获得红包？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				目前可以通过邀请好友、金豆兑换等方式获得红包，平台也会在不定时随机发放，敬请关注。<br/>
+			</div>
+		</div>
+		<div class="content">
+			<div class="contentTop">
+				<p>4、什么是尾单红包？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				尾单红包是指每个标的最后一个成功出借的用户，可获得10元现金红包。红包将在完成出借后的1个工作日内发放至账户余额，可在资金流水中查看。
+			</div>
+		</div>
+		<div class="content">
+			<div class="contentTop">
+				<p>5、什么是加息券？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				加息券是一桶金回馈给用户的福利，目前只有新手享有加息券，仅限购买新手标使用。
+			</div>
+		</div>
+		<div class="content">
+			<div class="contentTop">
+				<p>6、什么是金豆？如何使用？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				金豆是一桶金平台发放给活跃用户的奖励，是一桶金“金豆商城”的通用货币，在一桶金统称金豆。您可在“我的”-“金豆商城”页面中进行奖励兑换，更多奖励敬请期待。
+			</div>
+		</div>
+		<div class="content">
+			<div class="contentTop">
+				<p>7、如何获得金豆？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）每日签到领金豆；<br/>
+				2）成功完成出借可获得金豆；<br/>
+				3）用户每日首次分享活动可获得100金豆；<br/>
+				4）不定期赠送。
+			</div>
+		</div>
+	</div>
+
+
+</body>
+<script type="text/javascript">
+	$(function(){
+		$(".contentTop").click(function(){
+		  $(this).siblings() .toggle();
+		  $(this).children("p").toggleClass("pCheck");
+		  $(this).children("span").toggleClass("spanCheck");
+		  $(".contentTop").not($(this)).children().removeClass();
+		  $(".contentTop").not($(this)).siblings().css("display","none");
+		});
+	})
+</script>
+</html>

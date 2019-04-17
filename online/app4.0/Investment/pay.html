@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/rem.js"></script>
+<script src="../js/fastclick.js"></script>
+<script src="fuiouPay/js/fuyou.js"></script>
+<script src="fuiouPay/js/fuiouPay.js"></script>
+<script src="../../common.js"></script>
+<head>
+    <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
+    <title>支付</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
+    body{
+        background-color: #F9F9F9;
+    }
+    .payBox{
+        display: block;
+        font-size: 0.28rem;
+        color: #666666;
+        box-sizing: border-box;
+        padding: 0.3rem 0.24rem;
+        background-color: #ffffff;
+        margin-bottom: 0.14rem;
+        position: relative;
+    }
+    .payMoney{
+        font-size: 0.28rem;
+        color: #FF5E33;
+        margin-left: 0.28rem;
+    }
+    .payName,.payCode{
+        font-size: 0.28rem;
+        margin-left: 0.28rem;
+    }
+    .payBank,.payCard{
+        font-size: 0.28rem;
+        color: #43A0FC;
+        margin-left: 0.28rem;
+    }
+    .payNum{
+        width: 100%;
+        padding: 0.1rem 1.04rem 0.24rem 0.23rem;
+    }
+    .payNum p{
+        font-size: 0.26rem;
+        color: #999999;
+        line-height: 0.44rem;
+    }
+    .msgNum{
+        font-size: 0.28rem;
+        color: #999999;
+        outline: none;
+        margin-left: 0.3rem;
+        border:0;
+        -webkit-appearance: none;
+    }
+    input{
+        outline: none;
+        border:0;
+        -webkit-appearance: none;
+        tap-highlight-color:rgba(0,0,0,0);
+        -webkit-tap-highlight-color:rgba(0,0,0,0);
+    }
+    .numVali {
+        display: block;
+        font-size: 0.28rem;
+        color:#FF5E33 ;
+        position: absolute;
+        right: 0;
+        top:0;
+        font-size: 0.28rem;
+        text-align: center;
+        padding: 0.3rem 0.24rem;
+    }
+    .shade{
+        height: 100%;
+        width: 30%;
+        display: none;
+        position: absolute;
+        top:0;
+        right: 0;
+        z-index: 99;
+    }
+    .check{
+        height: 0.28rem;
+        font-size: 0.24rem;
+        font-family: 微软雅黑;
+        margin-top: 0.3rem;
+        margin-bottom: 0.4rem;
+        padding-left: 0.35rem;
+        display: flex;
+        -webkit-align-items: center;
+    }
+    .tick{
+        height: 0.28rem;
+        width: 0.28rem;
+        background:url(fuiouPay/img/nobingo.png) no-repeat 0 0;
+        background-size: contain;
+        float: left;
+        margin-right: 0.14rem;
+    }
+    .btn_oranbtn{
+        width:6.8rem;
+        height: 0.88rem;
+        margin: 0 auto;
+        font-size: 0.32rem;
+        color: #ffffff;
+        text-align: center;
+        line-height: 0.88rem;
+        background-color: #CACACA;
+        position: relative;
+    }
+    .shadow{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(255,255,255,0);
+        z-index: 10;
+        display: none;
+    }
+    .payBank img{
+        display: inline-block;
+        width:0.32rem;
+        height:0.32rem;
+    }
+    .yitongjin{
+        margin-left: 0.15rem;
+        color:#FF5E33;
+    }
+</style>
+
+<script type="text/javascript">
+    $(function(){
+        FastClick.attach(document.body);
+        var u = navigator.userAgent, app = navigator.appVersion;
+        var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+        var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        if(isAndroid){
+            //注册事件监听
+            setTimeout(function (){
+                function setupWebViewJavascriptBridge(callback) {
+                    if (window.WebViewJavascriptBridge) {
+                        callback(WebViewJavascriptBridge)
+                    }else{
+                        document.addEventListener(
+                            'WebViewJavascriptBridgeReady'
+                            , function() {
+                                callback(WebViewJavascriptBridge)
+                            },
+                            false
+                        );
+                    }
+                }
+                setupWebViewJavascriptBridge(function(bridge) {
+                    bridge.init(function(message, responseCallback) {
+                        var responseData = '默认接收收到来自Java的数据，回传数据给你';
+                        responseCallback(responseData);
+                    });
+                    bridge.callHandler('getUserTokenAndUUID',"",function(responseData) {
+                            var responseData = JSON.parse(responseData);
+                            console.log(responseData);
+                            token = responseData.token;
+                            uid = responseData.uuid;
+                            fuiouPayUrl = responseData.fuiouPayUrl;
+                            storageParams(token, uid, fuiouPayUrl);
+                        }
+                    );
+                })
+            },1000);
+
+        }
+
+
+
+        if(isiOS){
+            function setupWebViewJavascriptBridge(callback) {
+
+                if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+                if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+                window.WVJBCallbacks = [callback];
+                var WVJBIframe = document.createElement('iframe');
+                WVJBIframe.style.display = 'none';
+                WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                document.documentElement.appendChild(WVJBIframe);
+                setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+            }
+            setupWebViewJavascriptBridge(function(bridge) {
+                bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+                    token = response.token;
+                    uid = response.uuid;
+                    fuiouPayUrl = response.fuiouPayUrl;
+
+                    console.log(fuiouPayUrl);
+                    storageParams(token, uid, fuiouPayUrl);
+                })
+            });
+        }
+
+        $(".yitongjin").click(function(){
+            window.location.href = "https://mpay.fuiou.com:16128/newpay/payment.html";
+        })
+
+
+        var storageParams = function(token,uid,fuiouPayUrl){
+            localStorage.setItem("token",token);
+            localStorage.setItem("uid",uid);
+            QueryString.Initial(fuiouPayUrl);
+            pageDomInitial();
+            if(QueryString.GetValue('RESPONSECODE') != "" ){
+                location.href = "../../html/payError.html?RESPONSEMSG="+ QueryString.GetValue('RESPONSEMSG');
+            }
+        }
+
+        function pageDomInitial(){
+            issendmes = 0;
+            $('#amt').html(yuan2Fen(QueryString.GetValue('AMT')));//初始化金额
+            if(QueryString.GetValue('LOCALINPUTCARD')=="1"){
+                $("span[name='b_card']").text(QueryString.GetValue('BANKCARD'));//初始化卡号
+            }else{
+                $("span[name='b_card']").text(getMaskedStr(QueryString.GetValue('BANKCARD'),6,4));//初始化卡号
+            }
+            var custName = QueryString.GetValue('NAME'),custIdNo = QueryString.GetValue('IDNO');
+            if(!isBlank(custName) && QueryString.GetValue('LOCALINPUTCARD')!="1"){
+                $("span[name='b_name']").text(getMaskedStr(custName,1,0));//初始化姓名
+                $("span[name='b_name']").attr('readonly',true);
+            }else{
+                $("span[name='b_name']").text(custName);//初始化姓名
+            }
+            if(!isBlank(custIdNo) && QueryString.GetValue('LOCALINPUTCARD')!="1"){
+                $("span[name='b_idno']").text(getMaskedStr(custIdNo,8,4));//初始化身份证
+                $("span[name='b_idno']").attr('readonly',true);
+            }else{
+                $("span[name='b_idno']").text(custIdNo);//初始化身份证
+            }
+            var ret = getCardBin(QueryString.GetValue('BANKCARD'),QueryString.GetValue('MCHNTCD'));
+           // bank_logo_url = 'images/bank_logo/' + ret.InsCd.substring(3, 6) + '.png';
+            bank_logo_url = $.getConst('IMAGE_PUBLIC_URL')+'/images/bank_logo/' + ret.InsCd.substring(3, 6) + '.png';
+            $('#bank_logo').attr('src', bank_logo_url);
+            $('#bank_type').html('借记卡');
+            $('#bank_name').html(ret.Cnm);
+            console.log(bank_logo_url);
+            if(ret.InsCd == '0801040000'){
+                $('#agreement').html('同意<a href="payment.html">《支付服务协议》</a>及<a href="boc_agreement.html">《中国银行股份有限公司借记卡快捷支付服务协议》</a>');
+            }
+            else{
+                $('#agreement').html('同意<a href="payment.html">《支付服务协议》</a>');
+            }
+        }
+
+
+    });
+
+    function yzmClickOpr(){
+        //$("#getYzm").on("click",function() {
+        //$('.sj_concent').showLoading();
+        setParamVal();
+        var reqXml = createReqXml();
+        var ret = new Array(2);
+        $.ajax({
+            type : 'post',
+            url : $.getConst('INTERFACE_URL_YZM_CHECK'),
+            data : {FM : reqXml},
+            dataType : 'xml',
+            async : true,
+            success : function(data) {
+                //$('.sj_concent').hideLoading();
+                alert("loadingout");
+                console.log(data);
+                ret[0] = $(data).find('RESPONSECODE').text();
+                ret[1] = $(data).find('RESPONSEMSG').text();
+                console.log(ret[0] + "-------" +ret[1]);
+                if (ret[0] != '0000') {
+                    /*$('#error_msg').html("<img src='images/b_error.png' />"+ ret[1]);
+                    $(".sj_fixedbox").popfixed();*/
+                    alert(ret[1]);
+
+                    return false;
+                } else {
+                    QueryString.SetValue('SIGN',$(data).find('SIGN').text());
+                    QueryString.SetValue('SIGNPAY',$(data).find('SIGNPAY').text());
+                    QueryString.SetValue('TYPEID',$(data).find('TYPEID').text());
+                    issendmes = 1;
+
+                    $(".shade").css("display","block");
+                    $(".numVali").css("color","#333333");
+                    var time = 180;
+                    $(".numVali").text('('+ time +')秒后重发');
+                    var timer = setInterval(function(){
+                        time = time - 1;
+                        $(".numVali").text('('+ time +')秒后重发');
+                        if(time == 0){
+                            $(".numVali").css("color","#F77B67");
+                            $(".numVali").text("发送验证码");
+                            $(".shade").css("display","none");
+                            clearInterval(timer);
+                            return;
+                        }
+                    },1000);
+                }
+            },
+            error : function(data) {
+                /*$('.sj_concent').hideLoading();
+                $('#error_msg').html("<img src='images/b_error.png' />"+ "网络异常，请稍后重试");
+                $(".sj_fixedbox").popfixed();*/
+                return false;
+            }
+        });
+        //	});
+    }
+
+    function payClickOpr(){
+        //	$("button[name='paybtn']").bind('click',function(){
+        if(issendmes==0){
+            /*$('#error_msg').html("<img src='images/b_error.png' />" + '请点击获取验证码');
+            $(".sj_fixedbox").popfixed();*/
+            return false;
+        }
+        /*$("button[name='paybtn']").attr('disabled',true);
+        $("button[name='paybtn']").addClass('grey');
+        $('.sj_concent').showLoading();*/
+        QueryString.SetValue('VERCD',$("input[name='yzm']").val());
+        setParamVal();
+        var reqXml = createReqXml(),ret;
+        var reqUrl = $.getConst('INTERFACE_URL_PAY_NEW');
+        $.ajax({
+            type:'post',
+            url: reqUrl,
+            data:{FM:reqXml},
+            dataType:'xml',
+            async:true,
+            success:function(data){
+                alert("loadingout");
+                ret = {
+                    Rcd: $(data).find('RESPONSECODE').text(),
+                    RDesc: $(data).find('RESPONSEMSG').text()
+                };
+                //                $('.sj_concent').hideLoading();
+                QueryString.SetValue('RESPONSECODE',ret.Rcd);
+                QueryString.SetValue('RESPONSEMSG',ret.RDesc);
+                if (ret.Rcd=='8110' || ret.Rcd=='8143' || ret.Rcd=='8010') {
+                    /*$('#error_msg').html("<img src='images/b_error.png' />" + ret.RDesc);
+                    $(".sj_fixedbox").popfixed();
+                    $("button[name='paybtn']").attr('disabled',false);
+                    $("button[name='paybtn']").removeClass('grey');*/
+                    //location.href = "error.html?" + createUrlParam();
+                    console.log(ret.RDesc);
+                    alert(ret.RDesc);
+
+                }else{
+                    if (ret.Rcd !='0000') { //失败跳转界面
+
+                        location.href = "../../html/payError.html?RESPONSEMSG="+ QueryString.GetValue('RESPONSEMSG') ;
+                        console.log(createUrlParam());
+                    }else{ //成功调整界面\
+                        QueryString.SetValue('SIGN',$(data).find('SIGN').text());
+                        QueryString.SetValue('TYPEID',$(data).find('TYPEID').text());
+                        location.href = "../../html/paySuccess.html?" + createUrlParam();
+                    }
+                }
+            },
+            error:function(data){
+                alert("loadingout");
+                /*$('.sj_concent').hideLoading();
+                $('#error_msg').html("<img src='images/b_error.png' />" + "网络异常，请稍后重试");
+                $(".sj_fixedbox").popfixed();*/
+                return false;
+            }
+            //        });
+        });
+    }
+</script>
+<body>
+        <p class="payBox">
+            金额
+            <span class="payMoney" id="amt"></span>
+            元
+        </p>
+        <p class="payBox">
+            卡号
+            <span class="payCard" name="b_card">
+            </span>
+        </p>
+        <p class="payBox">
+            银行
+            <span class="payBank" name="b_bank">
+                <img src="" id="bank_logo">
+                <span id="bank_name"></span>
+                <span id="bank_type"></span>
+            </span>
+        </p>
+        <p class="payBox">
+            姓名
+            <span class="payName" name="b_name">
+            </span>
+        </p>
+        <p class="payBox">
+            身份证号
+            <span class="payCode" name="b_idno">
+            </span>
+        </p>
+        <div class="payBox">
+            手机号码
+            <input placeholder="请输入手机号码" class="msgNum phone" name="mobile" maxlength="11">
+        </div>
+        <!--<div class="payNum">
+            <p>
+                本次交易需进行短信确认，短信验证码将发送至您手机
+                <span class="phone">136****4161</span>
+            </p>
+        </div>-->
+        <div class="payBox">
+            验证码
+            <input placeholder="请输入短信验证码" class="msgNum meesageNum" name="yzm" maxlength="6">
+            <span class="numVali">获取验证码</span>
+            <div class="shade"></div>
+        </div>
+        <div class="check">
+            <div class="tick"></div>
+            同意<font class="yitongjin">《支付服务协议》</font>
+        </div>
+        <div class="btn_oranbtn" name="paybtn" >
+            <div class="shadow"></div>
+            确认支付
+        </div>
+</body>
+<script>
+    //数字验证码点击
+    /*$(".numVali").click(function() {
+        var phone = $("#phone").val();
+        if(!(/^1[3|4|5|6|7|8|9][0-9]\d{4,8}$/.test(phone))){
+            $(".inform").css("display","block");
+            $(".conform").text("手机号码格式不正确");
+            return;
+        }
+        $(".shade").css("display", "block");
+        $(".numVali").css("color", "#333333");
+        var time = 60;
+        $(".numVali").text('(' + time + ')秒后重发');
+        var timer = setInterval(function () {
+            time = time - 1;
+
+
+            $(".numVali").text('(' + time + ')秒后重发');
+            if (time == 0) {
+                $(".numVali").css("color", "#F77B67");
+                $(".numVali").text("发送验证码");
+                $(".shade").css("display", "none");
+                clearInterval(timer);
+                return;
+            }
+        }, 1000);
+    })*/
+
+    //获取验证码
+    $(".numVali").click(function(){
+        var phone = $(".phone").val();
+
+        if(!(/^1[3|4|5|6|7|8|9][0-9]\d{8}$/.test(phone))){
+            isClick = false;
+            alert("手机号码格式错误");
+            return false;
+        }
+        alert("loading");
+        yzmClickOpr();
+    })
+
+    //协议选择
+    var flag = 0;
+    $(".tick").click(function(){
+        if(flag == 0){
+            $(this).css("background-image","url(fuiouPay/img/bingo.png)");
+            flag = 1;
+            if($(".phone").val() != "" && $(".meesageNum").val() != "" ){
+                $(".btn_oranbtn").css("background-color","#FF5E33");
+                $(".shadow").css("display","block");
+            }
+        }else if(flag == 1){
+            $(this).css("background-image","url(fuiouPay/img/nobingo.png)");
+            flag = 0;
+            $(".btn_oranbtn").css("background-color","#CACACA");
+            $(".shadow").css("display","none");
+        }
+    })
+    $("input").on("blur",function(){
+        if($(".phone").val() != "" && $(".meesageNum").val() != "" && flag == 1){
+            $(".btn_oranbtn").css("background-color","#FF5E33");
+            $(".shadow").css("display","none");
+        }else{
+            $(".shadow").css("display","block");
+            $(".btn_oranbtn").css("background-color","#CACACA");
+        }
+    })
+
+        var isClick = false;
+        $(".btn_oranbtn").on("click",function(){
+            /*$(".shadow").css("display","block");*/
+            if(isClick == true) return;
+            isClick = true;
+            var phone = $(".phone").val();
+
+            if(!(/^1[3|4|5|6|7|8|9][0-9]\d{8}$/.test(phone))){
+                isClick = false;
+                alert("手机号码格式错误");
+                return false;
+            }
+            alert("loading");
+            $.ajax({
+
+                type: 'POST',
+                url: url + "/borrow/canBePay/auth",
+                headers:{"uid":localStorage.getItem("uid"),"token":localStorage.getItem("token")},
+                data:{"orderId":QueryString.GetValue('MCHNTORDERID')},
+                success:function(data){
+
+                    /*$(".shadow").css("display","none");*/
+                    //返回json结果
+                    isClick = false;
+                    if(data.code == 200){
+                        payClickOpr();
+                    }else{
+                        alert("loadingout");
+                        alert(data.msg);
+                    }
+                },
+                error:function(){
+                   // alert("验证码发送错误")
+                }
+            })
+
+        })
+
+
+</script>
+</html>

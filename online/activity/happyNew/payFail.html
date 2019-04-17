@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../rem.js"></script>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<script type="text/javascript" src="../fastclick.js"></script>
+<meta charset="utf-8">
+<head>
+	<title>投资</title>
+</head>
+<style type="text/css">
+	html,body,div,p,span,img{
+		margin:0;
+		padding:0;
+	}
+	html,body{
+		width: 100%;
+		height: 100%;
+	}
+	body{
+		margin: 0 auto;
+	}
+	.logo{
+		display: block;
+		width: 0.96rem;
+		height: 0.96rem;
+		background: url(img/fail@2x.png) no-repeat 0 0;
+		background-size: cover;
+		margin:0.6rem auto 0.4rem;
+	}
+	.success{
+		width: 100%;
+		height: 0.32rem;
+		line-height: 0.32rem;
+		font-size: 0.32rem;
+		font-family: 微软雅黑;
+		text-align: center;
+		margin-bottom: 1.6rem;
+	}
+	.nowDate{
+		width: 100%;
+		height: 0.4rem;
+		box-sizing: border-box;
+		padding-left: 1.88rem;
+		font-size: 0.28rem;
+		color: #999999;
+		line-height: 0.4rem;
+		margin-bottom: 0.25rem;
+	}
+	.now,.other{
+		display: inline-block;
+		width: 1.4rem;
+		height: 0.4rem;
+		font-size: 0.24rem;
+		font-family: 微软雅黑;
+		background-color: #FFB169;
+		border-radius: 20px;
+		text-align: center;
+		line-height: 0.4rem;
+		color: white;
+		margin-right: 0.25rem;
+	}
+	.jump{
+		width: 100%;
+		height: 80px;
+		box-sizing: border-box;
+		padding:0 0.36rem;
+	}
+	.qita,.zican{
+		display: inline-block;
+		width: 3.18rem;
+		height: 0.78rem;
+		font-size: 0.32rem;
+		font-family: 微软雅黑;
+		text-align: center;
+		line-height: 0.8rem;
+		border-radius: 6px;
+	}
+	.qita{
+		color: #999999;
+		border:0.01rem solid #999999;
+	}
+	.zican{
+		width: 3.2rem;
+		height: 0.8rem;
+		background-color: #FF5E33;
+		color:  white;
+	}
+</style>
+<body>
+	<div class="logo"></div>
+	<p class="success">很抱歉, <span class="msg"></span></p>
+	<div class="jump">
+		<div class="qita">查看其他产品</div>
+		<div class="zican">重新投资</div>
+	</div>
+</body>
+<script type="text/javascript">
+	$(function(){
+		FastClick.attach(document.body);
+		
+		//获取key值
+		function getRequest(strParame) {
+	        var args = new Object();
+	        var query = location.search.substring(1);
+
+	        var pairs = query.split("&"); // Break at ampersand
+	        for (var i = 0; i < pairs.length; i++) {
+	            var pos = pairs[i].indexOf('=');
+	            if (pos == -1) continue;
+	            var argname = pairs[i].substring(0, pos);
+	            var value = pairs[i].substring(pos + 1);
+	            value = decodeURIComponent(value);
+	            args[argname] = value;
+	        }
+	        return args[strParame];
+	    }
+	    $(".msg").text(getRequest("responseMsg"));
+	    $(".qita").click(function(){
+	    	window.location.href = "${weburl}/borrow/search.html?app_page=product_list";
+	    })
+	    $(".zican").click(function(){
+	    	window.location.href = "${weburl}/myhome/index.html?app_page=acc";
+	    })
+	})
+</script>
+</html>

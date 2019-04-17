@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!--<link rel="stylesheet" href="../css/headerAndFooter.css">-->
+</head>
+<body>
+<div id="header">
+
+</div>
+</body>
+<script src="../js/jquery.min.js"></script>
+<script>
+    var a = 'abfdfsbs';
+    var b = a.indexOf('ba');
+    console.log(b);
+    if(a.includes('bs')){
+        console.log(6)
+    }
+
+    ;(function(){
+        var startTime = Math.ceil(new Date().getTime()/1000); //单位秒
+            console.log(startTime)
+            getDuration = function(){
+                var endTime = Math.ceil(new Date().getTime()/1000),
+                    duration = endTime - startTime;
+
+                hours = Math.floor(duration/3600); //停留小时数
+                minutes = Math.floor(duration%3600/60); //停留分钟数
+                seconds = Math.floor(duration%3600%60); //停留秒数
+
+                time = (hours < 10 ? '0' + hours : hours) + ':' + (minutes < 10 ? '0' + minutes : minutes) + ':' + (seconds < 10 ? '0' + seconds : seconds);
+
+                return time;
+            };
+
+
+        window.onbeforeunload = function(){
+            var duration = getDuration();
+            console.log(duration);
+            return
+            //request(duration);
+        };
+    })();
+</script>
+</html>

@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>关于金豆</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            padding-top: 0.11rem;
+            background-color: #f9f9f9;
+        }
+        .same {
+            padding: 0.48rem 0.25rem 0.47rem 0.27rem;
+            background-color: #fff;
+        }
+        .same>p:nth-of-type(1) {
+            display: flex;
+            align-items: center;
+            font-size: 0.28rem;
+            color: #666666;
+            margin-bottom: 0.41rem;
+        }
+        .same>p:nth-of-type(1)>img {
+            margin-right: 0.19rem;
+            width: 0.3rem;
+            height: 0.3rem;
+        }
+        .same>p:nth-of-type(2) {
+            font-size: 0.28rem;
+            color: #666666;
+            margin-bottom: 0.29rem;
+        }
+        .do {
+            margin: 0.24rem 0;
+        }
+        .get {
+            font-size: 0.28rem;
+            color: #666666;
+        }
+        .get>p:nth-of-type(3) {
+            line-height: 0.44rem;
+        }
+       .get>p:nth-of-type(4) {
+           margin-top: 0.4rem;
+           background-color:#CACACA;
+           color: #ffffff;
+           padding: 0.22rem 0;
+       }
+        .get>p:nth-of-type(4)>span,.get>p:nth-of-type(5)>span {
+            display: inline-block;
+            text-align: center;
+            width: 49%;
+        }
+        .get>p:nth-of-type(4)>span:nth-of-type(1){
+            border-right: 0.01rem solid #ffffff;
+        }
+        .jdqd>li {
+            padding: 0.22rem 0;
+        }
+        .jdqd>li:nth-of-type(2n) {
+            background-color: #f9f9f9;
+        }
+        .jdqd>li>p {
+            display: inline-block;
+            text-align: center;
+            width: 49%;
+        }
+        .get>p:nth-of-type(6){
+            padding: 0.29rem 0;
+        }
+        .get>p:nth-of-type(7) {
+            padding-bottom: 0.3rem;
+        }
+        .get>p:nth-of-type(5) {
+            margin-top: 0.4rem;
+        }
+        .get>p:nth-of-type(6)>span {
+            color: #FF5E33;
+        }
+        .fse {
+            margin-bottom: 0.4rem;
+        }
+        .fse>p:nth-of-type(1) {
+            margin-bottom: 0.29rem;
+        }
+        .fss {
+            margin: 0.4rem 0 0.3rem 0px;
+        }
+        .get>p:last-of-type {
+            padding-bottom: 1rem;
+        }
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="what same">
+        <p><img src="../img/icon.png" alt="">金豆是什么？</p>
+        <p>金豆是一桶金平台发放给活跃用户的奖励，是一桶金“金豆商城”的通用货币，在一桶金平台统称金豆。</p>
+    </div>
+    <div class="do same">
+        <p><img src="../img/icon.png" alt="">金豆有什么用？</p>
+        <p>用户可使用金豆在一桶金“金豆商城”中兑换或抽取各类惊喜福利（如出借红包、加息券、实物奖励等）。</p>
+    </div>
+    <div class="get same">
+        <p><img src="../img/icon.png" alt="">金豆如何获取？</p>
+        <p>方式一、每日签到领金豆
+        </p>
+        <p>用户登录金豆商城首页进行签到，即可获得每日签到金豆奖励。连续签到天数仅限当月有效，次月重新开始，上月获得的金豆不清零（如果中断签到，则从10金豆开始增加）。</p>
+        <p><span>月连续签到天数</span><span>月签到金豆奖励</span></p>
+        <ul class="jdqd">
+            <li><p>第1天</p><p>+10金豆</p></li>
+            <li><p>第2天</p><p>+20金豆</p></li>
+            <li><p>第3天</p><p>+30金豆</p></li>
+            <li><p>第4天</p><p>+40金豆</p></li>
+            <li><p>第5天</p><p>+50金豆</p></li>
+            <li><p>5天以上</p><p>+50金豆</p></li>
+        </ul>
+        <p>方式二、出借送金豆</p>
+        <p>用户在一桶金出借购买产品，即可按比例获得金豆。<span>金豆数量=出借本金*标的天数/365天</span>，计算结果四舍五入取整；</p>
+        <div class="fse">
+            <p>例1：10000元 * 7天 / 365天 = 192金豆</p>
+            <p>例2： 10000元 * 30天 / 365天 = 822金豆</p>
+        </div>
+
+        <p>方式三、分享活动得金豆
+        </p>
+        <p>用户每日通过APP首次分享正在进行中的活动，即可获得100金豆奖励。</p>
+        <p class="fss">方式四、不定期送金豆
+        </p>
+        <p>平台将会不定期推出金豆赠送活动，请及时关注！</p>
+    </div>
+</div>
+
+</body>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/rem.js"></script>
+<script src="../../js/fastclick.js"></script>
+
+</html>

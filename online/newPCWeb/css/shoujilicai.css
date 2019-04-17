@@ -1,0 +1,38 @@
+.content {
+    background-color: #F9F9F9;
+}
+.banner {
+    width: 1920px;
+    height: 700px;
+    background: url("../img/shoujilicai/bg-g.png") no-repeat;
+    background-size: cover;
+}
+.banner ul {
+    margin-left: 30px;
+}
+.banner ul li:nth-of-type(1) {
+    margin-bottom: 26px;
+}
+.top {
+    padding: 45px 196px;
+    margin-bottom: 5px;
+    background-color: #fff;
+}
+.content-item p {
+    margin: 0 auto;
+    width: 187px;
+    font-size: 14px;
+    color: #4D4D4D;
+}
+.content-item {
+    padding: 34px 0 138px 0;
+    background-color: #fff;
+
+}
+.erweima {
+    padding-top: 319px;
+    padding-left: 430px;
+}
+.banner ul img:nth-of-type(1) {
+    padding-top: 5px;
+}

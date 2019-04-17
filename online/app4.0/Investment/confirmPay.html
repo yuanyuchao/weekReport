@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script src="../js/jquery.min.js"></script>
+<script src="../js/rem.js"></script>
+<script src="../js/fastclick.js"></script>
+<script src="fuiouPay/js/fuyou.js"></script>
+<script src="fuiouPay/js/fuiouPay.js"></script>
+<script src="../../common.js"></script>
+<head>
+    <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
+    <title>支付</title>
+</head>
+<style>
+    *{
+        margin: 0;
+        padding: 0;
+    }
+    html,body{
+        width: 100%;
+        height: 100%;
+    }
+    body{
+        background-color: #F9F9F9;
+    }
+    .payBox{
+        display: block;
+        font-size: 0.28rem;
+        color: #666666;
+        box-sizing: border-box;
+        padding: 0.3rem 0.24rem;
+        background-color: #ffffff;
+        margin-bottom: 0.14rem;
+        position: relative;
+    }
+    .payMoney{
+        font-size: 0.28rem;
+        color: #FF5E33;
+        margin-left: 0.28rem;
+    }
+    .payName,.payCode{
+        font-size: 0.28rem;
+        margin-left: 0.28rem;
+    }
+    .payBank,.payCard{
+        font-size: 0.28rem;
+        color: #43A0FC;
+        margin-left: 0.28rem;
+    }
+    .payNum{
+        width: 100%;
+        padding: 0.1rem 1.04rem 0.24rem 0.23rem;
+    }
+    .payNum p{
+        font-size: 0.26rem;
+        color: #999999;
+        line-height: 0.44rem;
+    }
+    .msgNum{
+        font-size: 0.28rem;
+        color: #999999;
+        outline: none;
+        margin-left: 0.3rem;
+        border:0;
+        -webkit-appearance: none;
+    }
+    input{
+        outline: none;
+        border:0;
+        -webkit-appearance: none;
+        tap-highlight-color:rgba(0,0,0,0);
+        -webkit-tap-highlight-color:rgba(0,0,0,0);
+    }
+    .numVali {
+        display: block;
+        font-size: 0.28rem;
+        color:#FF5E33 ;
+        position: absolute;
+        right: 0;
+        top:0;
+        font-size: 0.28rem;
+        text-align: center;
+        padding: 0.3rem 0.24rem;
+    }
+    .shade{
+        height: 100%;
+        width: 30%;
+        display: none;
+        position: absolute;
+        top:0;
+        right: 0;
+        z-index: 99;
+    }
+    .check{
+        height: 0.28rem;
+        font-size: 0.24rem;
+        font-family: 微软雅黑;
+        margin-top: 0.3rem;
+        margin-bottom: 0.4rem;
+        padding-left: 0.35rem;
+        display: flex;
+        -webkit-align-items: center;
+    }
+    .tick{
+        height: 0.28rem;
+        width: 0.28rem;
+        background:url(fuiouPay/img/nobingo.png) no-repeat 0 0;
+        background-size: contain;
+        float: left;
+        margin-right: 0.14rem;
+    }
+    .btn_oranbtn{
+        width:6.8rem;
+        height: 0.88rem;
+        margin: 0 auto;
+        font-size: 0.32rem;
+        color: #ffffff;
+        text-align: center;
+        line-height: 0.88rem;
+        background-color: #CACACA;
+        position: relative;
+    }
+    .shadow{
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        left: 0;
+        background-color: rgba(255,255,255,0);
+        z-index: 10;
+        display: none;
+    }
+    .payBank img{
+        display: inline-block;
+        width:0.32rem;
+        height:0.32rem;
+    }
+    .yitongjin{
+        margin-left: 0.15rem;
+        color:#FF5E33;
+    }
+</style>
+<body>
+<p class="payBox">
+    金额
+    <span class="payMoney" id="amt"></span>
+    元
+</p>
+<p class="payBox">
+    卡号
+    <span class="payCard" name="b_card">
+            </span>
+</p>
+<p class="payBox">
+    银行
+    <span class="payBank" name="b_bank">
+                <img src="" id="bank_logo">
+                <span id="bank_name"></span>
+                <span id="bank_type"></span>
+            </span>
+</p>
+<div class="payBox">
+    手机号码
+    <!--<input placeholder="请输入手机号码" class="msgNum phone" name="mobile" maxlength="11">-->
+    <span style="margin-left: 0.3rem;" class="phone"></span>
+</div>
+
+<div class="payBox">
+    验证码
+    <input  type="text" placeholder="请输入短信验证码" class="msgNum meesageNum" name="yzm" maxlength="6" id="code">
+    <span class="numVali">获取验证码</span>
+    <div class="shade"></div>
+</div>
+<div class="check">
+    <div class="tick"></div>
+    同意<font class="yitongjin">《支付服务协议》</font>
+</div>
+<div class="btn_oranbtn" name="paybtn" >
+    <div class="shadow"></div>
+    确认支付
+</div>
+</body>
+<script>
+    // 安卓端
+    function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function () {
+                    callback(WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+    }
+    // iOS端
+    function setupWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            return callback(WebViewJavascriptBridge);
+        }
+        if (window.WVJBCallbacks) {
+            return window.WVJBCallbacks.push(callback);
+        }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function () {
+            document.documentElement.removeChild(WVJBIframe)
+        }, 0)
+    }
+
+    var u = navigator.userAgent;
+    if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+        connectWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'getUserTokenAndUUID',
+                '999999'
+                , function (responseData) {
+                    var responseData = JSON.parse(responseData);
+                    console.log(responseData);
+                    version = responseData.version;
+                    token = responseData.token;
+                    uid = responseData.uuid;
+                    channel = responseData.channel;
+                    borrowId = parseInt(responseData.borrowId);
+                    sendCode();
+                }
+            );
+        })
+    } else {
+        setupWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'getUserTokenAndUUID',
+                '999999'
+                , function (responseData) {
+                    version = responseData.version;
+                    token = responseData.token;
+                    uid = responseData.uuid;
+                    channel = responseData.channel;
+                    borrowId = parseInt(responseData.borrowId);
+                    sendCode();
+                }
+            );
+        })
+    }
+    $('.yitongjin').on('click',function () {
+        window.location.href = "https://mpay.fuiou.com:16128/newpay/payment.html";
+    })
+
+    var amt = document.URL.split('?')[1].split('&')[0].split('=')[1];
+    var hbid = document.URL.split('?')[1].split('&')[1].split('=')[1];
+    var shortCard = document.URL.split('?')[1].split('&')[2].split('=')[1];
+    var bankCardName = document.URL.split('?')[1].split('&')[3].split('=')[1];
+    var bankCardName = decodeURI(bankCardName);
+    var phone = document.URL.split('?')[1].split('&')[4].split('=')[1];
+    var borrowId = document.URL.split('?')[1].split('&')[5].split('=')[1];
+    var channel = document.URL.split('?')[1].split('&')[6].split('=')[1];
+    var version = document.URL.split('?')[1].split('&')[7].split('=')[1];
+    $('#amt').html(amt);
+    $('.payCard').html(shortCard);
+    $('.payBank').html(bankCardName);
+    $('.phone').html(phone);
+
+//短信发送 倒计时
+//     function countDowm() {
+//         var index = 60;
+//         var timer = null;
+//         clearInterval(timer);
+//         timer = setInterval(function () {
+//             index--;
+//             $('.numVali').html('已发送（'+index+'）');
+//             $('.numVali').css('pointer-events','none');
+//             if(index == 0){
+//                 clearInterval(timer);
+//                 $('.numVali').html('重新发送');
+//                 $('.numVali').css('pointer-events','auto');
+//                 index = 60;
+//             }
+//         },1000)
+//     }g
+
+    function countDowm(){
+        $(".shade").css("display","block");
+        $(".numVali").css("color","#333333");
+        var time = 60;
+        $(".numVali").text('('+ time +')秒后重发');
+        var timer = setInterval(function(){
+            time = time - 1;
+            $(".numVali").text('('+ time +')秒后重发');
+            if(time == 0){
+                $(".numVali").css("color","#F77B67");
+                $(".numVali").text("发送验证码");
+                $(".shade").css("display","none");
+                clearInterval(timer);
+                return;
+            }
+        },1000);
+    }
+//请求验证码
+
+    $('.numVali').on('click',function () {
+        sendCode();
+    })
+    function sendCode() {
+        $.ajax({
+            type: 'POST',
+            url: url + "/user/sendFuiouCode/auth",
+            headers: {"uid": uid, "token":token},
+            // data:{"telphone":phone,"password":cipher,"code":numVeri,"channel":"anzhuo"},
+            success:function(data){ //返回json结果
+                if(data.code == 200){
+                    countDowm();
+                }else{
+                    if(data.msg.length!=0){
+                        alert(data.msg)
+                    }
+
+                }
+            },
+            error:function(){
+
+            }
+        });
+    }
+    //协议选择
+    var flag = 0;
+    $(".tick").click(function(){
+        if(flag == 0){
+            $(this).css("background-image","url(fuiouPay/img/bingo.png)");
+            flag = 1;
+        }else if(flag == 1){
+            $(this).css("background-image","url(fuiouPay/img/nobingo.png)");
+            flag = 0;
+        }
+    });
+
+
+    $('.msgNum').on('blur',function () {
+        var value = $('.msgNum').val();
+        if(value.length==6){
+            $('.btn_oranbtn').css('background-color','#FF5E33');
+        }
+    })
+    var isClick = false;
+    $('.btn_oranbtn').on('click',function () {
+        var value = $('.msgNum').val();
+        if(value.length!=6){
+            alert('验证码格式有误');
+            return;
+        }
+        if(flag!=1){
+            alert('请同意支付服务协议');
+            return
+        };
+        if(isClick == true) return;//验证码和协议都正确后再控制用户只能点击一次
+        isClick = true;
+        //是否有人同时在购买
+        $.ajax({
+            type:"post",
+            url:url + "/borrow/agree/canBePay/auth ",
+            headers: {"uid": uid, "token": token},
+            data:{"borrowId":borrowId,"amt":amt},
+            success:function (data) {
+                isClick = false;
+                alert("loadingout");
+                if(data.code==200){
+                    var code = $("#code").val();
+                    var p = {
+                        borrowId: borrowId,
+                        amt:amt,
+                        channel: channel,
+                        imei: "im",
+                        hbid: hbid,
+                        version: version,
+                        code:code,
+                    }
+                    createOrder(p)
+                }else if(data.code==400){
+                    if(data.msg.length!=0){
+                        alert(data.msg);
+                    }
+                }
+            },
+            error: function () {
+                alert("loadingout");
+                isClick = false;
+            }
+        })
+
+    })
+
+
+
+
+var createOrder = function (p) {
+    alert("loading");
+
+    $.ajax({
+        type: 'POST',
+        url: url + "/borrow/agree/postFuiouPay/auth",
+        headers: {"uid": uid, "token": token},
+        data: p,
+        success: function (data) {
+            alert("loadingout");
+            isClick = false;
+            if (data.code == 200) {
+                var datas = data.data;
+                var borrowName = encodeURI(datas.borrowName);
+                window.location.href = 'https://www.etongjin.net/html/fyPaySuccess.html?amt='+datas.amt+'&ytjApr='+datas.apr+'&ytjTimeLimitDay='+datas.timeLimitDay+'&ytjName='+borrowName+'';
+                return;
+            }
+            if (data.code == 400) {
+                if(data.msg.length!=0) {
+                    alert(data.msg);
+                }
+                return;
+            }else {
+                if(data.msg.length!=0) {
+                    alert(data.msg);
+                }
+            }
+
+            /*erroMsg = data.code.split(":");
+            alert(erroMsg.length==2?erroMsg[1]:"系统维护中,稍等购买...");*/
+        },
+        error: function () {
+            alert("loadingout");
+            isClick = false;
+        }
+    })
+};
+
+
+</script>
+</html>

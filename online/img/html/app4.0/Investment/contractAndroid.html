@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../js/rem.js"></script>
+<link rel="stylesheet" type="text/css" href="contract.css">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<meta charset="utf-8">
+<style type="text/css">
+	p{margin-bottom:0.2rem;}
+	h5,h6{
+		display: block;
+		width: 100%;
+		font-family: DFKai-SB;
+		margin-bottom: 0.2rem;
+	}
+	h5{
+		font-size: 0.44rem;
+	}
+	h6{
+		font-size: 0.32rem;
+	}
+	.moban{
+		border-bottom: 1px solid black;
+		padding: 0 0.15rem;
+	}
+</style>
+<script type="text/javascript">
+	
+	function convertCurrency(money) {
+	  //汉字的数字
+	  var cnNums = new Array('零', '壹', '贰', '叁', '肆', '伍', '陆', '柒', '捌', '玖');
+	  //基本单位
+	  var cnIntRadice = new Array('', '拾', '佰', '仟');
+	  //对应整数部分扩展单位
+	  var cnIntUnits = new Array('', '万', '亿', '兆');
+	  //对应小数部分单位
+	  var cnDecUnits = new Array('角', '分', '毫', '厘');
+	  //整数金额时后面跟的字符
+	  //var cnInteger = '整';
+	  var cnInteger = '';
+	  //整型完以后的单位
+	  //var cnIntLast = '元';
+	  var cnIntLast = '';
+	  //最大处理的数字
+	  var maxNum = 999999999999999.9999;
+	  //金额整数部分
+	  var integerNum;
+	  //金额小数部分
+	  var decimalNum;
+	  //输出的中文金额字符串
+	  var chineseStr = '';
+	  //分离金额后用的数组，预定义
+	  var parts;
+	  if (money == '') { return ''; }
+	  money = parseFloat(money);
+	  if (money >= maxNum) {
+	    //超出最大处理数字
+	    return '';
+	  }
+	  if (money == 0) {
+	    chineseStr = cnNums[0] + cnIntLast + cnInteger;
+	    return chineseStr;
+	  }
+	  //转换为字符串
+	  money = money.toString();
+	  if (money.indexOf('.') == -1) {
+	    integerNum = money;
+	    decimalNum = '';
+	  } else {
+	    parts = money.split('.');
+	    integerNum = parts[0];
+	    decimalNum = parts[1].substr(0, 4);
+	  }
+	  //获取整型部分转换
+	  if (parseInt(integerNum, 10) > 0) {
+	    var zeroCount = 0;
+	    var IntLen = integerNum.length;
+	    for (var i = 0; i < IntLen; i++) {
+	      var n = integerNum.substr(i, 1);
+	      var p = IntLen - i - 1;
+	      var q = p / 4;
+	      var m = p % 4;
+	      if (n == '0') {
+	        zeroCount++;
+	      } else {
+	        if (zeroCount > 0) {
+	          chineseStr += cnNums[0];
+	        }
+	        //归零
+	        zeroCount = 0;
+	        chineseStr += cnNums[parseInt(n)] + cnIntRadice[m];
+	      }
+	      if (m == 0 && zeroCount < 4) {
+	        chineseStr += cnIntUnits[q];
+	      }
+	    }
+	    chineseStr += cnIntLast;
+	  }
+	  //小数部分
+	  if (decimalNum != '') {
+	    var decLen = decimalNum.length;
+	    for (var i = 0; i < decLen; i++) {
+	      var n = decimalNum.substr(i, 1);
+	      if (n != '0') {
+	        chineseStr += cnNums[Number(n)] + cnDecUnits[i];
+	      }
+	    }
+	  }
+	  if (chineseStr == '') {
+	    chineseStr += cnNums[0] + cnIntLast + cnInteger;
+	  } else if (decimalNum == '') {
+	    chineseStr += cnInteger;
+	  }
+	  return chineseStr;
+	}
+
+	console.log(convertCurrency(50000));
+
+
+	$(function(){
+
+		var u = navigator.userAgent, app = navigator.appVersion;   
+		var isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器   
+		var isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端   
+
+
+
+   		
+   		if(isAndroid){
+		    //注册事件监听
+	        function setupWebViewJavascriptBridge(callback) {
+
+	            if (window.WebViewJavascriptBridge) {
+	                callback(WebViewJavascriptBridge)
+	            }else{
+	                document.addEventListener(
+	                    'WebViewJavascriptBridgeReady'
+	                    , function() {
+	                        callback(WebViewJavascriptBridge)
+	                    },
+	                    false
+	                );
+	            }
+	        }
+
+	        setupWebViewJavascriptBridge(function(bridge) {
+	               bridge.init(function(message, responseCallback) {
+	                   var responseData = '默认接收收到来自Java的数据，回传数据给你';
+	                   responseCallback(responseData);
+	               });
+
+	              
+	               bridge.callHandler('getUserTokenAndUUID',"123456",function(responseData) {
+	                    console.log(responseData);
+	                    var responseData = JSON.parse(responseData);
+	                    token = responseData.token;
+	                    uid = responseData.uuid;
+	                    channel = responseData.channel;
+	                    borrowId = parseInt(responseData.borrowId);
+	                    investmentId = parseInt(responseData.investmentId);
+	                    getHt(token,uid,investmentId);
+	               });
+	          });
+
+
+		}
+		/*if(isiOS){
+			function setupWebViewJavascriptBridge(callback) {
+
+		    if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+		    if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+		    window.WVJBCallbacks = [callback];
+		    var WVJBIframe = document.createElement('iframe');
+		    WVJBIframe.style.display = 'none';
+		    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+		    document.documentElement.appendChild(WVJBIframe);
+		    setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+		    }
+		    setupWebViewJavascriptBridge(function(bridge) {		                             
+			    bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+
+			    	
+			    	token = response.token;
+			    	uid = response.uuid;
+			    	channel = response.channel;
+			    	borrowId = parseInt(response.borrowId);
+			    	investmentId = parseInt(response.investmentId);
+			    	console.log(token,uid,channel,borrowId);
+			    	console.log(12334);
+			    	getHt(token,uid,investmentId);
+			    })   
+			});
+		}*/
+
+
+
+		$("<span>&#12288;&#12288;</span>").insertAfter($("br"));
+		$("h5,h6").css("textIndent","0.55rem");
+		$("p").css("textIndent","0.6rem");
+		var getHt = function(token,uid,investmentId){
+			$.ajax({
+				type: 'POST',
+				url: "https://www.etongjin.net/borrow/showtzHt/auth" ,
+				headers:{"token":token,"uid":uid},
+				data:{"borrowId":borrowId,"buyAmt":localStorage.getItem("buyamt")},
+				success:function(data){
+					if(data.code == 200){
+						console.log(data.data);
+						var data = data.data;
+						$(".bianhao").text(data.contract);
+						if(data.jrealname == null){
+							data.jrealname = "";
+						}
+						
+						$(".lixi").text(data.interest);
+						$(".yifang").text(data.buyAmt);
+						$(".jrealname").text(data.jrealname);
+						$(".jphone").text(data.jphone);
+						$(".trealname").text(data.trealname);
+						$(".tusername").text(data.tusername);
+						$(".tcard").text(data.tcard);
+						$(".tphone").text(data.tphone);
+						$(".account").text(data.account);
+						$(".bigMoney").text(convertCurrency(data.account));
+						$(".limitDay").text(data.limitDay);
+						$(".loanUage").text(data.loanUage);
+						$(".apr").text(data.apr);
+						$(".jkYear").text(data.qxr.split("-")[0]);
+						$(".jkMonth").text(data.qxr.split("-")[1]);
+						$(".jkDay").text(data.qxr.split("-")[2]);
+						$(".jkEndyear").text(data.dqr.split("-")[0]);
+						$(".jkEndmonth").text(data.dqr.split("-")[1]);
+						$(".jkEndday").text(data.dqr.split("-")[2]);
+					}
+				}
+			})
+		}
+	})
+</script>
+<head>
+	<title>借款协议</title>
+</head>
+<body>
+	<div>
+		<p style="text-align: right;">合同编号：<span class="moban bianhao"></span></p>
+		<h5>借款协议</h5>
+		<p> 甲方（借款方）：<font class="jrealname"></font><br/>
+			地 址：<br/>
+			法定代表人：<br/>
+			联系电话：<font class="jphone"></font><br/><br/><br/>
+			乙方（出借人）:<font class="trealname"></font> <br/>
+			在一桶金理财平台用户名为：<font class="tusername"></font><br/>
+			身份证号：<font class="tcard"></font><br/>
+			地址：<br/>
+			联系电话：<font class="tphone"></font><br/><br/><br/>
+			丙方：杭州一桶金互联网金融服务有限公司<br/>
+			住址：杭州市上城区西湖大道18号新东方大厦b座701室</p>
+
+		<h6>鉴于：</h6>
+
+		<p>1.甲方系根据中华人民共和国法律成立并存续的企业或居住在中华人民共和国境内、符合中华人民共和国法律规定的完全民事行为能力人。<br/>2.乙方系居住在中华人民共和国境内、符合中华人民共和国法律规定的完全民事行为能力人。乙方为丙方旗下经营管理的“一桶金理财”网络借贷信息中介机构（网址为“http://www.etongjin.com.cn”，以下简称“一桶金理财平台”或“平台”）的注册会员。<br/>3.甲方和乙方均已授权和委托丙方将甲方和乙方向丙方提供的信息提供给本协议各方。<br/>4.甲方充分认识并知晓本次出借人乙方为丙方平台注册用户。甲方同意丙方向已注册的乙方公布甲方相关信息，包括但不限于姓名/名称、身份证号码/营业执照、组织机构代码、法定代表人、邮箱、联系电话等。<br/>经协议各方友好协商，就借款人借款、出借人投资、借款担保及相关服务事宜达成如下一致意见，以资共同遵守。</p>
+
+		<h6>第一条 借款金额、期限、利率、用途、放款方式</h6>
+		<p>		
+			借款人同意通过“一桶金理财”平台向出借人借款，出借人同意通过“一桶金理财”平台向借款人出借款项并委托“一桶金理财”平台办理款项发放事宜：<br/>
+		1．1．甲方借款标的金额为人民币：   <span class="moban"><font class="account"></font></span>    元（大写：<font class="bigMoney"></font> 元整）。乙方出款金额为人民币<span class="moban yifang"></span>元，到期还款利息<span class="moban lixi"></span> 元。<br/>
+		2．借款期限为   <span class="moban"><font class="limitDay"></font></span>  天。借款起息日为： <span class="moban jkYear"></span>    年   <span class="moban jkMonth"></span>  月  <span class="moban jkDay"></span>   日（以投标后第二日开始计息），借款到期日为：  <span class="moban jkEndyear"></span>     年  <span class="moban jkEndmonth"></span>    月   <span class="moban jkEndday"></span>  日。借款期间甲方可根据甲方，订货合同金额、周期不同进行融资。<br/>
+		3．年利率：   <span class="moban apr"></span>         （即预期年收益率） ，月利率=年利率/12；日利率=年利率/365。<br/>
+		4．借款用途为：  <span class="moban loanUage"></span>       。 <br/>
+		借款人承诺:所借款项按实际《订货合同》总金额的70%，进行融资并规定用途使用，不用于投资股票、债券、期货等的炒作，不挪作他用，不进行违法活动，否则由此产生的后果均由借款人承担。<br/>
+		5．放款方式：本协议生效的同时，乙方即不可撤销的授权丙方委托相应的第三方支付机构或监管银行等合作机构，将本协议项下乙方出借款划转至甲方的银行收款账户或甲方指定的银行收款账户。
+		</p>
+
+		<h6>第二条 借款合同生效和借款业务流程</h6>
+		<p>1．出借人向借款人提供本合同项下的借款的前提条件为（同时满足）：<br/>
+		（1）借款人提供的材料符合出借人和丙方的要求；<br/>
+		（2）借款人已经成为一桶金理财平台的实名注册会员；<br/>
+		（3）借款人须在丙方的资金托管机构开设账户或借款人向平台指定其关联的银行方账户，以便出借人的出借资金转入和通过此账户向出借人还款。<br/>
+		2．本合同成立：出借人在一桶金理财平台上对借款人发布的借款标的点击“购买”按钮并确认支付时，本合同即成立。<br/>
+		3．出借款冻结及期限：自出借人点击“确认支付”按钮时起，即视为出借人已经向丙方发出不可撤销的授权指令，并授权丙方委托其指定的资金托管机构冻结出借人确认的向借款人出借款。冻结自在本合同生效时起至借款人的融资标满标或融资标到期流标时止，冻结期间不计算利息。<br/>
+		4．本合同生效：本合同自借款人发布融资标的所对应的融资金额已经投标且不低于最低投标资金时生效。<br/>
+		5．投资资金划转：<br/>
+		（1）本合同生效时，出借人同意并不可撤销地授权丙方或丙方委托其指定的资金托管机构将冻结资金从出借人账户划转至借款人在丙方资金托管机构开设的账户或借款人向平台指定的其关联的银行方账户。划转完毕即视为借款发放成功，借款发放成功日即为借款放款日。如发放到其在丙方的资金托管机构开设的账户，借款人可通过“申请提现”操作将已划转的资金汇转至其银行账户上。借款人是否提现资金不影响本合同的效力，且借款人提现需在工作日及工作时间内申请，如遇法定节假日等，则借款人提现申请将顺延至下个工作日及工作时间内执行。<br/>
+		（2）借款人不可撤销地授权并委托丙方或丙方委托的资金托管机构，在借款人支付信息技术服务费及其他应付费用后，将借款金额支付至至借款人的银行账户。<br/>
+		</p>
+
+		<h6>第三条 借款资金来源的合法性</h6>
+		<p>出借人保证其所用于出借的资金来源合法，且出借人是该资金的合法支配权人。如第三方对出借款的所有权、占有权、处分权等，以及合法来源等问题主张权利，或提出异议，并因此造成借款人、丙方经济损失的，由出借人应承担相应的赔偿责任。</p>
+
+		<h6>第四条 借款本息的归还</h6>
+		<p>1．借款人应当按照本合同约定，按时、足额偿还出借人出借款本金和利息。<br/>
+		2．借款人不可撤销地授权丙方委托其指定的资金托管机构等合作机构，将金额等同于出借人当期应收的本金和利息的资金划转至出借人账户下，划转完毕即视为本期还款有效完结。<br/>
+		3．借款人承诺最晚于本合同约定的付息当日或还本当日的北京时间24时前，将当期应付的利息或本息充值（或划转、或存入）于借款人在丙方托管机构开户的账户内，同意并不可撤销地授权丙方或其托管机构，自前述借款人账户中将当期应付的利息或本息划转至出借人在丙方托管机构开户的账户中，借款利息或本息实际支付至出借人账户之日为利息或本息实际偿还日。<br/>
+		4．借款期限届满的还款日不受法定节假日或公休日限制，借款人必须按合同约定的还款日工作时间内还款，否则视为借款人违约，按约承担违约责任。
+		</p>
+
+		<h6>第五条 费用的收取</h6>
+		<p>1．丙方有权就为本合同借款所提供的服务向借款人和出借人收取相关服务和管理费用，具体的收取标准以一桶金理财平台实际公布的收费标准为准。<br/>
+		2．上述费用的收取方式和时间点均由丙方确定,借款人或出借人点击相关按钮时，即视为完全接受“一桶金理财”平台公示的相关规则。
+		</p>
+
+		<h6>第六条 还款</h6>
+		<p>1．借款人未按本合同约定的付息日或还本息日24:00点之前，在丙方托管机构账户中存储的余额不足以支付应还款项的，则视为逾期。逾期的，除应支付本金、利息外，还应按借款本金及利息的总额计算逾期违约金，每逾期一日，按逾期总金额的年化24%计算逾期违约金，直至本金、利息及逾期违约金全部清偿完毕之日止。其中，逾期违约金的一半作为丙方的催收和贷后管理的补偿金，该费用丙方有权在发生逾期后优先提取；另一半逾期违约金作为出借人的补偿款，按所持债权比例分配给全体出借人。<br/>
+		2.借款人的还款按照如下顺序清偿：<br/>
+		（1）逾期违约金；<br/>
+		（2）逾期利息；<br/>
+		（3）根据《借款协议》产生的费用（包括但不限于实现债权的费用）；<br/>
+		（4）正常的利息；<br/>
+		（5）正常的本金。<br/>
+		3.借款人任何一期逾期时，丙方有权选择实现抵押物或者要求担保人及时代偿当期应当归还的全部费用。
+		</p>
+
+		<h6>第八条 债权转让</h6>
+		<p>1．债权存续期间，出借人有权将其所持有的全部或部分债权在一桶金理财平台上进行转让，签署相关《债权转让协议》，该《债权转让协议》视为本合同的补充合同，用以载明债权人变更事项。<br/>
+		2．出借人在此委托丙方，《债权转让协议》一经签订，即由丙方将债权转让信息通知债务人，丙方通过一桶金理财平台站内消息的方式通知债务人，站内消息一经发出即视为债权转让的通知依法有效送达借款人，债权转让自通知送达时即对原债务人发生债权转让的效力。借款人承诺不得以债权转让为免责事由抗辩。 
+		</p>
+
+		<h6>第九条 债务转让限制</h6>
+		<p>未经出借人、丙方的事先书面（包括但不限于电子邮件等方式）同意，借款人不得将本协议项下的任何权利义务转让给任何第三方。</p>
+
+		<h6>第十条 通知</h6>
+		<p>1.本协议项下的通知如以平台公示方式作出，一经在一桶金理财平台公示即视为已经送达。<br/>
+		2.一桶金理财平台通过在协议各方在注册时提供的电子邮箱，或协议各方在一桶金理财平台的个人账户中的站内消息系统栏，或协议各方绑定的手机发送，一经发送即视为已经送达。
+		</p>
+
+		<h6>第十一条 违约责任</h6>
+		<p>1．除本合同另有约定外，如果借款人擅自改变本合同第一条规定的借款用途，或严重违反还款义务，或擅自转让本合同项下借款债务的，丙方有权宣告借款提前到期。借款人须自丙方宣告借款提前到期之日起三日内，向其在托管机构的账户一次性支付余下的所有本金、利息、逾期利息和违约金，丙方再根据其与出借人之间的约定向出借人划转该项资金。<br/>
+		2．借款人保证其提供的信息和资料的真实性，不得提供虚假资料或隐瞒重要事实。借款人提供虚假资料或者故意隐瞒重要事实的，构成违约，应承担违约责任，出借人在此同意委托丙方代为向借款人主张违约责任。上述情形下，丙方有权要求提前解除本合同，要求借款人提前还款，借款合同自解除通知送达之日起解除。自丙方解除本合同之日起三日内，借款人向其在托管机构的账户一次性支付余下的所有本金、利息、逾期利息和违约金，丙方再根据其与出借人之间的约定向出借人划转该等资金。<br/>
+		3．丙方保留将借款人违约失信的相关信息在媒体披露的权利。因借款人未还款而带来的调查及诉讼费用将由借款人承担。<br/>
+		4．如发生上述任意违约情况，出借人、丙方均有权要求提前终止本合同并且借款人不能按照本条约定向出借人一次性支付余下的所有本金、利息和违约金，出借人、丙方均有权实现抵押物或者要求担保人履行担保责任。</p>
+
+		<h6>第十二条 共同授权与确认</h6>
+		<p>为确保出借人权益，借款人或借款人可能委托第三方为本合同项下的借款本金、利息及相关费用提供连带责任保证担保、抵押担保、抵押担保等担保措施。如有该等情形，甲、乙双方同意并授权丙方或丙方指定的单位或个人为代理人以自己的名义代为办理与借款及借款担保相关的相关事宜，包括但不限于：<br/>
+		1.全权代表所有出借人以代理人自己的名义与借款人就本合同所涉的借款金额、借款期限、利率等相关事项另行签署《借款协议》；<br/>
+		2.全权代表所有出借人以代理人自己的名义就《借款协议》项下的本金、利息、费用等与借款人或借款人委托的第三方签署《抵押合同》、《担保合同》等与担保有关的相关协议，如前述协议涉及登记的，以代理人自己的名义与合同相对方在登记机构共同办理登记事宜；<br/>
+		3.如借款人违反《借款协议》约定延迟还款，除出借人按照本协议约定向借款人主张权利外，代理人亦可以自己的名义全权代表所有出借人向借款人、担保人主张权利；<br/>
+		4.为维护出借人权益，以代理人自己名义向借款人、担保人采取其他维权措施。</p>
+
+
+		<h6>第十三条 其他</h6>
+		<p>1．借款人委托代理人代为收取出借人支付的借款，代为向出借人交付还款等，代理人在一桶金理财平台的一切行为均由借款人、出借人自行负责，与丙方无关。<br/>
+		2．本协议经乙方自行通过网络在丙方平台上在线点击相关确认键，并经甲方签署线下对应协议文本后生效。乙方可通过丙方平台下载本协议，甲、乙双方同时委托丙方平台保管线下对应协议文本，保管期限为5年。 <br/>
+		3．借款人发布的相应借款需求未在规定期限内被全部满足并已经适当冻结相应拟出借资金的，自当日24：00起，本协议自动终止；借款人将本合同下全部本金、利息、违约金及其他相关费用全部偿还完毕之时，本合同亦自动终止。<br/>
+		4、起息期投标失败：借款人通过平台发布借款信息，平台审核后通过后确定投标成功，投标成功开始计算利息，失败不计算利息；若投标成功，资金尚未或无法到账，将做流标处理，丙方将金额无息退还至出借人账户。 <br/>
+		5．本协议的任何修改、补充均须以一桶金理财平台的电子文本形式发出。<br/>
+		6．各方均确认，本合同的签订、生效和履行以不违反法律为前提。如果本合同中的任何一条或多条违反适用的法律，则该条将被视为无效，但该无效条款并不影响本合同其他条款的效力。<br/>
+		7.用户一经注册，即视为同意并认同一桶金理财平台的全部协议，包括但不限于《注册协议》、《风险提示书》、《借款协议》等。<br/>
+		8．如果协议各方在本合同履行过程中发生任何争议，应友好协商解决；如协商不成，任一方可向杭州仲裁委员会申请仲裁。<br/>
+		9．各方委托一桶金理财平台保管所有与本合同有关的书面文件或电子信息。<br/>
+		10．本合同中所使用的定义，除非另有规定，否则应适用一桶金理财平台释义规则，一桶金理财平台对本文定义享有最终解释权。<br/>
+		11.本合同一式三份，借款人及服务平台各持一份。</p>
+
+
+
+	</div>
+	
+</body>
+</html>

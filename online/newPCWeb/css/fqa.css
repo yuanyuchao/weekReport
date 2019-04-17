@@ -1,0 +1,40 @@
+.content-item {
+    padding: 30px 77px;
+    background:rgba(255,255,255,1);
+    box-shadow:0px 0px 6px rgba(153,153,153,0.2);
+}
+.container>h3 {
+    font-size:20px;
+    font-family:MicrosoftYaHei;
+    color:rgba(255,94,51,1);
+    line-height:30px;
+    margin: 40px auto ;
+}
+.content-item>h4 {
+    font-size: 18px;
+    margin-bottom: 20px;
+    margin-top: 21px;
+}
+.content-item>h4:nth-of-type(1) {
+    margin-top: 0;
+}
+.content-item>p {
+    font-size: 16px;
+    color: #666666;
+}
+td:nth-of-type(1) {
+    width: 100px;
+}
+td:nth-of-type(2) {
+    width: 60px;
+}
+td:nth-of-type(3) {
+    width: 120px;
+}
+td:nth-of-type(4) {
+    width: 60px;
+}
+table {
+    font-size: 16px;
+    color: #666666;
+}

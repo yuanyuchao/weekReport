@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../rem.js"></script>
+<script type="text/javascript" src="../jquery.min.js"></script>
+<meta charset="utf-8">
+<style type="text/css">
+	*{
+		margin:0;
+		padding:0;
+	}
+	html,body{
+		height: 100%;
+		width: 100%;
+	}
+	body{
+		background-color: #f9f9f9;
+		padding: 0.12rem 0;
+	}
+	.module{
+		margin-bottom: 0.24rem;
+	}
+	.head{
+		width: 100%;
+		height: 0.96rem;
+		box-sizing: border-box;
+		padding:0.32rem 0.24rem;
+		display: flex;
+		align-items: center;
+		background-color: #ffffff;
+		border-bottom: 1px solid #dedede;
+	}
+	.head span{
+		display: inline-block;
+		width: 0.3rem;
+		height: 0.3rem;
+		/*background-color: #333333;*/
+		background:url(../img/icon@2x.png) no-repeat 0 0;
+		background-size: contain;
+		margin-right: 0.24rem;
+	}
+	.head p{
+		display: inline-block;
+		height: 0.32rem;
+		font-size: 0.32rem;
+		line-height: 0.32rem;
+	}
+	.contentTop{
+		width: 100%;
+		height: 0.88rem;
+		box-sizing: border-box;
+		padding: 0.3rem 0.24rem;
+		display: flex;
+		align-items: center;
+		background-color: #ffffff;
+		border-bottom: 1px solid #dedede;
+	}
+	.contentTop p{
+		float: left;
+		width: 6.72rem;
+		height: 0.28rem;
+		font-size: 0.28rem;
+		line-height: 0.28rem;
+		font-family: 微软雅黑;
+
+	}
+	span{
+		float: right;
+		width: 0.3rem;
+		height: 0.17rem;
+		/*background-color: pink;*/
+		background: url(../img/arrow_normal@2x.png) no-repeat 0 0;
+		background-size: contain;
+	}
+	.pCheck{
+		color: #FF5E33;
+	}
+	.spanCheck{
+		/*background-color: yellow;*/
+		background: url(../img/arrow_click@2x.png) no-repeat 0 0;
+		background-size: contain;
+	}
+	.contentDown{
+		width: 100%;
+		box-sizing: border-box;
+		padding: 0.32rem 0.24rem;
+		font-size: 0.28rem;
+		line-height: 0.44rem;
+		background-color: #ffffff;
+		display: none;
+		border-bottom: 1px solid #dedede;
+	}
+	table tr{
+		width: 100%;
+		height: 0.72rem;
+	}
+	table tr td{
+		text-align: center;
+	}
+</style>
+<head>
+	<title>帮助中心</title>
+</head>
+<body>
+	<div class="module">
+		<div class="head">
+			<span></span>
+			<p>登录/注册</p>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>1.长时间未收到短信验证码？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1)检查手机号填写是否正确；<br />
+				2)检查是否是手机短信拦截软件的验证短信，请关闭手机短信拦截软件。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>2.如何邀请好友注册？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）用户注册时填写推荐人在一桶金平台的注册手机号<br/>
+				2）通过好友邀请分享的邀请链接注册
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>3.如何修改绑定的手机号？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				用手机号注册一桶金账户，会默认绑定注册的手机号，暂时不可更改；如遇特殊情况，请联系客服电话400-888-7140更改。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>4.手机丢了，我的钱会被盗吗？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				不会的。所有购买一桶金平台产品的资金会在项目到期后自动回到原购买产品时通过实名认证的银行卡中；一桶金全方位确保用户资金安全，请放心。
+			</div>
+		</div>
+
+	</div>
+
+	
+
+
+	<div class="module">
+		<div class="head">
+			<span></span>
+			<p>关于产品</p>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>1.什么是新手标产品？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				新手标产品仅针对在一桶金尚未购买新手产品的用户，该系列为短期高收益低风险产品，为用户体验投资全过程做基础。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>2.什么是供应链金融产品？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				供应链金融产品是一桶金围绕核心企业，为上下游中小企业提供资金支持和服务的一款产品。这款产品既有效解决了中小企业融资难的问题，提高了企业的资金利用率，又帮助核心企业扩大了资产规模。项目真实可靠，还款稳定，是投资者可以放心购买的高安全性优质产品。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>3.购买产品的资金流向？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				用户购买产品支付成功后，资金通过第三方支付机构流向对应的合作伙伴，一桶金本身不接触用户资金，您可以查看对应产品页面中的项目描述了解具体内容。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>4.如何使用红包？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				根据红包的使用条件，选择满足对应期限的标的及金额，在购买页面选择相应红包。红包不抵扣本金，不计算收益，到期后与本金一并回款。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>5.已购买的产品在哪里查看？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				app上点击［我的］－［投资记录］，可以查看投资成功的产品。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>6.投资计息时间？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				投资T+1起息，既购买次日计息（节假日不影响计息）
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>7.产品未到期可以提前赎回吗？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				所有产品未到期不可提前赎回。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>8.产品到期，什么时候回款？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				产品工作日到期当天24点前回投资卡，如遇节假日顺延到第一个工作日。
+			</div>
+		</div>
+	</div>
+
+
+	<div class="module">
+		<div class="head">
+			<span></span>
+			<p>账户管理</p>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>1.如何完成实名认证？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				用户首次购买，输入姓名身份证及银行卡信息，购买成功即完成实名认证。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>2.忘记登录密码，怎么办？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				1）在登录页面输入手机号后，点击忘记密码，可重置密码<br/>
+				2）登录后在［我的］页面左上角的［个人设置］中，点击密码管理，可重置密码
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>3.银行卡是否可换绑？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				为了保障用户账户资金安全，需要从多个角度来验证持卡者和投资者为同一个人， 解绑/更换银行卡需提供的资料： <br/>
+				1.注册手机号； <br/>
+				2.提供身份证正反面、原银行卡及新银行卡照片； 3.提供本人与身份证、新银行卡的合照； <br/>
+				4.若是因原银行卡丢失换卡，需提供原银行卡的挂失证明和新卡的开户证明。发送以上资料到该邮箱service@etongjin.com.cn如其他原因换卡，还需提供银行流水。如有其他问题，请联系客服电话400-888-7140。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>4.是否可以绑定多张银行卡？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				为保障用户账户资金安全，资金同卡进出，目前不支持绑定多张银行卡。
+			</div>
+		</div>
+
+		<div class="content">
+			<div class="contentTop">
+				<p>5.支持银行及限额？</p>
+				<span></span>
+			</div>
+			<div class="contentDown">
+				目前仅支持借记卡，不支持贷记卡，限额如下：
+				<table border="1" bordercolor="#eee" style="border-collapse:collapse;width: 100%;margin-top: 0.12rem;">
+					<tr>
+						<td>支持银行</td>
+						<td>单笔</td>
+						<td>单日</td>
+						<td>单月</td>
+					</tr>
+					<tr>
+						<td>工商银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>农业银行</td>
+						<td>0.5万</td>
+						<td>0.5万</td>
+						<td>15万</td>
+					</tr>
+					<tr>
+						<td>中国银行</td>
+						<td>5万</td>
+						<td>20万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>建设银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>-</td>
+					</tr>
+
+					<tr>
+						<td>平安银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>光大银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>广发银行</td>
+						<td>10万</td>
+						<td>20万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>中信银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+
+					<tr>
+						<td>华夏银行</td>
+						<td>0.1万</td>
+						<td>0.5万</td>
+						<td>15万</td>
+					</tr>
+
+					<tr>
+						<td>浦发银行</td>
+						<td>10万</td>
+						<td>20万</td>
+						<td>100万</td>
+					</tr>
+
+					<tr>
+						<td>上海银行</td>
+						<td>5万</td>
+						<td>5万</td>
+						<td>100万</td>
+					</tr>
+					<tr>
+						<td>民生银行</td>
+						<td>5万</td>
+						<td>20万</td>
+						<td>100万</td>
+					</tr>
+
+				</table>
+				农业，邮储和上海银行交易需要开通银联在线支付功能。
+			</div>
+		</div>
+	</div>
+
+
+</body>
+<script type="text/javascript">
+	$(function(){
+		$(".contentTop").click(function(){
+		  $(this).siblings() .toggle();
+		  $(this).children("p").toggleClass("pCheck");
+		  $(this).children("span").toggleClass("spanCheck");
+		  $(".contentTop").not($(this)).children().removeClass();
+		  $(".contentTop").not($(this)).siblings().css("display","none");
+		});
+	})
+</script>
+</html>

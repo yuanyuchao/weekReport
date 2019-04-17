@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>金豆商城</title>
+    <script src="../../js/jquery.min.js"></script>
+    <script src="../../js/rem.js"></script>
+    <script src="../../js/fastclick.js"></script>
+    <link rel="stylesheet" href="../js/mescroll.min.css">
+    <script src="../js/mescroll.min.js"></script>
+    <link rel="stylesheet" href="../lay/layui.css">
+    <script src="../lay/layui.js"></script>
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            background-color: #f9f9f9;
+        }
+
+        .banner {
+            width: 7.5rem;
+            height: 3.5rem;
+        }
+
+        .banner > img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .jdz {
+            overflow: hidden;
+            padding: 0.36rem 0 0.29rem 0;
+            margin-bottom: 0.01rem;
+            background-color: #fff;
+        }
+
+        .jdz-left {
+            float: left;
+            width: 49%;
+            text-align: center;
+        }
+
+        .jdz-mid {
+            float: left;
+            width: 0.02rem;
+            height: 0.58rem;
+            background-color: #DBDBDB;
+            margin-top: 0.3rem;
+        }
+
+        .jdz-right {
+            float: left;
+            width: 49%;
+            text-align: center;
+        }
+
+        .jdz-left > p:nth-of-type(1), .jdz-right > p:nth-of-type(1) {
+            font-size: 0.45rem;
+            color: #FF5E33;
+            margin-bottom: 0.26rem;
+        }
+
+        .jdz-left > p:nth-of-type(2), .jdz-right > p:nth-of-type(2) {
+            font-size: 0.24rem;
+            color: #666666;
+        }
+
+        #pages {
+            overflow: hidden;
+        }
+
+        li {
+            box-sizing: border-box;
+            padding: 0.21rem 0.34rem 0.4rem 0.23rem;
+            background-color: #fff;
+            width: 3.45rem;
+            margin-top: 0.2rem;
+            margin-right: 0.2rem;
+            float: left;
+        }
+
+        li:nth-of-type(2n-1) {
+            margin-left: 0.2rem;
+        }
+
+        .img {
+            /*background-color: #ffe096;*/
+            width: 2.95rem;
+            height: 2.5rem;
+            margin: 0 auto 0.31rem auto;
+        }
+
+        .product-list > li > p:nth-of-type(1) {
+            font-size: 0.26rem;
+            color: #333333;
+            margin-bottom: 0.27rem;
+        }
+
+        .price {
+            overflow: auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .price > p:nth-of-type(1) {
+            font-size: 0.26rem;
+            color: #FF5E33;
+            float: left;
+            line-height: 0.4rem;
+        }
+
+        .price > p:nth-of-type(2) {
+            font-size: 0.24rem;
+            color: #999999;
+            float: left;
+        }
+
+        .img > img {
+            width: 100%;
+            height: 100%;
+        }
+
+        #pages {
+            overflow: hidden;
+        }
+
+        .clearfix:after {
+            content: "";
+            display: block;
+            height: 0;
+            clear: both;
+            visibility: hidden;
+        }
+        .layui-flow-more {
+            margin: 0;
+            padding: 0.4rem 0  ;
+            background-color: #f9f9f9;
+        }
+        #pages li:last-of-type {
+            margin-bottom: 0.4rem;
+        }
+    </style>
+
+</head>
+<body>
+<div class="box">
+    <div class="banner">
+        <img src="" alt="">
+    </div>
+    <div class="jdz">
+        <div class="jdz-left">
+            <p class="peas">0</p>
+            <p>金豆值</p>
+        </div>
+        <div class="jdz-mid"></div>
+        <div class="jdz-right">
+            <p class="count">0</p>
+            <p>兑换记录</p>
+        </div>
+    </div>
+    <div class="product">
+
+            <div class="flow-default" id="pages">
+            </div>
+
+
+    </div>
+</div>
+</body>
+<script>
+    function jump(id) {
+        window.location.href = 'productDetail.html?id=' + id + '';
+    }
+    function banner(uid, token) {
+        $.ajax({
+            type: 'POST',
+            // url: "http://192.168.1.102:8083/showShopHome",
+            url: "https://www.etongjin.net/activity/showShopHome/auth",
+            headers: {
+                "uid": uid,
+                "token": token
+            },
+            data: {"page": 1},
+            error: function () {
+                console.log("加载失败")
+            },
+            success: function (data) {
+                if (data.code == "200") {
+                    console.log(data.data);
+                    var datas = data.data;
+                    $('.peas').html(datas.peas);
+                    $('.count').html(datas.count);
+                    $('.banner>img').attr('src', datas.imgs);
+                    jindouzhi = datas.peas;
+                }
+            }
+        })
+    }
+
+
+    $('.jdz-left').on('click', function () {
+        console.log(jindouzhi);
+        window.location.href = 'getConsumption.html?peas='+jindouzhi+'';
+    })
+    $('.jdz-right').on('click', function () {
+        window.location.href = 'exchangeRecord.html';
+    })
+
+
+    function productList(uid, token) {
+        //console.log("investement----"+localStorage.getItem("uid"));
+        layui.use('flow', function () {
+            var flow = layui.flow;
+            flow.load({
+                elem: '#pages', //流加载容器
+                //scrollElem: '#LAY_demo1', //滚动条所在元素，一般不用填，此处只是演示需要。
+                done: function (page, next) { //执行下一页的回调
+                    $.ajax({
+                        type: 'POST',
+                        // url: "http://192.168.1.102:8083/show/commodities",
+                        url: 'https://www.etongjin.net/activity/show/commodities/auth',
+                        headers: {
+                            "uid": uid,
+                            "token": token
+                        },
+                        data: {"page": page},
+                        success: function (data) {
+                            var lis = [];
+                            console.log(data);
+                            var datas = data.data;
+                            setTimeout(function () {
+
+                                var str = '';
+                                for (var i = 0; i < datas.list.length; i++) {
+                                    str += '<li onclick="jump(' + datas.list[i].id + ')"><div class="img"><img src="' + datas.list[i].pic + '"></div><p>' + datas.list[i].name + '</p><div class="price"><p><span>' + datas.list[i].goldPeas + '</span> 金豆</p><p>库存：<span>' + datas.list[i].count + '</span></p></div></li>';
+                                }
+
+                                lis.push(str);
+                                next(lis.join(''), page < parseInt(datas.total / 10) + 1); //假设总页数为 10  jsonData["totalSize"]
+                            }, 500);
+                            setTimeout(function () {
+                                console.log($("#pages li").eq(12));
+                                var index = $("#pages li").length;
+                                if (datas.total % 2 == 1 && datas.total == index) {
+                                    $("#pages li:last-of-type").css("margin-right", "200px");
+                                    $("#pages li:last-of-type").css("margin-bottom", "20px");
+                                    $(".layui-flow-more").addClass("clearfix");
+                                }
+                            }, 500);
+
+                        },
+                        error: function () {
+                            // location = 'invite1.html';
+                            console.log('加载失败')
+                        }
+
+                    })
+                }
+            });
+        });
+    };
+    // banner();
+    // productList();
+
+     // 安卓端
+     function connectWebViewJavascriptBridge(callback) {
+         if (window.WebViewJavascriptBridge) {
+             callback(WebViewJavascriptBridge)
+         } else {
+             document.addEventListener(
+                 'WebViewJavascriptBridgeReady'
+                 , function () {
+                     callback(WebViewJavascriptBridge)
+                 },
+                 false
+             );
+         }
+     }
+
+     // iOS端
+     function setupWebViewJavascriptBridge(callback) {
+         if (window.WebViewJavascriptBridge) {
+             return callback(WebViewJavascriptBridge);
+         }
+         if (window.WVJBCallbacks) {
+             return window.WVJBCallbacks.push(callback);
+         }
+         window.WVJBCallbacks = [callback];
+         var WVJBIframe = document.createElement('iframe');
+         WVJBIframe.style.display = 'none';
+         WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+         document.documentElement.appendChild(WVJBIframe);
+         setTimeout(function () {
+             document.documentElement.removeChild(WVJBIframe)
+         }, 0)
+     }
+
+     var u = navigator.userAgent;
+     if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+         connectWebViewJavascriptBridge(function (bridge) {
+             //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+             window.WebViewJavascriptBridge.callHandler(
+                 'getUserTokenAndUUID',
+                 '999999'
+                 , function (responseData) {
+                     var responseData = JSON.parse(responseData);
+                     console.log(responseData);
+                     token = responseData.token;
+                     uid = responseData.uuid;
+                     // fuiouPayUrl = responseData.fuiouPayUrl;
+                     productList(uid,token);
+                     banner(uid,token);
+                 }
+             );
+         })
+     } else {
+         setupWebViewJavascriptBridge(function (bridge) {
+             //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+             window.WebViewJavascriptBridge.callHandler(
+                 'getUserTokenAndUUID',
+                 '999999'
+                 , function (responseData) {
+                     token = responseData.token;
+                     uid = responseData.uuid;
+                     // fuiouPayUrl = responseData.fuiouPayUrl;
+                     // console.log(fuiouPayUrl);
+                     productList(uid,token);
+                     banner(uid,token);
+                 }
+             );
+         })
+     }
+
+
+</script>
+</html>

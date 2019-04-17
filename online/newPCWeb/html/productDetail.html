@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>一桶金-产品详情</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/headerAndFooter.css">
+    <link rel="stylesheet" href="../css/productDetail.css">
+    <link rel="stylesheet" href="../css/pageNav.css">
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/myjs/productDetail.js"></script>
+    <script src="../js/pageNav.js"></script>
+    <script>
+        $(function () {
+            $('#footer').load('footer.html')
+            $('#header').load('header.html');
+        })
+    </script>
+</head>
+
+
+<body>
+<!--header开始-->
+<div id="header"></div>
+<!--header结束-->
+<div class="content">
+    <div class="container">
+        <p>产品推荐 <span> ></span> 理财产品列表 <span> ></span>产品详情</p>
+        <div class="detail clearfix">
+            <div class="detail-left pull-left clearfix">
+                <p class="pull-left">供应链TW14N7C</p>
+                <p class="pull-left">双十二特惠</p>
+                <p class="pull-left">借款协议范本</p>
+                <div class="clearfix"></div>
+                <p class="clearfix line"></p>
+
+                <div class="row ">
+                    <div class="col-lg-4" id="apr">
+                        <p>15 <i>%</i></p>
+                        <p>期望年化利率</p>
+                        <p>起购金额：100元</p>
+                        <p>项目总额：100000元</p>
+                    </div>
+                    <div class="col-lg-4" id="money">
+                        <p>62550 <i>元</i></p>
+                        <p>剩余金额</p>
+                        <p>最大出借额：没有限制</p>
+                        <p>项目进度：<span class="jindu"><span class="dqjd"></span></span> <span class="jdbfb">15%</span></p>
+                    </div>
+                    <div class="col-lg-4" id="time">
+                        <!--<p>7<i>天</i></p>-->
+                        <p>项目期限</p>
+                        <p>还款方式：到期本息还款</p>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-right pull-left"><img src="../img/productDetail/code.png" alt=""></div>
+        </div>
+    </div>
+</div>
+
+<div class="productBg">
+    <div class="container">
+        <div class="loan-main pt0" style="margin-top:15px; margin-bottom: 30px">
+
+            <input id="id" name="id" value="$borrow.id" type="hidden"/>
+            <div class="head2 " id="tab">
+                <div class="proDes"><a id="xmsm" class="dianji">项目说明</a></div>
+                <div class="record"><a id="tzjl">投资记录</a></div>
+            </div>
+            <div class="tab-content">
+                <div class="xmgl" style="display:block">
+                    <div class="registration">
+                        <div class="proModule">
+
+                            <div class="proTop">
+                                项目概论
+                            </div>
+                            <div class="proCon wzIndent">
+                                本项目是一桶金围绕核心企业，为上下游中小企业提供资金支持和服务的一款供应链金融产品。这款产品既有效解决了中小企业融资难的问题，提高了企业的资金利用率，又帮助核心企业扩大了资产规模。项目真实可靠，还款稳定。是投资者可以放心购买的高安全性优质产品。
+                            </div>
+                        </div>
+
+                        <div class="proModule">
+                            <div class="proTop">
+                                产品详情
+                            </div>
+                            <div class="proCon proConNew">
+                                <table border="1" bordercolor="#eee" style="border-collapse:collapse;width: 100%;">
+                                    <tr>
+                                        <td style="width: 40%;">融资企业</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>借款额度</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>借款期限</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>借款用途</td>
+                                        <td></td>
+                                    </tr>
+                                    <tr>
+                                        <td>还款来源</td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="proModule">
+                            <div class="proTop">
+                                还款保障
+                            </div>
+                            <div class="proCon proSafe proConNew">
+                                <div><span></span>融资企业销售回款</div>
+                                <div><span></span>核心企业无条件本息担保</div>
+                            </div>
+                        </div>
+
+                        <div class="proModule">
+                            <div class="proTop">
+                                核心企业简介
+                            </div>
+                            <div class="proCon wzIndent">
+                                核心企业坐落于闻名中外的“世界木雕之都”——浙江省东阳市。是东阳市首屈一指的大型专业生产红木家具综合企业。公司拥有多个生产基地，依托强大的研发实力和创新技术，每件家具都选材精良、做工精细。多年来，企业品牌形象已经深入人心，公司产品得到了广大消费者的认可和信赖，产品覆盖全国各大市场，并在各种全国性的展会中屡获大奖。
+                            </div>
+                        </div>
+
+                        <div class="proModule">
+                            <div class="proTop">
+                                项目照片
+                            </div>
+                            <div class="proCon proConImg proConNew" id="jq22">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+                                <img src="" alt="">
+
+                            </div>
+                        </div>
+
+                        <div class="proModule">
+                            <div class="proTop">
+                                资金流向
+                            </div>
+                            <div class="proCon proConNew">
+                                <img src="../img/productDetail/zjlx.png"/>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- 未注册用户 -->
+
+                    <div class="noRegistration">
+                        <div class="proModule">
+
+                            <div class="proTop">
+                                项目详情
+                            </div>
+                            <div class="proCon wzIndent">
+                                本项目募资客户用于企业日常运营资金周转，因短期资金周转需要借款。本计划为信用借款项目。借款人以企业收入来源及资产作为借款还款来源，向平台提交借款申请，经过多层严格审核确认发布融资，借款用途为支付货款或者经营周转。借款企业按期还款兑付。
+                            </div>
+                        </div>
+
+                        <div class="proModule">
+                            <div class="proTop">
+                                借款企业详情
+                            </div>
+                            <div class="proCon wzIndent">
+                                杭州**网络科技有限公司，公司的核心运营团队有来自上市公司的高管，有来自行业的业务精英，拥有强大的销售团队背景下。公司以产品质量为核心，以客户服务为中心，以强大的运营团队为基础，致力于为客户提供最优的产品和服务。
+                            </div>
+                        </div>
+
+                        <div class="proModule">
+                            <div class="proTop">
+                                风控综述
+                            </div>
+                            <div class="proCon">
+                                1、还款来源为该企业销售回款。<br/>
+                                2、一桶金风控通过对杭州**网络科技有限公司的整体运营及实力进行审核：公司的主营业务市场潜力巨大，在国内尚处于快速发展初期，且目前公司核心团队在行业属于领先地位。<br/>
+                                3、风控通过对杭州**网络科技有限公司的征信等资料进行审核。
+                            </div>
+                        </div>
+
+                        <div class="proModule">
+                            <div class="proTop">
+                                安全保障
+                            </div>
+                            <div class="proCon">
+                                1、杭州**网络科技有限公司销售回款。<br/>
+                                2、杭州**网络科技有限公司到期无条件担保。<br/>
+                            </div>
+                        </div>
+
+                        <div class="proModule">
+                            <div class="proTop">
+                                声明
+                            </div>
+                            <div class="proCon">
+                                一桶金拥有最终解释权。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="tzjl" style="display: none">
+                    <div class="tzRecond">
+                        <div class="proModule">
+                            <form id="tenderListForm" name="tenderListForm" action="${weburl}/borrow/detail.html">
+                                <input type="hidden" name="id" value="$borrow.id"/>
+                                <input type="hidden" name="pageType" value="tenderPage"/>
+                                <input type="hidden" name="page" id="page2" value="$!page">
+                                <div class="proTop" style="width:787px">
+                                    <span style="width:188px">序号</span>
+                                    <span style="width:188px">投资用户</span>
+                                    <span style="width:188px">投资金额</span>
+                                    <span style="width:210px">投资时间</span>
+                                </div>
+                                <div class="page-wfbd clearfix" style="width:787px;">
+                                    <div class="flow-default clearfix" style="background: #fff;padding:10px 0;"
+                                         id="LAY_demo1">
+                                        <ul class="list-inline text-center " id="records">
+                                            <!--<li ><span style="width:188px"></span><span style="width:188px"></span><span style="width:188px"></span><span style="width:188px"></span></li>-->
+
+                                        </ul>
+                                    </div>
+                                </div>
+                            </form>
+                            <div class="fenye">
+                                <nav aria-label="Page navigation" class="page-nav-outer" id="PageNavId">
+                                </nav>
+                            </div>
+                        </div>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+</div>
+</div>
+
+
+</div>
+</div>
+
+
+<!--footer开始-->
+<div id="footer"></div>
+</body>
+<script>
+    // tab切换
+    $(function () {
+        $('#tab>div:nth-of-type(1)').addClass('color');
+        $('#tab>div').on('click', function () {
+            var index = $(this).index();
+            $(this).addClass('color').siblings().removeClass('color');
+            $('.tab-content>div').eq(index).css('display', 'block').siblings().css('display', 'none');
+        })
+
+    })
+</script>
+</html>

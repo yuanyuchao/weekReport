@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../jquery.min.js"></script>
+<head>
+  <meta http-equiv="content-type" content="txt/html; charset=utf-8" />
+  <title>一桶金·注册享588元红包</title>
+</head>
+<script type="text/javascript">
+  (function(){
+    var docEl = document.documentElement;
+    var width = docEl.getBoundingClientRect().width;
+    if (width > 450) {width = 450};
+    var rootRem = width / 375 * 50;
+    docEl.style.fontSize = rootRem + 'px'; 
+  })();
+</script>
+<script type="text/javascript">
+  $(function(){
+    function getRequest(strParame) {
+        var args = new Object();
+        var query = location.search.substring(1);
+
+        var pairs = query.split("&"); // Break at ampersand
+        for (var i = 0; i < pairs.length; i++) {
+            var pos = pairs[i].indexOf('=');
+            if (pos == -1) continue;
+            var argname = pairs[i].substring(0, pos);
+            var value = pairs[i].substring(pos + 1);
+            value = decodeURIComponent(value);
+            args[argname] = value;
+        }
+        return args[strParame];
+    }
+
+    var str = getRequest("shareId");
+
+
+    //生成唯一UUID
+    if(localStorage.getItem("did") == null){
+        function guid() {
+            return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+                var r = Math.random()*16|0, v = c == 'x' ? r : (r&0x3|0x8);
+                return v.toString(16);
+            });
+        }
+        var did = guid();
+        localStorage.setItem("did",did);
+    }
+    
+
+
+    //图片验证码
+
+    var getImage = function(){
+        $.ajax({
+            async: true,
+            type: 'get',
+            url: "https://www.etongjin.net/user/generate",
+            headers:{"uid":"e9fd37c1d769ab02cc73b67ba03c584f2a62e8e1e6a871a5ff"},
+            timeout: 5000,   //超时时间
+            data:{"did":localStorage.getItem("did"),"uri":"channelSendCode"},
+            complete:function (data) {
+                  $("#test").attr('src', data.responseText);
+            },
+            error:function(){
+            
+            }
+        });
+    }
+
+    $("#test").click(function(){
+        getImage();
+    })
+
+
+    $(".pick").click(function(){
+        var phone = $("#phone").val();
+        var numVeri = $("#numVeri").val();
+        var cipher = $("#cipher").val();
+        var recommend = $("#recommend").val();
+        var windowHeight = $(window).scrollTop();
+        $(".inform").css("top",windowHeight + 200 +"px");
+        if(!(/^1[3|4|5|6|7|8|9][0-9]\d{4,8}$/.test(phone))){
+            $(".inform").css("display","block");
+            $(".conform").text("手机号码格式不正确");
+            return;
+        }else if(numVeri == ""){
+            $(".inform").css("display","block");
+            $(".conform").text("请填写手机验证码");
+            return;
+        }else if(cipher.length < 6){
+            $(".inform").css("display","block");
+            $(".conform").text("密码格式错误");
+            return;
+        }else if(flag == 0){
+            $(".inform").css("display","block");
+            $(".conform").text("请同意协议");
+            return;
+        }
+
+         $.ajax({
+
+          type: 'POST',
+          url: "https://www.etongjin.net/user/shareSignup",
+          data:{"telphone":phone,"password":cipher,"code":numVeri,"channel":"tianyan"},
+          success:function(data){ //返回json结果
+              if(data.code == 200){
+                window.location.href="http://a.app.qq.com/o/simple.jsp?pkgname=com.xiongmao.yitongjin&ckey=CK1379634116040";
+              }
+              if(data.code == 400){
+                $(".inform").css("display","block");
+                $(".conform").text(data.msg);
+              }
+          },
+          error:function(){
+          
+          }
+        });
+
+
+      })
+
+      $(".mySure").click(function(){
+          var tuMsg = $(".imageNum input").val();
+          console.log(tuMsg);
+          $.ajax({
+              type: 'POST',
+              url: "https://www.etongjin.net//user/verify" ,
+              headers:{"uid":"e9fd37c1d769ab02cc73b67ba03c584f2a62e8e1e6a871a5ff"},
+              data: {"code": tuMsg, "did":localStorage.getItem("did")} ,
+              success: function (data) { //返回json结果
+                if(data.code == 200){
+                  $(".tuInform").css("display","none");
+                }else{
+                  $(".inform").css("display","block");
+                  $(".conform").text(验证码错误);
+                  getImage();
+                }
+              }
+          });
+      })
+
+      $(".cancle").click(function(){
+        $(".tuInform").css("display","none");
+      })
+
+      //数字验证码点击
+      $(".numVali").click(function(){
+          var phone = $("#phone").val();
+          if(!(/^1[3|4|5|6|7|8|9][0-9]\d{4,8}$/.test(phone))){
+            $(".inform").css("display","block");
+            $(".conform").text("手机号码格式不正确");
+            /*$(".shade").css("display","none");*/
+            return;
+          }
+          $(".shade").css("display","block");
+          $(".numVali").css("color","#333333"); 
+          var time = 60;
+          $(".numVali").text('('+ time +')秒后重发');
+          var timer = setInterval(function(){
+              time = time - 1;
+              
+
+              $(".numVali").text('('+ time +')秒后重发');
+              if(time == 0){
+                  $(".numVali").css("color","#F77B67");
+                  $(".numVali").text("发送验证码");
+                  $(".shade").css("display","none");
+                  clearInterval(timer);
+                  return;
+              }
+            },1000);
+         
+          $.ajax({
+
+            type: 'POST',
+            url: "https://www.etongjin.net/user/channelSendCode/e9fd37c1d769ab02cc73b67ba03c584f2a62e8e1e6a871a5ff",
+            headers:{"uid":"e9fd37c1d769ab02cc73b67ba03c584f2a62e8e1e6a871a5ff"},
+            data:{"phone":phone,"did":localStorage.getItem("did")},
+            success:function(data){
+             //返回json结果
+
+                if(data.code == 200){
+
+                };
+                if(data.code == 505){
+                  getImage();
+                  $(".tuInform").css("display","block");
+                }
+		        if(data.code == 400){
+                  $(".inform").css("display","block");
+                  $(".conform").text(data.msg);
+                }
+            },
+            error:function(){
+              $(".inform").css("display","block");
+              $(".conform").text("验证码发送错误");
+            }
+          })
+      })
+
+      //数据提交
+      /*$.ajax({
+        type: 'POST',
+        url: url ,
+        data: '{"phone": "phone", "cipher": "cipher","recommend":"recommend","flag":"flag"}' ,
+        success: function (data) { //返回json结果
+          alert(data);
+        }
+      });*/
+     
+
+    $(".goTop").click(function(){
+        var speed=500;//滑动的速度
+        $('body,html').animate({ scrollTop: 0 }, speed);
+        return false;
+    })
+    var flag = 0;
+    $(".tick").click(function(){
+        if(flag == 0){
+            $(this).css("background-image","url(img/bingo.png)");
+            flag = 1;
+        }else if(flag == 1){
+            $(this).css("background-image","url(img/nobingo.png)");
+            flag = 0;
+        }
+    })
+
+    $(".know").click(function(){
+        $(".inform").css("display","none");
+    })
+
+
+    $(".yitongjin").click(function(){
+        window.location.href = "https://www.etongjin.net/html/inform.html";
+    })
+
+  })
+
+
+    
+
+
+</script>
+<style type="text/css">
+  html,body,div,input,li,img,span{padding: 0;margin:0;};
+  html,body{
+    width:100%;
+    height: 100%;
+  }
+  body{
+    position: relative;
+  }
+  img{
+    display:block;
+    width: 100%;
+  }
+  .content{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position:absolute;
+      top:30%;
+      padding-top:0.35rem;
+      box-sizing:border-box;
+      background-size: cover;
+  }
+  .content>div{height:100%;width: 5rem;}
+  .area{height: 0.7rem;width: 5rem;margin-bottom: 0.2rem;position: relative;}
+  .area input{float: left;margin-bottom:0;}
+  .numVali {
+    border-radius: 0.1rem;
+    background-color:white;
+    font-size: 0.24rem;
+    color:#F77B67 ;
+    position: absolute;
+    right: 0;
+    font-size: 0.28rem;
+    text-align: center;
+    line-height: 0.7rem;
+  }
+  .shade{border-radius: 8px;height: 0.7rem;width: 2rem;background:rgba(250, 250, 250, 0.6);display: none;position: absolute;top:0;left:3rem;z-index: 99;}
+  .Verification{height: 0.7rem;width:100%;}
+  .contentDown{height: 15rem;width: 100%;background: url(3@2x.png) no-repeat 0 0 ;position: relative;background-size: cover;}
+  .contentDown img{display:block;height:0.74rem;width:2.2rem;position: absolute;top:4.4rem;left:50%;margin-left: -1.1rem;}
+  span,.imgVali{display:block;height: 0.7rem;width: 2rem;float: left;}
+  input{display:block;width: 5rem;height: 0.7rem;border-radius:0.1rem;outline:none;border:0;-webkit-appearance: none;font-size: 0.24rem;text-indent: 0.2rem;margin-bottom: 0.2rem;font-family: 微软雅黑;color: #999999;}
+  .check{height: 0.28rem;width: 5rem;font-size: 0.24rem;font-size: 0.24rem;font-family: 微软雅黑;margin-top: 0.05rem;margin-bottom: 0.2rem;
+    display: flex;align-items: center;}
+  .pick{
+    height: 1.06rem;
+    width: 5.26rem;
+    position: relative;
+    border-radius: 0.1rem;
+    left: 50%;
+    margin-left: -2.63rem;
+    background:url(img/pick.png) no-repeat 0 0;
+    background-size: contain;
+  }
+  .tick{height: 0.28rem;width: 0.28rem;background:url(img/nobingo.png) no-repeat 0 0;background-size: contain;float: left;margin-right: 0.14rem;}
+   .inform,.tuInform{
+    width: 6.4rem;
+    height: 3.4rem;
+    position: absolute;
+    border-radius: 0.12rem;
+    top: 4.5rem;
+    left: 50%;
+    margin-left: -3.2rem;
+    background-color: white;
+    z-index: 99;
+    display: none;
+    box-sizing: border-box;
+    padding-top:0.4rem; 
+    border:1px solid #cacaca;
+
+  }
+  .tuInform{
+    height: 3.7rem;
+  }
+  .inform p:first-child,.tuInform p{
+    font-size: 0.32rem;
+    color: #666666;
+    height:0.32rem;
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0.5rem;
+    line-height: 0.32rem;
+  }
+  /*.tuInform{
+    display: block;
+  }*/
+  .tuInform p{
+    margin-bottom: 0.6rem;
+    margin-top: 0;
+  }
+  .imageNum{
+    width: 100%;
+    height: 0.88rem;
+    box-sizing: border-box;
+    padding: 0 0.5rem;
+    margin-bottom: 0.6rem;
+
+  }
+  .imageNum input{
+    float: left;
+    box-sizing: border-box;
+    padding: 0.28rem 0.24rem;
+    width: 3rem;
+    height: 0.86rem;
+    margin-right: 0.2rem;
+    border-radius: 0.06rem;
+    border:1px solid #cacaca;
+    margin-bottom: 0;
+    margin-top: 1px;
+  }
+  .imageNum div{
+    float: left;
+    width: 2rem;
+    height: 0.88rem;
+    background-color: yellow;
+    border-radius: 0.06rem;
+  }
+  .sure{
+    width: 100%;
+    height: 0.86rem;
+    border-top:1px solid #cacaca;
+  }
+  .conform{
+    display: block;
+    width: 100%;
+    min-height:0.32rem;
+    line-height: 0.32rem; 
+    font-size: 0.32rem;
+    text-align: center;
+    color: #666666;
+  }
+  .know{
+    width: 100%;
+    position: absolute;
+    bottom: 0.1rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    text-align: center;
+    color: #ff5133;
+    border-top: 1px solid #cacaca;
+    font-size: 0.32rem;
+
+  }
+  .cancle,.mySure{
+    float: left;
+    width: 49%;
+    height: 0.86rem;
+    text-align: center;
+    line-height: 0.86rem;
+    font-size: 0.32rem;
+    color: #666666;
+    font-family: 微软雅黑;
+  }
+  .mySure{
+    color: #FF5E33;
+  }
+  .cancle{
+    border-right: 0.02rem solid #cacaca;
+  }
+  #test{
+    width: 100%;
+    height: 100%;
+  }
+</style>
+<body>
+  <img src="img/tianyan.png">
+
+
+  <div class="inform">
+    <p style="font-size: 0.32rem;color: #666666;height:0.32rem;display: block;width: 100%;text-align: center;margin-bottom: 0.5rem;line-height: 0.32rem;">提示</p>
+    <p class="conform"></p>
+    <div class="know">我知道了</div>
+  </div>
+  <div class="tuInform">
+      <p>输入图形验证码</p>
+      <div class="imageNum">
+          <input type="text" name="" placeholder="请输入">
+          <div><img id="test" src=""></div>
+      </div>
+      <div class="sure">
+          <div class="cancle">取消</div>
+          <div class="mySure">发送</div>
+      </div>
+  </div>
+  <div class="content">
+    <div>
+      <input maxlength="11" type="text" name="" placeholder="请输入手机号" id="phone" >
+      <div class="area"><input maxlength="6" type="" name="" placeholder="请输入验证码" class="Verification" id="numVeri"><span class="numVali">获取验证码</span><div class="shade"></div></div>
+      <input type="password" name="" placeholder="请设置密码(不少于6个字符)" id="cipher">
+        <div class="check"><div class="tick"></div><font style="color: white;opacity: 0.6;">我已阅读并同意</font><font style="color: white;opacity: 1;" class="yitongjin">《一桶金使用协议》</font></div>
+        <div class="pick"></div>
+    </div>
+  </div>
+</body>
+</html>

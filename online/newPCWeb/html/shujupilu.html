@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+    <meta charset="UTF-8">
+    <meta charset="UTF-8">
+    <title>一桶金-数据披露</title>
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/headerAndFooter.css">
+    <link rel="stylesheet" href="../css/shujupilu.css">
+    <script src="../js/jquery.min.js"></script>
+    <script>
+        $(function () {
+            $('#footer').load('footer.html')
+            $('#headerXXPL').load('headerXXPL.html');
+            $('#header').load('header.html');
+        })
+    </script>
+</head>
+
+<body>
+<!--header开始-->
+<div id="header"></div>
+<div id="headerXXPL"></div>
+<!--header结束-->
+
+<div class="container">
+    <div class="sssj">
+        <h3>实时数据</h3>
+        <div class="row text-center">
+            <div class="col-lg-4">
+                <!--<div class="line">-->
+                    <p>累计成交金额(元)</p>
+                    <p id="ljcjje"></p>
+                <!--</div>-->
+
+            </div>
+            <div class="col-lg-4">
+                <!--<div class="line">-->
+                    <p>累计用户收益(元)</p>
+                    <p id="ljyhsy"></p>
+                <!--</div>-->
+            </div>
+            <div class="col-lg-4">
+                <p>累计注册用户(人)</p>
+                <p id="ljzcyh"></p>
+            </div>
+        </div>
+    </div>
+    <div class="sssj">
+        <h3>出借数据统计</h3>
+        <div class="row text-center">
+            <div class="col-lg-4">
+                <!--<div class="line">-->
+                <p>累计成交笔数(笔)</p>
+                <p id="ljcjbs"></p>
+                <!--</div>-->
+
+            </div>
+            <div class="col-lg-4">
+                <!--<div class="line">-->
+                <p>累计出借人总数(人)</p>
+                <p id="ljcjrzs"></p>
+                <!--</div>-->
+            </div>
+            <div class="col-lg-4">
+                <p>本年度成交金额(元)</p>
+                <p id="bncjje"></p>
+            </div>
+        </div>
+    </div>
+    <div class="bfb">
+        <div class="row text-center">
+            <div class="col-lg-4 bfb-item " >
+                <div class="bfb-item-top text-center" id="danhu" style="width: 180px; height: 180px">
+                    <p>最大单户出借
+                        余额占比</p>
+                </div>
+                <p><span class="yellow"></span> 最大单户出借余额占比 <span class="zddh"></span>%</p>
+                <p><span class="red"></span> 其余单户出借余额占比 <span class="qydh"></span>%</p>
+            </div>
+            <div class="col-lg-4 bfb-item " >
+                <div class="bfb-item-top tw " id="shihu" style="width: 180px; height: 180px">
+                    <p>最大10户出借
+                        余额占比</p>
+                </div>
+                <p><span class="grey" ></span> 最大10户投资出借占比  <span class="zdsh"></span>%</p>
+                <p><span class="blue"></span> 其余用户出借余额占比 <span class="qyyh"></span>%</p>
+            </div>
+            <div class="col-lg-4 bfb-item " >
+                <div class="bfb-item-top th" id="sex" style="width: 180px; height: 180px">
+                    <p>用户性别分布</p>
+                </div>
+                <p><span class="green"></span> 男  <span class="xbnan"></span> %</p>
+                <p><span class="pink"></span> 女   <span class="xbnv"></span>%</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="sssj jktj">
+        <h3>借款数据统计</h3>
+        <div class="row">
+            <div class="col-lg-4">
+                <p>累计借款人总数(人)</p>
+                <p id="ljjkrzs"></p>
+            </div>
+            <div class="col-lg-4">
+                <p>待还金额(万元)</p>
+                <p id="dhje"></p>
+            </div>
+            <div class="col-lg-4">
+                <p>待还金额笔数(笔)</p>
+                <p id="dhjebs"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <p>项目逾期率(OP)</p>
+                <p id="xmyql"></p>
+            </div>
+            <div class="col-lg-4">
+                <p>逾期金额(万元)</p>
+                <p id="yqje"></p>
+            </div>
+            <div class="col-lg-4">
+                <p>金额逾期率(OP)</p>
+                <p id="jeyql"></p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-4">
+                <p>90天以上逾期率(OP)</p>
+                <p id="jstysyql"></p>
+            </div>
+            <div class="col-lg-4">
+                <p>90天以上逾期金额(万元)</p>
+                <p id="jstysyqje"></p>
+            </div>
+            <div class="col-lg-4">
+                <p>90天以上累计逾期率(OP)</p>
+                <p id="jstysljyql"></p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="footer"></div>
+</body>
+<script src="../js/echarts.min.js"></script>
+<script>
+     function eacharts(zddh,zdsh,qyyh,qydh,xbnan,xbnv) {
+         var danhu = echarts.init(document.getElementById('danhu'));
+         var shihu = echarts.init(document.getElementById('shihu'));
+         var sex = echarts.init(document.getElementById('sex'));
+         option = {
+             tooltip: {
+                 trigger: 'item',
+                 formatter: "{a} <br/>{b}: {c} ({d}%)"
+             },
+             // legend: {
+             //     orient: 'vertical',
+             //     x: 'center',
+             //     y:'bottom',
+             //     data:['≤27岁','27-30岁','≥30岁']
+             // },
+             series: [
+                 {
+                     name:'年龄分布',
+                     type:'pie',
+                     color:['rgba(255,232,103,1)','rgba(255,136,104,1)'],
+                     radius: ['50%', '70%'],
+                     avoidLabelOverlap: false,
+                     label: {
+                         normal: {
+                             show: false,
+                             position: 'center'
+                         },
+                         emphasis: {
+                             show: true,
+                             textStyle: {
+                                 fontSize: '12',
+                                 fontWeight: '100',
+                                 color:'#000',
+                             }
+                         }
+                     },
+                     labelLine: {
+                         normal: {
+                             show: false
+                         }
+                     },
+                     data:[
+                         {value:zddh, name:'最大单户出借余额占比 '+zddh+'%'},
+                         {value:qydh, name:' 其余单户出借余额占比 '+qydh+'%'},
+                         // {value:18, name:'≥30岁'},
+                     ]
+                 }
+             ]
+         };
+         options = {
+             tooltip: {
+                 trigger: 'item',
+                 formatter: "{a} <br/>{b}: {c} ({d}%)"
+             },
+             // legend: {
+             //     orient: 'vertical',
+             //     x: 'center',
+             //     y:'bottom',
+             //     data:['≤27岁','27-30岁','≥30岁']
+             // },
+             series: [
+                 {
+                     name:'年龄分布',
+                     type:'pie',
+                     color:['rgba(173,144,255,1)','rgba(144,199,255,1)'],
+                     radius: ['50%', '70%'],
+                     avoidLabelOverlap: false,
+                     label: {
+                         normal: {
+                             show: false,
+                             position: 'center'
+                         },
+                         emphasis: {
+                             show: true,
+                             textStyle: {
+                                 fontSize: '12',
+                                 fontWeight: '100',
+                                 color:'#000',
+                             }
+                         }
+                     },
+                     labelLine: {
+                         normal: {
+                             show: false
+                         }
+                     },
+                     data:[
+                         {value:zdsh, name:'最大10户投资出借占比  '+zdsh+'%'},
+                         {value:qyyh, name:' 其余用户出借余额占比 '+qyyh+'%'},
+                         // {value:18, name:'≥30岁'},
+                     ]
+                 }
+             ]
+         };
+         optionss = {
+             tooltip: {
+                 trigger: 'item',
+                 formatter: "{a} <br/>{b}: {c} ({d}%)"
+             },
+             // legend: {
+             //     orient: 'vertical',
+             //     x: 'center',
+             //     y:'bottom',
+             //     data:['男   50.21%',' 女   49.79%']
+             // },
+             series: [
+                 {
+                     name:'年龄分布',
+                     type:'pie',
+                     color:['rgba(122,229,145,1)','rgba(255,165,209,1)'],
+                     radius: ['50%', '70%'],
+                     avoidLabelOverlap: false,
+                     label: {
+                         normal: {
+                             show: false,
+                             position: 'center'
+                         },
+                         emphasis: {
+                             show: true,
+                             textStyle: {
+                                 fontSize: '12',
+                                 fontWeight: '100',
+                                 color:'#000',
+                             }
+                         }
+                     },
+                     labelLine: {
+                         normal: {
+                             show: false
+                         }
+                     },
+                     data:[
+                         {value:xbnan, name:'男   '+xbnan+'%'},
+                         {value:xbnv, name:' 女   '+xbnv+'%'},
+                         // {value:18, name:'≥30岁'},
+                     ]
+                 }
+             ]
+         };
+         danhu.setOption(option);
+         shihu.setOption(options);
+         sex.setOption(optionss);
+     }
+
+</script>
+    <script src="../js/myjs/shujupilu.js"></script>
+</html>

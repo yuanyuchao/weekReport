@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>金豆商城</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+        }
+
+        .box {
+            background-color: #f9f9f9;
+        }
+
+        body {
+            overflow: auto;
+        }
+
+        .product-top {
+            background-color: #fff;
+            margin-bottom: 0.24rem;
+            padding: 0.27rem 0.23rem 0.36rem 0.27rem;
+        }
+
+        .product-img {
+            width: 5.45rem;
+            height: 4.45rem;
+            /*background-color: #e4ffa7;*/
+            margin: 0rem auto 0.48rem auto;
+        }
+
+        .product-top > p:nth-of-type(1) {
+            font-size: 0.28rem;
+            color: #333333;
+            margin-bottom: 0.35rem;
+        }
+
+        .product-top > p:nth-of-type(2) {
+            font-size: 0.26rem;
+            color: #FF5E33;
+        }
+
+        .product-top > p:nth-of-type(2) > span {
+            font-size: 0.44rem;
+        }
+
+        .product-bottom {
+            font-size: 0.28rem;
+            background-color: #fff;
+            padding: 0 0.28rem;
+            color: #666666;
+            margin-bottom: 0.01rem;
+        }
+
+        .box > p:nth-of-type(1) {
+            padding: 0.28rem;
+            margin-bottom: 0.01rem;
+            font-size: 0.28rem;
+            color: #333333;
+            background-color: #fff;
+        }
+
+        .product-bottom > p {
+            padding-bottom: 0.34rem;
+        }
+
+        .product-bottom > p:nth-of-type(1) {
+            padding-top: 0.34rem;
+        }
+
+        .btn {
+            background-color: #FF5E33;
+            color: #ffffff;
+            font-size: 0.32rem;
+            text-align: center;
+            margin: 0 auto;
+            width: 7.02rem;
+            border-radius: 0.06rem;
+            height: 0.88rem;
+            box-sizing: border-box;
+            line-height: 0.88rem;
+        }
+
+        .buy {
+            background-color: #fff;
+            padding: 0.16rem 0;
+        }
+
+        .mask {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 100;
+            display: none;
+        }
+
+        .mtk {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 6.4rem;
+            background-color: #fff;
+            font-size: 0.32rem;
+            padding-top: 0.31rem;
+            border-radius: 0.12rem;
+            display: none;
+            margin-top: -2rem;
+            margin-left: -3.2rem;
+            z-index: 1000;
+        }
+
+        .mtk > p:nth-of-type(1) {
+            text-align: center;
+            margin-bottom: 0.35rem;
+        }
+
+        .mtk > p:nth-of-type(2) {
+            text-align: center;
+            color: #999999;
+            font-size: 0.24rem;
+            margin-bottom: 0.29rem;
+        }
+
+        .tsxx {
+            display: flex;
+            align-items: center;
+            padding-left: 0.94rem;
+            padding-right: 0.83rem;
+            color: #666666;
+            margin-bottom: 0.42rem;
+        }
+
+        .tsxx > img {
+            width: 0.7rem;
+            height: 0.86rem;
+            margin-right: 0.3rem;
+        }
+
+        .btn-group {
+            overflow: auto;
+            border-top: 0.01rem solid #CACACA;
+        }
+
+        .btn-group > p:nth-of-type(1) {
+            color: #666666;
+        }
+
+        .btn-group > p {
+            float: left;
+            width: 49%;
+            text-align: center;
+            height: 0.88rem;
+            line-height: 0.88rem;
+        }
+
+        .btn-group > p:nth-of-type(2) {
+            border-left: 0.01rem solid #CACACA;
+            color: #FF5E33;
+        }
+
+        .dhcg-hb {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 6.4rem;
+            margin-left: -3.2rem;
+            margin-top: -3.08rem;
+            background: rgba(255, 255, 255, 1);
+            border-radius: 0.12rem;
+            padding: 0.41rem 0 0.64rem 0;
+            box-sizing: border-box;
+            text-align: center;
+            display: none;
+        }
+
+        .dhcg-hb > p:nth-of-type(1) {
+            font-size: 0.32rem;
+            color: #333333;
+            margin-bottom: 0.23rem;
+        }
+
+        .dhcg-hb > img:nth-of-type(1) {
+            width: 2.72rem;
+            height: 2.72rem;
+        }
+
+        .dhcg-hb > p:nth-of-type(2) {
+            font-size: 0.36rem;
+            color: #FE9500;
+            margin-bottom: 0.28rem;
+        }
+
+        .dhcg-hb > p:nth-of-type(3), .dhcg-hb > p:nth-of-type(4) {
+            font-size: 0.28rem;
+            color: #999999;
+        }
+
+        .dhcg-hb > p:nth-of-type(4) > span {
+            color: #FF5E33;
+        }
+
+        .dhcg-hb > img:nth-of-type(2) {
+            position: absolute;
+            right: 0rem;
+            top: -1.01rem;
+            width: 0.61rem;
+            height: 0.61rem;
+        }
+
+        #shibai > p:nth-of-type(2) {
+            color: #FF5E33;
+        }
+
+        .product-img img {
+            width: 100%;
+            height: 100%;
+        }
+
+        .add {
+            position: fixed;
+        }
+
+
+    </style>
+</head>
+<body>
+<div class="box">
+    <div class="product-top">
+        <div class="product-img"><img src="" alt=""></div>
+        <p class="product-name"></p>
+        <p><span>0</span>金豆</p>
+    </div>
+    <p>商品详情</p>
+    <div class="product-bottom">
+        <p> 商品名称：<span class="product-name">10元红包</span></p>
+        <p> 有效使用期：兑换之日起<span class="yxq">7</span>天</p>
+        <p>领取方法：<span>兑换成功后在 [我的] - [我的红包] 中查看</span></p>
+        <p>使用条件：<span class="sytj">购买2000元60天及以上标可用</span></p>
+        <p>使用说明：出借红包是一桶金平台提供给客户的电子虚拟礼金的一种，仅限于本平台购买使用，不可叠加使用，不能直接提现，购买后与出借金额及利息一起回款至用户银行卡。</p>
+    </div>
+    <div class="buy">
+        <div class="btn">
+            立即兑换
+        </div>
+    </div>
+</div>
+<div class="mask">
+    <div class="mtk" style="display: none">
+        <p>提示</p>
+        <div class="tsxx">
+            <img src="../img/gantanhao.png" alt="">
+            <p>您确认使用 <span class="jindou">5000</span>金豆兑换
+                <span class="xianjinquan">50元现金券</span> ?</p>
+        </div>
+        <p>兑换操作不可撤销，请认真核对兑换信息</p>
+        <div class="btn-group">
+            <p class="concel">取消</p>
+            <p class="confirm">确定</p>
+        </div>
+    </div>
+    <div class="dhcg-hb" id="hongbao" style="display: none">
+        <p>兑换成功</p>
+        <img src="../img/success.png" alt="">
+        <p style="color: #FF5E33">恭喜你，兑换成功！</p>
+        <p><span class="product-name">20元红包</span>已经发放到您的账户中,</p>
+        <p>请到<span class="mineRed">我的>我的红包</span>中</p>
+        <img src="../img/close.png" alt="" class="close">
+    </div>
+    <div class="dhcg-hb" id="shiwu" style="display: none">
+        <p>兑换成功</p>
+        <img src="../img/success.png" alt="">
+        <p style="color: #FF5E33">恭喜你，兑换成功！</p>
+        <p>我们将在每周二统一安排采购，</p>
+        <p>在七个工作日为您安排发货</p>
+        <img src="../img/close.png" alt="" class="close">
+    </div>
+    <div class="dhcg-hb" id="shibai" style="display: none">
+        <p>兑换失败</p>
+        <img src="../img/success.png" alt="">
+        <p style="color: #FE9500">很抱歉，兑换失败！</p>
+        <p>您的金豆不足，暂时无法兑换</p>
+        <img src="../img/close.png" alt="" class="close">
+    </div>
+</div>
+</body>
+<script src="../../js/jquery.min.js"></script>
+<script src="../../js/rem.js"></script>
+<script src="../../js/fastclick.js"></script>
+<script>
+
+
+    $(function () {
+        $(window).scroll(function () {
+            console.log($(window).scrollTop())
+        });
+        var id = document.URL.split('?')[1].split('=')[1];
+        var top = 0;
+
+        $('.btn').on('click', function () {
+            $('.mask').css('display', 'block');
+            $('.mtk').css('display', 'block');
+            top = $(window).scrollTop();
+            $('body').css('top', -top + 'px');
+            $('body').css('position', 'fixed');
+        })
+        $('.concel').on('click', function () {
+            $('.mask').css('display', 'none');
+            $('body').css('position', 'static');
+            $(window).scrollTop(top);
+        })
+        $('.close').on('click', function () {
+            $('.mask').css('display', 'none');
+            $('#shibai').css('display', 'none');
+            $('#hongbao').css('display', 'none');
+            $('body').css('position', 'static');
+            $(window).scrollTop(top);
+        })
+
+
+        function productDetail(uid, token) {
+            $.ajax({
+                type: 'POST',
+                url: "https://www.etongjin.net/activity/showCommodityDetailed/auth",
+                headers: {
+                    "uid": uid,
+                    "token": token
+                },
+                data: {"id": id},
+                error: function () {
+                    console.log("加载失败")
+                },
+                success: function (data) {
+                    if (data.code == "200") {
+                        console.log(data.data);
+                        var datas = data.data;
+                        if (datas.count == 0) {
+                            $('.btn').text('已兑完');
+                            $('.btn').css('backgroundColor', '#CACACA');
+                            $('.btn').css('color', '#ffffff');
+                            $('.btn').css('pointer-events', 'none');
+                        }
+                        $('.product-img>img').attr('src', datas.pic)
+                        $('.product-name').html(datas.name);
+                        $('.product-top>p:nth-of-type(2)>span').html(datas.goldPeas);
+                        $('.yxq').html(datas.endTime);
+                        $('.sytj').html(datas.serviceConditions);
+                        $('.jindou').html(datas.goldPeas);
+                        $('.xianjinquan').html(datas.name);
+                    }
+                }
+            });
+        }
+
+        function productBuy(uid, token) {
+            $('.confirm').on('click', function () {
+                $.ajax({
+                    type: "get",
+                    url: "https://www.etongjin.net/activity/buy/commodity/auth",
+                    headers: {
+                        "uid": uid,
+                        "token": token
+                    },
+                    data: {"id": id},
+                    success: function (data) {
+                        console.log(data);
+                        if (data.code == "400") {
+                            $('.mtk').css('display', 'none');
+                            $('#shibai').css('display', 'block');
+                        }
+                        ;
+                        if (data.code == "200") {
+                            $('.mtk').css('display', 'none');
+                            $('#hongbao').css('display', 'block');
+                            $('.confirm').css('pointer-events', 'none');
+                            setTimeout(function () {
+                                $('.confirm').css('pointer-events','auto');
+                            },3000)
+                            $('.mineRed').on('click', function () {
+                                function connectWebViewJavascriptBridge(callback) {
+                                    if (window.WebViewJavascriptBridge) {
+                                        callback(WebViewJavascriptBridge)
+                                    } else {
+                                        document.addEventListener(
+                                            'WebViewJavascriptBridgeReady'
+                                            , function () {
+                                                callback(WebViewJavascriptBridge)
+                                            },
+                                            false
+                                        );
+                                    }
+                                }
+
+// iOS端
+                                function setupWebViewJavascriptBridge(callback) {
+                                    if (window.WebViewJavascriptBridge) {
+                                        return callback(WebViewJavascriptBridge);
+                                    }
+                                    if (window.WVJBCallbacks) {
+                                        return window.WVJBCallbacks.push(callback);
+                                    }
+                                    window.WVJBCallbacks = [callback];
+                                    var WVJBIframe = document.createElement('iframe');
+                                    WVJBIframe.style.display = 'none';
+                                    WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                                    document.documentElement.appendChild(WVJBIframe);
+                                    setTimeout(function () {
+                                        document.documentElement.removeChild(WVJBIframe)
+                                    }, 0)
+                                }
+
+                                var u = navigator.userAgent;
+                                if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+                                    connectWebViewJavascriptBridge(function (bridge) {
+                                        //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+                                        window.WebViewJavascriptBridge.callHandler(
+                                            'PushRedEnvelopeNative',
+                                            '999999'
+                                            , function (responseData) {
+                                                var responseData = JSON.parse(responseData);
+                                                console.log(responseData);
+                                                token = responseData.token;
+                                                uid = responseData.uuid;
+                                                productDetail(uid, token)
+                                                productBuy(uid, token)
+                                            }
+                                        );
+                                    })
+                                } else {
+                                    setupWebViewJavascriptBridge(function (bridge) {
+                                        //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+                                        window.WebViewJavascriptBridge.callHandler(
+                                            'PushRedEnvelopeNative',
+                                            '999999'
+                                            , function (responseData) {
+                                                token = responseData.token;
+                                                uid = responseData.uuid;
+                                                // fuiouPayUrl = responseData.fuiouPayUrl;
+                                                // console.log(fuiouPayUrl);
+                                                productDetail(uid, token)
+                                                productBuy(uid, token)
+                                            }
+                                        );
+                                    })
+                                }
+                                ;
+                                $('.mask').css('display', 'none');
+                                $('#shibai').css('display', 'none');
+                                $('#hongbao').css('display', 'none');
+                            });
+
+                            // 安卓端
+                            function connectWebViewJavascriptBridge(callback) {
+                                if (window.WebViewJavascriptBridge) {
+                                    callback(WebViewJavascriptBridge)
+                                } else {
+                                    document.addEventListener(
+                                        'WebViewJavascriptBridgeReady'
+                                        , function () {
+                                            callback(WebViewJavascriptBridge)
+                                        },
+                                        false
+                                    );
+                                }
+                            }
+
+// iOS端
+                            function setupWebViewJavascriptBridge(callback) {
+                                if (window.WebViewJavascriptBridge) {
+                                    return callback(WebViewJavascriptBridge);
+                                }
+                                if (window.WVJBCallbacks) {
+                                    return window.WVJBCallbacks.push(callback);
+                                }
+                                window.WVJBCallbacks = [callback];
+                                var WVJBIframe = document.createElement('iframe');
+                                WVJBIframe.style.display = 'none';
+                                WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+                                document.documentElement.appendChild(WVJBIframe);
+                                setTimeout(function () {
+                                    document.documentElement.removeChild(WVJBIframe)
+                                }, 0)
+                            }
+
+                            var u = navigator.userAgent;
+                            if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+                                connectWebViewJavascriptBridge(function (bridge) {
+                                    //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+                                    window.WebViewJavascriptBridge.callHandler(
+                                        'ShoppingSuccess',
+                                        '999999'
+                                        , function (responseData) {
+                                            var responseData = JSON.parse(responseData);
+                                            console.log(responseData);
+                                            token = responseData.token;
+                                            uid = responseData.uuid;
+                                            productDetail(uid, token)
+                                            productBuy(uid, token)
+                                        }
+                                    );
+                                })
+                            } else {
+                                setupWebViewJavascriptBridge(function (bridge) {
+                                    //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+                                    window.WebViewJavascriptBridge.callHandler(
+                                        'ShoppingSuccess',
+                                        '999999'
+                                        , function (responseData) {
+                                            token = responseData.token;
+                                            uid = responseData.uuid;
+                                            // fuiouPayUrl = responseData.fuiouPayUrl;
+                                            // console.log(fuiouPayUrl);
+                                            productDetail(uid, token)
+                                            productBuy(uid, token)
+                                        }
+                                    );
+                                })
+                            }
+                            return false;
+                        }
+                    }
+                })
+            })
+        }
+
+// 安卓端
+        function connectWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener(
+                    'WebViewJavascriptBridgeReady'
+                    , function () {
+                        callback(WebViewJavascriptBridge)
+                    },
+                    false
+                );
+            }
+        }
+
+// iOS端
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                return callback(WebViewJavascriptBridge);
+            }
+            if (window.WVJBCallbacks) {
+                return window.WVJBCallbacks.push(callback);
+            }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function () {
+                document.documentElement.removeChild(WVJBIframe)
+            }, 0)
+        }
+
+        var u = navigator.userAgent;
+        if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+            connectWebViewJavascriptBridge(function (bridge) {
+                //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+                window.WebViewJavascriptBridge.callHandler(
+                    'getUserTokenAndUUID',
+                    '999999'
+                    , function (responseData) {
+                        var responseData = JSON.parse(responseData);
+                        console.log(responseData);
+                        token = responseData.token;
+                        uid = responseData.uuid;
+                        productDetail(uid, token)
+                        productBuy(uid, token)
+                    }
+                );
+            })
+        } else {
+            setupWebViewJavascriptBridge(function (bridge) {
+                //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+                window.WebViewJavascriptBridge.callHandler(
+                    'getUserTokenAndUUID',
+                    '999999'
+                    , function (responseData) {
+                        token = responseData.token;
+                        uid = responseData.uuid;
+                        // fuiouPayUrl = responseData.fuiouPayUrl;
+                        // console.log(fuiouPayUrl);
+                        productDetail(uid, token)
+                        productBuy(uid, token)
+                    }
+                );
+            })
+        }
+
+    })
+</script>
+</html>

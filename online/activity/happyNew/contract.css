@@ -1,0 +1,31 @@
+body,html,div,h1,h2,h3,h4,h5,h6,p,span,img{
+	margin:0;
+	padding:0;
+}
+html,body{
+	width: 100%;
+}
+body{
+	box-sizing: border-box;
+	padding-top:0.1rem;
+	background-color: #f9f9f9;
+}
+div{
+	width: 100%;
+	box-sizing: border-box;
+	padding:0 0.25rem;
+	background-color: white;
+}
+p{
+	display: block;
+	width: 100%;
+	font-family: 微软雅黑;
+	font-size: 0.28rem;
+	color: #666666;
+	line-height: 0.44rem;
+	margin-bottom: 0.55rem;
+}
+p:last-child{
+	margin-bottom: 0;
+	padding-bottom: 0.1rem;
+}

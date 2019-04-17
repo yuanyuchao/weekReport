@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+ul {
+    list-style: none;
+}
+
+.box {
+    background-color: #F9F9F9;
+    height: 13.34rem;
+}
+
+.jzsj {
+    font-size: 0.23rem;
+    text-align: center;
+    padding: 0.2rem 0;
+}
+
+.ljhq {
+    background-color: #fff;
+    padding: 0.4rem 0rem;
+    margin-bottom: 0.13rem;
+}
+
+.ljhq-left {
+    float: left;
+    width: 49%;
+    text-align: center;
+    border-right: 1px solid #DEDEDE;
+}
+
+.ljhq-right {
+    float: left;
+    width: 49%;
+    text-align: center;
+}
+
+.ljhq p:nth-of-type(1) {
+    font-size: 0.32rem;
+    color: #333333;
+}
+
+.ljhq p:nth-of-type(2) {
+    font-size: 0.28rem;
+    color: #999999;
+}
+
+.clear {
+    clear: both;
+}
+
+.tab li {
+    float: left;
+    width: 50%;
+    font-size: 0.28rem;
+    color: #999999;
+    text-align: center;
+    background-color: #fff;
+    padding: 0.3rem 0;
+}
+
+.tab .tab-bgc {
+    background-color: #FF5E33;
+    color: #ffffff;
+}
+
+.tab {
+    margin-bottom: 0.12rem;
+}
+
+.content {
+    clear: both;
+}
+
+.same {
+    padding: 0.3rem 0;
+    background-color: #fff;
+    border-bottom: 0.02rem solid #f1f1f1;
+}
+
+.dropdown-t, .dropdown-s, .dropdown-f {
+    margin-bottom: 0.24rem;
+}
+
+.same > p:nth-of-type(1) {
+    float: left;
+    font-size: 0.3rem;
+    color: #FF5E33;
+    text-indent: 0.8rem;
+    background: url("../img/yongjin.png") no-repeat 0.24rem 0;
+    background-size: contain;
+}
+
+.same > p:nth-of-type(2) {
+    float: right;
+    font-size: 0.28rem;
+    color: #999999;
+    padding-right: 0.28rem;
+    display: flex;
+    align-items: center;
+}
+
+.changeBg {
+    background: url("../img/up.png") no-repeat;
+    background-size: contain;
+}
+
+.jmj > p:nth-of-type(1) {
+    background: url("../img/jianmian.png") no-repeat 0.24rem 0;
+    background-size: contain;
+}
+
+.rmj > p:nth-of-type(1) {
+    background: url("../img/renmai.png") no-repeat 0.24rem 0;
+    background-size: contain;
+}
+
+.yjj-content > li, .jmj-content > li, .rmj-content > li {
+    width: 100%;
+    background-color: #fff;
+    float: left;
+}
+
+.yjj-content-left, .yjj-content-mid, .yjj-content-right {
+    float: left;
+    font-size: 0.24rem;
+    width: 33%;
+    text-align: center;
+}
+
+.yjj-content-left {
+    box-sizing: border-box;
+    color: #666666;
+    text-align: left;
+    padding-left: 0.24rem;
+}
+
+.yjj-content-mid > p:nth-of-type(1) {
+    color: #333333;
+}
+
+.yjj-content-mid > p:nth-of-type(2) {
+    color: #999999;
+}
+
+.yjj-content-right {
+    box-sizing: border-box;
+    color: #666666;
+    text-align: right;
+    padding-right: 0.24rem;
+}
+
+.yjj-content-right > p > span > img {
+    width: 0.24rem;
+    height: 0.13rem;
+}
+
+.yjj-content-top {
+    width: 100%;
+}
+
+.jdc {
+    clear: both;
+    color: #999999;
+    background-color: #f9f9f9;
+}
+
+.jdc li {
+    float: left;
+    width: 33%;
+    padding: 0.15rem 0.5rem;
+    box-sizing: border-box;
+}
+
+.jdc li img {
+    width: 1.5rem;
+    height: 0.83rem;
+}
+
+.jdc p {
+    text-align: center;
+    font-size: 0.24rem;
+    color: #999999;
+}
+
+.jmj-content > li {
+    display: flex;
+    align-items: center;
+    padding: 0.42rem 0;
+    border-bottom: 0.02rem solid #f1f1f1;
+}
+
+.rmj-content > li {
+    display: flex;
+    align-items: center;
+    padding: 0.42rem 0;
+}
+
+.yjj-content-top {
+    padding: 0.42rem 0;
+}
+
+.yjj-content > li {
+    border-bottom: 0.02rem solid #f1f1f1;
+}
+
+.wdhy-title {
+    font-size: 0.3rem;
+    color: #333333;
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    padding: 0.3rem 0;
+    border-bottom: 0.02rem solid #f1f1f1;
+}
+
+.same > p > img {
+    width: 0.24rem;
+    height: 0.13rem;
+}
+
+.jdc > li > p {
+    margin-top: 0.11rem;
+}
+
+#pages > li {
+    display: flex;
+    justify-content: space-around;
+    background-color: #fff;
+    padding: 0.3rem 0;
+    font-size: 0.28rem;
+    color: #666666;
+    border-bottom: 0.02rem solid #f1f1f1;
+}
+
+.zwjl {
+    text-align: center;
+    margin-top: 0.24rem;
+}
+
+.rmj-content > li:nth-of-type(3n) {
+    border-bottom: 0.02rem solid #f1f1f1;
+}
+
+
+

@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>国资控股全民狂欢</title>
+    <script src="../jquery.min.js"></script>
+    <script src="../fastclick.js"></script>
+    <script src="../rem.js"></script>
+    <script src="../common.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+
+        ul {
+            list-style: none;
+            padding-top: 4.89rem;
+            overflow: hidden;
+        }
+        .box {
+            width: 7.5rem;
+            height: 12.05rem;
+            background: url("img/bg1.png") no-repeat;
+            background-size: cover;
+            box-sizing: border-box;
+        }
+        li {
+            width: 2.11rem;
+            height: 2.26rem;
+            float: left;
+            margin-left: 0.30rem;
+            margin-bottom: 0.5rem;
+            position: relative;
+        }
+        .rules {
+            font-size: 0.24rem;
+            color: #837473;
+            margin-bottom: 0.31rem;
+            margin-left: 0.3rem;
+        }
+        .pick {
+            width: 7.02rem;
+            height: 0.88rem;
+            background-color: #FF5E33;
+            border-radius: 0.06rem;
+            margin: 0 auto;
+            font-size: 0.32rem;
+            color: #FFFFFF;
+            line-height: 0.88rem;
+            text-align: center;
+        }
+        li img {
+            width: 2.11rem;
+            height: 2.26rem;
+        }
+        .jump {
+            background-color: rgba(54, 54, 54, 0.46);
+            font-size: 0.32rem;
+            color: #FFFFFF;
+            margin: 0 auto;
+            width: 4rem;
+            height: 0.6rem;
+            text-align: center;
+            line-height: 0.6rem;
+            border-radius: 0.06rem;
+            position: absolute;
+            top: 54%;
+            left: 25%;
+            display: none;
+        }
+        .mark::after {
+            content: '';
+            width: 0.54rem;
+            height: 0.54rem;
+            background: url("img/select.png") no-repeat ;
+            background-size: contain;
+            position: absolute;
+            top: 0.46rem;
+            left: 0.09rem;
+        }
+    </style>
+</head>
+<body>
+<div class="box">
+    <ul>
+        <li name="1" ><img src="img/r30.png" alt=""></li>
+        <li name="2" ><img src="img/r68.png" alt=""></li>
+        <li name="3"><img src="img/r98.png" alt=""></li>
+        <li name="4"><img src="img/r88.png" alt=""></li>
+        <li name="5"><img src="img/r188.png" alt=""></li>
+        <li name="6"><img src="img/r288.png" alt=""></li>
+    </ul>
+    <div class="rules">*活动期间每个用户，每天可领取一个红包，红包有效期2天</div>
+    <div class="jump">您今日已经领取过了</div>
+    <div class="pick">确认领取</div>
+</div>
+</body>
+
+<script>
+    $('li').on('click',function () {
+        $(this).addClass('mark').siblings().removeClass('mark');
+    })
+    //安卓端
+    function connectWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            callback(WebViewJavascriptBridge)
+        } else {
+            document.addEventListener(
+                'WebViewJavascriptBridgeReady'
+                , function () {
+                    callback(WebViewJavascriptBridge)
+                },
+                false
+            );
+        }
+    }
+
+    // iOS端
+    function setupWebViewJavascriptBridge(callback) {
+        if (window.WebViewJavascriptBridge) {
+            return callback(WebViewJavascriptBridge);
+        }
+        if (window.WVJBCallbacks) {
+            return window.WVJBCallbacks.push(callback);
+        }
+        window.WVJBCallbacks = [callback];
+        var WVJBIframe = document.createElement('iframe');
+        WVJBIframe.style.display = 'none';
+        WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+        document.documentElement.appendChild(WVJBIframe);
+        setTimeout(function () {
+            document.documentElement.removeChild(WVJBIframe)
+        }, 0)
+    }
+
+    var u = navigator.userAgent;
+    if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+        connectWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'getUserTokenAndUUID',
+                '999999'
+                , function (responseData) {
+                    var responseData = JSON.parse(responseData);
+                    console.log(responseData);
+                    token = responseData.token;
+                    uid = responseData.uuid;
+                    if(token==''){
+                        return;
+                    }else{
+                        $.ajax({
+                            url: url + '/activity/find/carnival/auth',
+                            type: 'post',
+                            headers: {'uid': uid, 'token': token},
+                            success: function (data) {
+                                if (data.code == 200) {
+                                    if (data.data != 0) {
+                                        var index = (data.data)-1;
+                                        $('li').eq(index).addClass('mark');
+                                        $('.pick').css('background-color','#CACACA');
+                                        $('li').css('pointer-events','none');
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
+            );
+        })
+    } else {
+        setupWebViewJavascriptBridge(function (bridge) {
+            //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+            window.WebViewJavascriptBridge.callHandler(
+                'getUserTokenAndUUID',
+                '999999'
+                , function (responseData) {
+                    token = responseData.token;
+                    uid = responseData.uuid;
+                    if(token==''){
+                        return;
+                    }else{
+                        $.ajax({
+                            url: url + '/activity/find/carnival/auth',
+                            type: 'post',
+                            headers: {'uid': uid, 'token': token},
+                            success: function (data) {
+                                if (data.code == 200) {
+                                    if (data.data != 0) {
+                                        var index = (data.data)-1;
+                                        $('li').eq(index).addClass('mark');
+                                        $('.pick').css('background-color','#CACACA');
+                                        $('li').css('pointer-events','none');
+                                    }
+                                }
+                            }
+                        })
+                    }
+                }
+            );
+        })
+    }
+
+    function isPick() {
+        $.ajax({
+            url: url + '/activity/find/carnival/auth',
+            type: 'post',
+            headers: {'uid': uid, 'token': token},
+            success: function (data) {
+                if (data.code == 200) {
+                    if (data.data == 0) {
+                        sendCode();
+                    } else {
+                        $('.jump').html('您今日已经领取过了');
+                        $('.jump').show(500);
+                        setTimeout(function(){
+                            $(".jump").hide(500);
+                        },2000);
+                    }
+
+                } else {
+                    alert(data.msg)
+                }
+            }
+        })
+    }
+
+    function sendCode() {
+        var code = $('.mark').attr('name');
+        $.ajax({
+            url: url + '/activity/carnival/auth',
+            type: 'post',
+            headers: {'uid': uid, 'token': token},
+            data: {'code': code},
+            success: function (data) {
+                if (data.code == 200) {
+                    $('.jump').html('领取成功')
+                    $('.jump').show(500);
+                    setTimeout(function(){
+                        $(".jump").hide(500);
+                    },2000);
+                    $('li').css('pointer-events','none');
+                    $('.pick').css('background-color','#CACACA');
+                } else {
+                    alert(data.msg)
+                }
+            }
+        })
+    }
+
+
+    $('.pick').on('click', function () {
+        var code = $('.mark').attr('name');
+        console.log(code);
+        if(code==undefined){
+            $('.jump').html('请选择您要领取的红包')
+            $('.jump').show(500);
+            setTimeout(function(){
+                $(".jump").hide(500);
+            },2000);
+            return;
+        }
+        var u = navigator.userAgent;
+        if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+            connectWebViewJavascriptBridge(function (bridge) {
+                //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+                window.WebViewJavascriptBridge.callHandler(
+                    'getUserTokenAndUUID',
+                    '999999'
+                    , function (responseData) {
+                        var responseData = JSON.parse(responseData);
+                        console.log(responseData);
+                        token = responseData.token;
+                        uid = responseData.uuid;
+                        if(token==''){
+                            var u = navigator.userAgent;
+                            if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+                                connectWebViewJavascriptBridge(function (bridge) {
+                                    //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+                                    window.WebViewJavascriptBridge.callHandler(
+                                        'NativeLogin',
+                                        '999999'
+                                        , function (responseData) {
+                                        }
+                                    );
+                                })
+                            } else {
+                                setupWebViewJavascriptBridge(function (bridge) {
+                                    //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+                                    window.WebViewJavascriptBridge.callHandler(
+                                        'NativeLogin',
+                                        '999999'
+                                        , function (responseData) {
+                                        }
+                                    );
+                                })
+                            }
+                        }else{
+                            isPick();
+                        }
+                    }
+                );
+            })
+        } else {
+            setupWebViewJavascriptBridge(function (bridge) {
+                //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+                window.WebViewJavascriptBridge.callHandler(
+                    'getUserTokenAndUUID',
+                    '999999'
+                    , function (responseData) {
+                        token = responseData.token;
+                        uid = responseData.uuid;
+                        if(token==''){
+                            var u = navigator.userAgent;
+                            if (u.indexOf('Android') > -1 || u.indexOf('Adr') > -1) {
+                                connectWebViewJavascriptBridge(function (bridge) {
+                                    //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+                                    window.WebViewJavascriptBridge.callHandler(
+                                        'NativeLogin',
+                                        '999999'
+                                        , function (responseData) {
+                                        }
+                                    );
+                                })
+                            } else {
+                                setupWebViewJavascriptBridge(function (bridge) {
+                                    //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+                                    window.WebViewJavascriptBridge.callHandler(
+                                        'NativeLogin',
+                                        '999999'
+                                        , function (responseData) {
+                                        }
+                                    );
+                                })
+                            }
+                        }else{
+                            isPick();
+                        }
+                    }
+                );
+            })
+        }
+    })
+</script>
+</html>

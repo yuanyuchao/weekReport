@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>新春佳节共狂欢,百万豪礼邀您共享</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<script type="text/javascript" src="js/rem.js"></script>
+	<script type="text/javascript" src="js/jquery.min.js"></script>
+	<script type="text/javascript" src="js/fastclick.js"></script>
+	<script src="http://www.jq22.com/jquery/bootstrap-3.3.4.js"></script>
+	<script src="js/distpicker.data.js"></script>
+	<script src="js/distpicker.js"></script>
+	<script src="js/main.js"></script>
+	<link rel="stylesheet" href="lay/layui.css" rel="stylesheet" type="text/css">
+	<script src="lay/layui.js"></script>
+</head>
+
+<style type="text/css">
+	html,body,div,img,ul,li,p,span,input,select{
+		margin:0;
+		padding:0;
+	}
+	html{
+		width: 100%;
+		height: 100%;
+	}
+	body{
+		width: 100%;
+		height: 100%;
+		position: relative;
+	}
+	img{
+		width: 100%;
+		display: block;
+
+	}
+	.shadow{
+		display: none;
+		width: 100%;
+		height: 100%;
+		background-color: rgba(0,0,0,0.3);
+		position: fixed;
+		top:0;
+		background-size: contain;
+		z-index: 101;
+	}
+	.reward,.address{
+		width: 0.74rem;
+		height: 0.74rem;
+		position: fixed;
+		right: 0;
+		z-index: 100;
+	}
+	.reward{
+		background:url(img/reward.png) no-repeat 0 0;
+		background-size: cover;
+		top:2.2rem;
+	}
+	.address{
+		background:url(img/address.png) no-repeat 0 0;
+		background-size: cover;
+		top:3.05rem;
+	}
+	.acTime{
+		width: 100%;
+		height: 0.73rem;
+		position: absolute;
+		top: 3.55rem;
+		box-sizing: border-box;
+		padding: 0 0.97rem;
+	}
+	.timeEnd{
+		float: left;
+		height: 0.73rem;
+		line-height: 0.73rem;
+		font-size: 0.26rem;
+		font-family: 微软雅黑;
+		margin-right: 0.18rem;
+		color:rgba(251,254,211,1);
+		font-weight: 700;
+	}
+	.acTime span{
+		float: left;
+		width: 0.71rem;
+		height: 0.73rem;
+		background-size: cover;
+		margin-right: 0.1rem;
+		font-size: 0.3rem;
+		font-weight: 900;
+		box-sizing: border-box;
+		padding-top:0.16rem;
+		padding-left: 0.1rem; 
+	}
+	.day{
+		background:url(img/d.png) no-repeat 0 0;
+	}
+	.hour{
+		background:url(img/h.png) no-repeat 0 0;
+	}
+	.minute{
+		background:url(img/m.png) no-repeat 0 0;
+	}
+	.second{
+		background:url(img/s.png) no-repeat 0 0;
+	}
+	.inviter{
+		width: 100%;
+		height: 0.8rem;
+		position: absolute;
+		top:9.5rem;
+		box-sizing: border-box;
+		padding:0.26rem 1.1rem;
+		font-size: 0.26rem;
+		color: rgba(251,254,211,1);
+		text-align:center;
+		line-height: 0.26rem;
+		letter-spacing:0.05rem;
+	}
+	.inviterNum{
+		font-size: 0.3rem;
+		padding: 0 0.12rem;
+		letter-spacing:0rem;
+	}
+	.invition{
+		position: absolute;
+		top:25.9rem;
+		left: 50%;
+		width: 2.78rem;
+		height: 0.65rem;
+		margin-left: -1.39rem;
+		background:url(img/invition.png) no-repeat 0 0;
+		background-size: cover;
+	}
+	.bill,.shopCard{
+		width: 100%;
+		height: 0.24rem;
+		color: rgba(251,254,211,1);
+		text-align:center;
+		padding: 0 2rem;
+		font-size: 0.24rem;
+		line-height: 0.24rem;
+		letter-spacing: 0.05rem;
+		position: absolute;
+		top: 14.28rem;
+		box-sizing: border-box;
+	}
+	.shopCard{
+		top: 18.65rem;
+	}
+	.code{
+		display: none;
+		position: absolute;
+		width: 6.81rem;
+		height: 6.79rem;
+		left: 50%;
+		margin-left: -3.4rem;
+		top:3rem;
+		background:url(img/code.png) no-repeat 0 0;
+		background-size: cover;
+		z-index: 101;
+	}
+	.logo{
+		display: block;
+		width: 0.62rem;
+		height: 0.62rem;
+		background:url(img/logo.png) no-repeat 0 0;
+		background-size: cover;
+		position: absolute;
+		top: 0.94rem;
+		left: 50%;
+		margin-left:-0.31rem;
+	}
+	.myReward{
+		display: none;
+		position: absolute;
+		width: 6.81rem;
+		height: 8.37rem;
+		left: 50%;
+		margin-left: -3.4rem;
+		top:3rem;
+		background:url(img/myReward.png) no-repeat 0 0;
+		background-size: cover;
+		z-index: 101;
+	}
+	.myAddress{
+		display: none;
+		position: absolute;
+		width: 6.81rem;
+		height: 7.73rem;
+		left: 50%;
+		margin-left: -3.4rem;
+		top:3rem;
+		box-sizing: border-box;
+		padding: 1.3rem 0.9rem 0 1.2rem;
+		background:url(img/myAddress.png) no-repeat 0 0;
+		background-size: cover;
+		z-index: 101;
+	}
+	.close{
+		display: none;
+		position: absolute;
+		width: 0.96rem;
+		height: 0.95rem;
+		background:url(img/close.png) no-repeat 0 0;
+		background-size: cover;
+		top:-0.4rem;
+		right: 0.2rem;
+		z-index: 101;
+	}
+	input{
+		display: block;
+		position: relative;
+		width: 100%;
+		height: 0.52rem;
+		border-radius: 0.08rem;
+		outline:none;
+		border:0;
+		-webkit-appearance: none;
+		font-size: 0.24rem;
+		margin-bottom: 0.28rem;
+		text-indent: 0.24rem;
+	}
+	input::-webkit-input-placeholder, textarea::-webkit-input-placeholder {
+		color: #666;font-size:0.24rem;
+	}
+	input:-moz-placeholder, textarea:-moz-placeholder {
+		color:#666;font-size:0.24rem;
+	}
+	input::-moz-placeholder, textarea::-moz-placeholder {
+		color:#666;font-size:0.24rem;
+	}
+	input:-ms-input-placeholder, textarea:-ms-input-placeholder {
+		color:#666;font-size:0.24rem;
+	}
+	.addressC{
+		width: 100%;
+		height: 0.52rem;
+		margin-bottom: 0.3rem;
+	}
+	.addressC select{
+		float: left;
+		width: 1.5rem;
+		height: 0.52rem;
+		border-radius: 0.08rem;
+		margin-right: 0.06rem;
+	}
+	.addressC select option{
+		display: block;
+		width: 1.5rem;
+	}
+	.detail{
+		display: block;
+		width: 100%;
+		height: 1.6rem;
+		border-radius: 0.08rem;
+		outline:none;
+		border:0;
+		-webkit-appearance: none;
+		font-size: 0.24rem;
+		box-sizing: border-box;
+		padding: 0.24rem;
+	}
+	.submit,.recordSub{
+		width: 3.45rem;
+		height: 0.74rem;
+		background:url(img/submit.png) no-repeat 0 0;
+		background-size: cover;
+		position: absolute;
+		top:6.55rem;
+		left: 50%;
+		margin-left:-1.72rem;
+	}
+	.recordSub{
+		top: 7.2rem;
+		background:url(img/know.png) no-repeat 0 0;
+		background-size: cover;
+	}
+	.record{
+		width: 5.3rem;
+		height: 4.5rem;
+		position: absolute;
+		top: 1.7rem;
+		left: 50%;
+		margin-left: -2.5rem;
+		overflow: auto;
+		-webkit-overflow-scrolling : touch;
+	}
+	.erCode{
+		width: 2.5rem;
+		height: 2.5rem;
+		position: absolute;
+		top:0.95rem;
+		left: 50%;
+		margin-left: -1.1rem;
+		background-color: red;
+	}
+	.erCode img{
+		display: block;
+		width: 100%;
+		height: 100%;
+	}
+</style>
+<body>
+<img src="img/APP1.jpg">
+<img src="img/APP2.jpg">
+<img src="img/APP3.jpg">
+
+
+<div class="shadow">
+	<!-- 邀请二维码 -->
+	<div class="code">
+		<div class="erCode">
+			<div class="logo"></div>
+			<img src="http://s.jiathis.com/qrcode.php?url=http://112.17.92.53:8885/app4.0/Invitation/login.html?shareId=8130902b4300611a66c969">
+		</div>
+		<div class="close"></div>
+	</div>
+
+	<!-- 我的奖励 -->
+	<div class="myReward">
+		<div class="flow-default record"  id="showtzjl"></div>
+		<div class="recordSub"></div>
+		<div class="close"></div>
+	</div>
+
+
+	<!-- 收货地址 -->
+	<div class="myAddress">
+		<input type="text" name="" class="phone" maxlength="11" placeholder="请输入手机号码">
+		<input type="text" name="" class="name" placeholder="请输入姓名">
+		<div data-toggle="distpicker" class="addressC" id="distpicker">
+		    <select  id="province"></select>
+		    <select  id="city"></select>
+		    <select  id="district"></select>
+		</div>
+		<textarea class="detail" placeholder="请输入详细地址"></textarea>
+		<div class="submit"></div>
+		<div class="close"></div>
+	</div>
+</div>
+<div class="reward"></div>
+<div class="address"></div>
+<div class="acTime">
+	<p class="timeEnd">距离活动结束剩:</p>
+	<span class="day"></span>
+	<span class="hour"></span>
+	<span class="minute"></span>
+	<span class="second"></span>
+</div>
+<div class="inviter">
+	活动期间,您已邀请<font class="inviterNum">0</font>位好友注册
+</div>
+<div class="bill">
+	您已获得<font class="billNum">0</font>元话费
+</div>
+<div class="shopCard">
+	您已获得<font class="shopCardNum">0</font>元京东卡
+</div>
+<div class="invition"></div>
+
+
+</body>
+
+<script type="text/javascript">
+	$(function(){
+
+		//ios
+		function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0);
+        }
+        setupWebViewJavascriptBridge(function(bridge) {                                
+            bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+            	token = response.token;
+                uid = response.uuid;
+                channel = response.channel;
+                borrowId = parseInt(response.borrowId);
+            	if(response.token == ""){
+                	$(".invition").css("background-image","url(img/denglu.png)");
+                	$(".inviter").text("登录查看您邀请的好友数量");
+                	$(".bill").text("登录查看您的邀请奖励");
+                	$(".shopCard").text("登录查看您的邀请奖励");
+                }else{
+                	$(".invition").css("background-image","url(img/invition.png)");
+                	getDetail(uid,token);
+                }
+            })   
+        });
+
+        //跳转登陆
+        var toLogin = function(){
+        	setupWebViewJavascriptBridge(function(bridge) {                                
+	            bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+	            	if(response.token == ""){
+	                	bridge.callHandler("NativeLogin","",function(){
+	                	});
+	                	return;
+	                }
+	            })
+	        })
+        }
+
+        //初始化
+        var getDetail = function(uid,token){
+        	$.ajax({
+	            type: 'POST',
+	            url: "https://www.etongjin.net/activity/rewardHome/auth" ,
+	            headers:{"uid":uid,"token":token},
+	            data:{},
+	            success:function(data){
+	            	if(data.code == "507"){
+	            		alert("请重新登入");
+	            	}
+	            	console.log(data);
+	            	var data = data.data;
+	            	$(".inviterNum").text(data.accountData.invitationNum);
+	            	$(".billNum").text(data.accountData.bill);
+	            	$(".shopCardNum").text(data.accountData.fiftyJdk);
+	            	console.log(data.shareid);
+					localStorage.setItem("shareId",data.shareid);
+	            	localStorage.setItem("token",token);
+					localStorage.setItem("uid",uid);
+	            },
+	            error:function(){
+
+	            }
+	        })
+        }
+
+        
+
+
+		FastClick.attach(document.body);
+		var scrollHeight = 0;
+		window.addEventListener("scroll",function(e){
+			scrollHeight =document.documentElement.scrollTop||document.body.scrollTop;
+		});
+
+		//倒计时
+		var starttime = new Date("2018/02/08");
+		var endtime = new Date("2018/02/25");
+		var timenow = new Date();
+        var cha = timenow - starttime;
+        if(cha < 0){
+        	$(".timeEnd").text("距离活动开始剩:");
+        	setInterval(function () {
+			   var nowtime = new Date();
+			   var time = starttime - nowtime;
+			   var day = "0" +parseInt(time / 1000 / 60 / 60 / 24);
+			   day = day.substr(day.length-2);
+			   var hour = "0" +parseInt(time / 1000 / 60 / 60 % 24);
+			   hour = hour.substr(hour.length-2);
+			   var minute = "0" +parseInt(time / 1000 / 60 % 60);
+			   minute = minute.substr(minute.length-2);
+			   var seconds = "0" +parseInt(time / 1000 % 60);
+			   seconds = seconds.substr(seconds.length-2);
+			   $(".day").text(day);
+			   $(".hour").text(hour);
+			   $(".minute").text(minute);
+			   $(".second").text(seconds);
+			}, 1000);
+        }else{
+        	$(".timeEnd").text("距离活动结束剩:");
+        	setInterval(function () {
+			   var nowtime = new Date();
+			   var time = endtime - nowtime;
+			   var day = "0" +parseInt(time / 1000 / 60 / 60 / 24);
+			   day = day.substr(day.length-2);
+			   var hour = "0" +parseInt(time / 1000 / 60 / 60 % 24);
+			   hour = hour.substr(hour.length-2);
+			   var minute = "0" +parseInt(time / 1000 / 60 % 60);
+			   minute = minute.substr(minute.length-2);
+			   var seconds = "0" +parseInt(time / 1000 % 60);
+			   seconds = seconds.substr(seconds.length-2);
+			   $(".day").text(day);
+			   $(".hour").text(hour);
+			   $(".minute").text(minute);
+			   $(".second").text(seconds);
+			}, 1000);
+        }
+		
+
+		//点击邀请
+		$(".invition").click(function(){
+			console.log(localStorage.getItem("shareId"));
+			setupWebViewJavascriptBridge(function(bridge) {                                
+	            bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+	            	if(response.token == ""){
+	                	bridge.callHandler("NativeLogin","",function(){
+	                	});
+	                	return;
+	                }else{
+	                	var codeUrl = "http://s.jiathis.com/qrcode.php?url=http://112.17.92.53:8885/app4.0/Invitation/login.html?shareId=" + localStorage.getItem("shareId");
+						$(".code").css({position:"absolute","top":3 + "rem" });
+						$(".shadow").css("display","block");
+						$(".myAddress").css("display","none");
+						$(".myReward").css("display","none");
+						$(".code").css("display","block");
+						$(".close").css("display","block");
+						$("body").on('touchmove',function(event) { event.preventDefault(); }, false); 
+						$(".erCode img").attr("src",codeUrl);
+	                }
+	            })
+	        })			
+		})
+
+		//我的奖励
+		$(".reward").click(function(){
+			var top = 0;
+			setupWebViewJavascriptBridge(function(bridge) {                                
+	            bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+	            	if(response.token == ""){
+	                	bridge.callHandler("NativeLogin","",function(){
+	                	});
+	                	return;
+	                }else{
+						$(".myReward").css({position:"absolute","top":3 + "rem" });
+						$(".shadow").css("display","block");
+						top = $(window).scrollTop();
+						$("body").css("overflow","hidden");
+						/*$("body").css("position","fixed");*/
+						$('body').css("top",-top+"px");
+						$(".code").css("display","none");
+						$(".myAddress").css("display","none");
+						$(".myReward").css("display","block");
+						$(".close").css("display","block");
+						/*$("body").on('touchmove',function(event) { event.preventDefault(); }, false); */
+
+						//我的奖励记录
+						layui.use('flow', function(){
+					  	    var flow = layui.flow;
+					  	    flow.load({
+					  	    elem: '#showtzjl', //流加载容器
+					  	    //scrollElem: '#LAY_demo1', //滚动条所在元素，一般不用填，此处只是演示需要。
+					  	    done: function(page, next){ //执行下一页的回调
+					            $.ajax({
+					                type: 'POST',
+					                url: "https://www.etongjin.net/activity/userReward/auth" ,
+					                headers:{"uid":localStorage.getItem("uid"),"token":localStorage.getItem("token")},
+					                data:{"page":page},
+					                success:function(data){
+					                	console.log(data);
+					  		            setTimeout(function(){
+					  		            var lis = [];
+					                    var jsonData = data;
+					                    var jsonPac = data.data.jplist;
+					  						jQuery.each(jsonPac, function(i, item){
+					                            /*var name = item["jiangPinName"];
+					  							name = name.substring(0, 3) + "****" + name.substring(name.length-4, name.length);*/
+					  						    var ht = "<div class='row' style='line-height: 0.45rem; min-height: auto;'>";
+					  						    ht += "<div class='itms-20' style='width:40%;text-align: center;font-size:0.26rem;color:white;display:inline-block;' >"+item["jiangPinName"]+"</div>"
+					  						    ht += "<div class='itms-20' style='width:50%;text-align: center;font-size:0.26rem;color:white;;display:inline-block;'>"+item["addTime"]+" </div>";
+					  						    ht += "</div>";
+					  						    lis.push(ht);
+					  						});
+					  						next(lis.join(''), page < jsonData.data["totalSize"]); //假设总页数为 10  jsonData["totalSize"]
+					  				    }, 500);
+					             	}
+					          	})
+					    	}
+					    	});
+			  			});
+	                }
+	            })
+	        })
+		})
+
+		//我知道了
+		$(".recordSub").click(function(){
+			$(".myReward").css("display","none");
+			$(".shadow").css("display","none");
+			/*$("body,html").css("overflow","auto");*/
+			$('body').unbind("touchmove");
+		})
+
+		//我的地址
+		$(".address").click(function(){
+			setupWebViewJavascriptBridge(function(bridge) {                                
+	            bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+	            	if(response.token == ""){
+	                	bridge.callHandler("NativeLogin","",function(){
+	                	});
+	                	return;
+	                }else{
+	                	//光标问题
+	                	/*var sh;//记录初始滚动高度
+				            $(document).off('touchstart').on('touchstart', function(e) {
+				            sh = $(document).scrollTop();
+				        });
+				        $(document).off('touchmove').on('touchmove', function(e) {
+				            if (e.target.class === "shadow") {//除去#pop
+				                e.preventDefault();
+				            }
+				        });
+				        $(document).off('touchend').on('touchend', function(e) {
+				            $(document).scrollTop(sh);
+				        });*/
+
+
+	                	console.log(scrollHeight);
+						$(".myAddress").css({position:"absolute","top":3 + "rem" });
+						$("body").css("position","fixed");
+						$(".shadow").css("display","block");
+						$(".code").css("display","none");
+						$(".myReward").css("display","none");
+						$(".myAddress").css("display","block");
+						$(".close").css("display","block");
+						/*$("body").on('touchmove',function(event) { event.preventDefault(); }, false); */
+						$("body").on('touchmove',function(event) { event.preventDefault(); }, false); 
+	                }
+	            })
+	        })
+
+	        //填充默认数据
+	        $.ajax({
+	            type: 'POST',
+	            url: "https://www.etongjin.net/activity/userAddress/auth" ,
+	            headers:{"uid":localStorage.getItem("uid"),"token":localStorage.getItem("token")},
+	            data:{},
+	            success:function(data){
+	            	console.log(data);
+            		var data = data.data;
+            		if(data != ""){
+            			$(".phone").val(data.phone);
+	            		$(".name").val(data.toUserName);
+						$('#distpicker').distpicker('destroy');
+						$('#distpicker').distpicker({
+						  province: data.shengfen,
+						  city: data.city,
+						  district: data.adress
+						});
+	            		$(".detail").text(data.adressDeatil);
+            		}
+
+            		
+	            },
+	            error:function(){
+
+	            }
+	        })
+
+
+		})
+
+		//提交地址
+		$(".submit").click(function(){
+			var phone = $(".phone").val();
+			var name = $(".name").val();
+			var province = $("#province").val();
+			var city = $("#city").val();
+			var district = $("#district").val();
+			var detail = $(".detail").val();
+			if(!(/^1[34578]\d{9}$/.test(phone))){
+		        alert("手机号码格式不正确");
+		        return;
+		    }else if(name == ""){
+		        alert("请填写姓名");
+		        return;
+		    }else if(province == ""){
+		        alert("请选择省份");
+		        return;
+		    }else if(city == ""){
+		        alert("请选择城市");
+		        return;
+		    }else if(district == ""){
+		        alert("请选择区域");
+		        return;
+		    }else if(detail == 0){
+		        alert("请输入详细地址");
+		        return;
+		    }
+		    console.log(name,phone,province,city,district,detail);
+			$.ajax({
+	            type: 'POST',
+	            url: "https://www.etongjin.net/activity/saveAddress/auth" ,
+	            headers:{"uid":localStorage.getItem("uid"),"token":localStorage.getItem("token")},
+	            data:{"name":name,"phone":phone,"province":province,"city":city,"county":district,"address":detail},
+	            success:function(data){
+	            	console.log(data);
+	            	var data = data.data;
+	            	$('body').unbind("touchmove");
+	            	$('body').css({'position': 'relative'});
+	            	$(".myAddress").css("display","none");
+					$(".shadow").css("display","none");
+	            },
+	            error:function(){
+
+	            }
+	        })
+
+		})
+
+		//弹窗关闭
+		$(".close").click(function(){
+			$(".shadow").css("display","none");
+			$(".code").css("display","none");
+			$(".myReward").css("display","none");
+			$(".myAddress").css("display","none");
+			$(".close").css("display","none");
+			$('body').unbind("touchmove");
+			$('body').css({'position': 'relative'});
+			/*$("body").css("overflow","auto");*/
+			/*$("html").css("overflow","auto");*/
+		})
+
+		
+	})
+</script>
+
+
+</html>

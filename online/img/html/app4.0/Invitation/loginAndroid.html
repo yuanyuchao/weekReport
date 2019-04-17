@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script type="text/javascript" src="../js/jquery.min.js"></script>
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+  <script type="text/javascript" src="../js/fastclick.js"></script>
+  <title></title>
+</head>
+<script type="text/javascript">
+  (function(){
+    var docEl = document.documentElement;
+    var width = docEl.getBoundingClientRect().width;
+    if (width > 450) {width = 450};
+    var rootRem = width / 375 * 50;
+    docEl.style.fontSize = rootRem + 'px';
+  })();
+</script>
+<script type="text/javascript">
+  $(function() {
+    FastClick.attach(document.body);
+  });
+</script>
+<script type="text/javascript">
+  $(function(){
+    
+    function getRequest(strParame) {
+        var args = new Object();
+        var query = location.search.substring(1);
+
+        var pairs = query.split("&"); // Break at ampersand
+        for (var i = 0; i < pairs.length; i++) {
+            var pos = pairs[i].indexOf('=');
+            if (pos == -1) continue;
+            var argname = pairs[i].substring(0, pos);
+            var value = pairs[i].substring(pos + 1);
+            value = decodeURIComponent(value);
+            args[argname] = value;
+        }
+        return args[strParame];
+    }
+
+    var str = getRequest("shareId");
+    console.log(str);
+
+    /*var str = window.location.href;
+    var index = str .lastIndexOf("\=");  
+    str  = str.substring(index + 1, str.length);
+    console.log(str);*/
+    $(".pick").click(function(){
+      var phone = $("#phone").val();
+      var numVeri = $("#numVeri").val();
+      var cipher = $("#cipher").val();
+      var recommend = $("#recommend").val();
+      if(!(/^1[34578]\d{9}$/.test(phone))){
+        $(".inform").css("display","block");
+        $(".conform").text("手机号码格式不正确");
+        return;
+      }else if(numVeri == ""){
+        $(".inform").css("display","block");
+        $(".conform").text("请填写手机验证码");
+        return;
+      }else if(cipher.length < 6){
+        $(".inform").css("display","block");
+        $(".conform").text("密码格式错误");
+        return;
+      }else if(flag == 0){
+        $(".inform").css("display","block");
+        $(".conform").text("请同意协议");
+        return;
+      }
+       $.ajax({
+
+          type: 'POST',
+          url: "https://www.etongjin.net/user/shareSignup",
+          data:{"telphone":phone,"shareid":str,"password":cipher,"code":numVeri},
+          success:function(data){ //返回json结果
+            console.log(data);
+              if(data.code == 200){
+                window.location.href="https://www.etongjin.net/app4.0/Invitation/down.html";
+              }
+              if(data.code == 400){
+                $(".inform").css("display","block");
+                $(".conform").text(data.msg);
+              }
+          },
+          error:function(){
+          
+          }
+        });
+      })
+
+         
+
+      //数字验证码点击
+      $(".numVali").click(function(){
+          var phone = $("#phone").val();
+          if(!(/^1[34578]\d{9}$/.test(phone))){
+              $(".inform").css("display","block");
+              $(".conform").text("手机号码格式不正确");
+              return;
+          }
+          $(".shade").css("display","block");
+          /*$(".numVali").unbind("click");*/
+          /*var time = 60;
+          $(this).text('('+ time +')秒后重发');
+          var timer = setInterval(function(){
+              time = time - 1;
+              $(".numVali").text('('+ time +')秒后重发');
+              if(time == 0){
+                  $(".numVali").text("发送验证码");
+                  $(".shade").css("display","none");
+                  clearInterval(timer);
+                  return;
+              }
+          },1000);*/
+
+          $(".numVali").bind("click");
+
+
+        $.ajax({
+
+          type: 'POST',
+          url: "https://www.etongjin.net/user/shareSendCode",
+          data:{"phone":phone,"shareid":str},
+          success:function(data){
+           //返回json结果
+
+              if(data.code == 200){
+                var time = 60;
+                $(this).text('验证码已发送('+ time +')');
+                var timeT = setInterval(function(){
+                    time = time - 1;
+                    $(".numVali").text('验证码已发送('+ time +')');
+                    if(time == 0){
+                        $(".numVali").text("发送验证码");
+                        $(".shade").css("display","none");
+                        clearInterval(timeT);
+                        return;
+                    }
+                },1000);
+                $(".numVali").bind("click");
+              };
+          },
+          error:function(){
+            alert("验证码发送错误")
+          }
+        });
+      })
+
+      //数据提交
+      /*$.ajax({
+        type: 'POST',
+        url: url ,
+        data: '{"phone": "phone", "cipher": "cipher","recommend":"recommend","flag":"flag"}' ,
+        success: function (data) { //返回json结果
+          alert(data);
+        }
+      });*/
+     
+
+    $(".goTop").click(function(){
+        var speed=500;//滑动的速度
+        $('body,html').animate({ scrollTop: 0 }, speed);
+        return false;
+    })
+    var flag = 0;
+    $(".tick").click(function(){
+      if(flag == 0){
+        $(this).css("background-image","url(img/bingo.png)");
+        flag = 1;
+      }else if(flag == 1){
+        $(this).css("background-image","url(img/nobingo.png)");
+        flag = 0;
+      }
+    })
+
+    $(".know").click(function(){
+      $(".inform").css("display","none");
+    })
+
+  })
+
+    
+
+
+</script>
+<style type="text/css">
+  html,body,div,input,li,img,span{padding: 0;margin:0;}
+  html{
+    width:100%;
+    height: 100%;
+  }
+  body{
+    width: 100%;
+    height: 100%;
+    /*position: relative;*/
+    overflow: hidden;
+  }
+  .backImg{
+    width: 100%;
+    height: 100%;
+    background:url(img/bbb.png) no-repeat 0 0;
+    background-size: cover;
+  }
+  .content{
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      position:absolute;
+      top: 6.88rem;
+      padding-top:0.35rem;
+      box-sizing:border-box;
+      background-size: cover;
+  }
+  .content>div{
+    height:100%;
+    width: 5rem;
+  }
+  .area{
+    height: 0.7rem;
+    width: 5rem;
+    margin-bottom: 0.2rem;
+    position: relative;
+  }
+  .area input{
+    float: left;
+    margin-bottom:0;
+  }
+  .numVali {
+    border-radius: 0.1rem;
+    background-color:white;
+    font-size: 0.24rem;
+    color:#F77B67 ;
+    position: absolute;
+    right: 0;
+    font-size: 0.28rem;
+    text-align: center;
+    line-height: 0.7rem;
+  }
+  .shade{
+    border-radius: 8px;
+    height: 0.7rem;
+    width: 2rem;
+    background-color:rgba(255,255,255,0);
+    display: none;
+    position: absolute;
+    top:0;
+    left:3rem;
+    z-index: 99;
+  }
+  .Verification{
+    height: 0.7rem;
+    width:100%;
+  }
+  .contentDown{
+    height: 15rem;
+    width: 100%;
+    background: url(3@2x.png) no-repeat 0 0 ;
+    position: relative;
+    background-size: cover;
+  }
+  .contentDown img{
+    display:block;
+    height:0.74rem;
+    width:2.2rem;
+    position: absolute;
+    top:4.4rem;
+    left:50%;
+    margin-left: -1.1rem;
+  }
+  span,.imgVali{
+    display:block;
+    height: 0.7rem;
+    width: 2rem;
+    float: left;
+  }
+  input{
+    display:block;
+    width: 5rem;
+    height: 0.74rem;
+    border-radius:0.1rem;
+    outline:none;
+    border:0;
+    -webkit-appearance: none;
+    font-size: 0.24rem;
+    text-indent: 0.2rem;
+    margin-bottom: 0.2rem;
+    font-family: 微软雅黑;
+    color: #999999;
+  }
+  .check{
+    height: 0.28rem;
+    width: 5rem;
+    font-size: 0.24rem;
+    font-family: 微软雅黑;
+    margin-top: 0.05rem;
+    margin-bottom: 0.2rem;
+    display: flex;
+    align-items: center;
+  }
+  .pick{
+    height: 0.78rem;
+    width: 5rem;
+    background-color: #FFEB7F;
+    border-radius: 0.1rem;
+    color: #F77B67;
+    font-size: 0.32rem;
+    line-height: 0.78rem;
+    text-align: center;
+  }
+  .tick{
+    height: 0.28rem;
+    width: 0.28rem;
+    background:url(img/nobingo.png) no-repeat 0 0;
+    background-size: contain;
+    float: left;
+    margin-right: 0.14rem;
+  }
+  .inform{
+    width: 6.4rem;
+    height: 3.4rem;
+    position: absolute;
+    border-radius: 12px;
+    top: 4.5rem;
+    left: 50%;
+    margin-left: -3.2rem;
+    background-color: white;
+    z-index: 99;
+    display: none;
+    box-sizing: border-box;
+    padding-top:0.4rem; 
+    border:1px solid #cacaca;
+
+  }
+  .conform{
+    display: block;
+    width: 100%;
+    min-height:0.32rem;
+    line-height: 0.32rem; 
+    font-size: 0.32rem;
+    text-align: center;
+    color: #666666;
+  }
+  .know{
+    width: 100%;
+    position: absolute;
+    bottom: 0.1rem;
+    height: 0.88rem;
+    line-height: 0.88rem;
+    text-align: center;
+    color: #ff5133;
+    border-top: 1px solid #cacaca;
+    font-size: 0.32rem;
+
+  }
+
+</style>
+<body>
+  <!-- <img src="img/bbb.png"> -->
+  <div class="backImg"></div>
+    <div class="inform">
+        <p style="font-size: 0.32rem;color: #666666;height:0.32rem;display: block;width: 100%;text-align: center;margin-bottom: 0.5rem;line-height: 0.32rem;">提示</p>
+        <p class="conform"></p>
+        <div class="know">我知道了</div>
+    </div>
+    <div class="content">
+        <div>
+            <input maxlength="11" type="text" name="" placeholder="请输入手机号" id="phone" >
+            <div class="area"><input maxlength="6" type="" name="" placeholder="请输入验证码" class="Verification" id="numVeri"><span class="numVali">获取验证码</span><div class="shade"></div></div>
+            <input type="password" name="" placeholder="请设置密码(不少于6个字符)" id="cipher">
+            <div class="check"><div class="tick"></div><font style="color: white;opacity: 0.6;">我已阅读并同意</font><font style="color: white;opacity: 1;">《一桶金使用协议》</font></div>
+            <div class="pick">立即领取红包</div>
+        </div>
+    </div>
+  
+  
+</body>
+</html>

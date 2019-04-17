@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="./jquery.min.js"></script>
+    <script>
+
+        $.ajax({
+            url: 'https://nessary.etongjin.net/get/e9fd37c1d665ff039a73b67ba03a0e192b62e8e1e6a871a4f1',
+            type: 'GET', //GET
+            async: true,    //或false,是否异步
+            data: {
+                "did":"13856368933"
+            },
+            headers: {
+                "uid": "e9fd37c1d665ff039a73b67ba03a0e192b62e8e1e6a871a4f1"
+            },
+            timeout: 5000,    //超时时间
+
+            complete: function (data) {
+                $("#img").attr('src', data.responseText);
+
+            }
+        })
+
+    </script>
+</head>
+
+<body>
+<img id="img" src="">
+</body>
+</html>

@@ -1,0 +1,263 @@
+.main-nav li:nth-of-type(2) a {
+    color: #FF6E33;
+}
+.content {
+    background-color:#F9F9F9;
+}
+.content>.container>p {
+    padding: 30px ;
+    font-size: 16px;
+    color: #FF6E33;
+    margin-bottom: 0px;
+}
+.content>.container>p>span {
+    font-family: 黑体;
+    margin: 0 12px;
+}
+
+.detail-left {
+    padding: 27px 40px;
+    background-color: #fff;
+}
+.line {
+    width: 100%;
+    height: 1px;
+    background-color: #DBDBDB;
+    margin: 30px 0 30px 0;
+}
+.detail-left>p:nth-of-type(1) {
+    font-size: 20px;
+    margin-bottom: 0;
+}
+.detail-left>p:nth-of-type(2) {
+    width: 88px;
+    height: 22px;
+    background-color:#FFE6C8;
+    border-radius: 8px;
+    margin-left: 25px;
+    text-align: center;
+    line-height: 22px;
+    color: #FF7633;
+    margin-top: 2px;
+    margin-bottom: 0;
+}
+.detail-left>p:nth-of-type(3) {
+    margin-left: 420px;
+    color: #FFAA45;
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+.detail-left>.row p:nth-of-type(1) {
+    color: #FF5E33;
+    font-size: 36px;
+    margin-bottom: 0;
+    }
+.detail-left>.row p:nth-of-type(1) i {
+    font-size: 24px;
+}
+.detail-left>.row p:nth-of-type(2) {
+    color: #999999;
+    margin-bottom: 41px;
+}
+.detail-left p {
+    color: #666666;
+}
+.detail-left>.row p:last-of-type {
+    margin-bottom: 0;
+}
+.detail-right {
+    margin-left: 5px;
+}
+.detail {
+    margin-bottom: 10px;
+}
+.jindu {
+    display: inline-block;
+    width: 100px;
+    height: 6px;
+    background-color: #EDEDED;
+    border-radius: 3px;
+    position: relative;
+}
+.jindu>span {
+    display: inline-block;
+    width: 15px;
+    height: 6px;
+    background-color: #FF5E33;
+    border-radius: 3px;
+    position: absolute;
+    top: 0;
+}
+.head2 {
+    height: 74px;
+    width: 100%;
+    border-bottom: 1px solid #eee;
+    background-color: white;
+    box-sizing: border-box;
+    padding: 0 32px;
+    /* position:fixed;
+    z-index:99;
+    top: 0;
+    left:0; */
+}
+
+.head2 div {
+    float: left;
+    font-size: 18px;
+    height: 73px;
+    width: 104px;
+
+}
+
+.head2 div a {
+    display: block;
+    width: 104px;
+    height: 98%;
+
+}
+
+#tab .color a{
+    color: #FF5E33;
+    border-bottom: 2px solid #FF5E33;
+}
+
+.head2 div, .head2 div a {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.proModule {
+    background-color: white;
+    margin-bottom: 20px;
+}
+
+.proTop {
+    height: 78px;
+    width: 847px;
+    font-size: 18px;
+    color: #666666;
+    display: flex;
+    align-items: center;
+}
+
+.proCon {
+    width: 100%;
+    box-sizing: border-box;
+    font-size: 16px;
+    line-height: 24px;
+    color: #999999;
+}
+.proConNew{
+    padding:0 20px;
+}
+table tr:nth-child(4) {
+    height: 0.94rem;
+}
+
+table tr:nth-child(4) td:last-child {
+    padding: 0 0.24rem;
+}
+
+tr {
+    height: 0.7rem;
+    width: 100%;
+}
+
+tr td:first-child {
+    width: 40%;
+    text-align: center;
+    padding:13px 0;
+}
+
+tr td:last-child {
+    text-align: center;
+    padding:13px 0;
+}
+
+.proSafe div {
+    height: 42px;
+    width: 100%;
+    padding: 9px 0;
+    display: flex;
+    font-size: 16px;
+    align-items: center;
+}
+
+.proSafe div span {
+    display: block;
+    height: 22px;
+    width: 18px;
+    background-color: #ddd;
+    margin-right: 10px;
+    background: url(../img/productDetail/icon_hkbz_web.png) no-repeat 0 0;
+    background-size: contain;
+}
+
+.proImg {
+    height: 120px;
+    width: 156px;
+    margin-right: 25px;
+    margin-bottom: 26px;
+    background-color: #eee;
+}
+
+.page {
+    margin-top: 30px;
+}
+
+.tabs {
+    background: #fff;
+}
+
+/*.row {
+    min-height: 100px;
+    line-height: 100px;
+    width: 847px;
+    padding: 5px 5px;
+}
+
+.row span {
+    display: inline-block;
+    width: 33%;
+    text-align: center;
+}*/
+
+.tzRecond div span {
+    display: inline-block;
+    width: 33%;
+    text-align: center;
+}
+
+.registration, .noRegistration, .tzRecond {
+    padding: 30px 50px;
+    background-color: white;
+}
+
+.wzIndent {
+    text-indent: 40px;
+}
+
+#jq22 {
+    margin: 0 auto;
+    font-size: 0;
+}
+
+/* #jq22 li { display: inline-block; width: 32%; margin-left: 1%; padding-top: 1%;} */
+#jq22 img {
+    width: 240px;
+    height: 160px;
+}
+#records li span {
+    width: 188px;
+}
+.productBg{
+    background-color: #F9F9F9;
+}
+#records li {
+    margin: 20px auto;
+}
+
+
+

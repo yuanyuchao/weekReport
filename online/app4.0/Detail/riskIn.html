@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<script src="../js/jquery.min.js" type="text/javascript"></script>
+<script src="../js/rem.js" type="text/javascript"></script>
+<script type="text/javascript" src="../js/fastclick.js"></script>
+<meta http-equiv="content-type" content="txt/html; charset=utf-8" />
+<script src="../../common.js"></script>
+<head>
+	<title>投资者风险测评</title>
+</head>
+<style type="text/css">
+	html,body,div,p,img,span{
+		margin: 0;
+		padding:0;
+	}
+	html,body{
+		width: 100%;
+		height: 100%;
+	}
+	body{
+		box-sizing: border-box;
+		padding: 0.5rem 0.3rem;
+
+	}
+	.title{
+		width: 100%;
+		font-family: 微软雅黑;
+		font-size: 0.24rem;
+		color: #999999;
+		line-height: 0.44rem;
+		margin-bottom: 1.03rem;
+	}
+	.riskType{
+		display: block;
+		width: 2.9rem;
+		height:2.44rem;
+		margin:0 auto;
+		margin-bottom: 0.5rem;
+		/*background: url(img/In1.png) no-repeat 0 0;
+		background-size: cover;*/
+	}
+	.typeWord{
+		width: 100%;
+		height: 0.36rem;
+		line-height: 0.36rem;
+		font-family: 微软雅黑;
+		text-align: center;
+		font-size: 0.38rem;
+		color: #333333;
+		margin-bottom: 0.99rem;
+	}
+	.agreement{
+		width: 100%;
+		box-sizing: border-box;
+		padding:0 0.44rem;
+		height: 0.32rem;
+		margin-bottom: 0.4rem;
+		display: flex;
+		align-items: center;
+
+	}
+	.agreement span{
+		display: inline-block;
+		width: 0.32rem;
+		height: 0.32rem;
+		margin-right: 0.19rem;
+		background:url(img/Inuncheck.png) no-repeat 0 0;
+		background-size: cover;
+	}
+	.agreement p{
+		height: 0.32rem;
+		font-family: 微软雅黑;
+		line-height: 0.32rem;
+		font-size: 0.28rem;
+		color: #666666;
+	}
+	.submit{
+		width: 6rem;
+		height: 0.8rem;
+		background-color: #FF5E33;
+		text-align: center;
+		line-height: 0.8rem;
+		margin:0 auto;
+		font-family: 微软雅黑;
+		font-size: 0.32rem;
+		color: #ffffff;
+		border-radius: 0.06rem;
+		margin-bottom: 0.51rem;
+	}
+	.moren{
+		width: 100%;
+		height: 0.3rem;
+		line-height: 0.3rem;
+		font-family: 微软雅黑;
+		font-size: 0.33rem;
+		color: #999999;
+		text-align: center;
+	}
+</style>
+<body>
+	<p class="title">因金融产品有不同的风险等级，根据相关法律法规，您需要完成风险评估以客观了解自身的风险承受能力。</p>
+	<img  class="riskType" src="img/In1.png">
+	<p class="typeWord">看看你是哪种类型</p>
+	<div class="agreement">
+		<span class="check"></span>
+		<p>同意平台收集并使用您的信息用于风险测评</p>
+	</div>
+	<div class="submit">
+		开始测试
+	</div>
+	<p class="moren">不用测了，我了解自己是保守型</p>
+</body>
+<script type="text/javascript">
+	$(function(){
+		
+        FastClick.attach(document.body);
+		var flag = 1;
+		$(".check").click(function(){
+			if(flag == 0){
+				$(".check").css("background-image","url(img/Inuncheck.png)");
+				flag = 1;
+			}else if(flag == 1){
+				$(".check").css("background-image","url(img/Incheck.png)");
+				flag = 0;
+			}
+		})
+		$(".submit").click(function(){
+			if(flag == 1){
+				alert("请同意测评");
+			}else{
+				window.location.href = "https://www.etongjin.net/app4.0/Detail/risk.html";
+			}
+		})
+
+		$(".moren").click(function(){
+			var getIndex = function(token,uid){
+				$.ajax({
+		            type: 'post',
+		            url: url + "/user/addUserRating/auth",
+		            headers:{"token":token,"uid":uid},
+		            data:{"number":1},
+		            success:function(data,status,req) {
+			            setupWebViewJavascriptBridge(function(bridge) {
+						    bridge.callHandler('RiskLevelSkip',{'level':1},function callback(response) {						                        
+					        })                
+					    });
+		                setupWebViewJavascriptBridge(function(bridge) {
+						    bridge.callHandler('setUserToken',{'token':req.getResponseHeader("token")},function callback(response) {						                        
+					        })                 
+					    });  
+		            },
+		            error:function(){
+		            
+		            }
+		        });
+			}	
+			function setupWebViewJavascriptBridge(callback) {
+	            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+	            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+	            window.WVJBCallbacks = [callback];
+	            var WVJBIframe = document.createElement('iframe');
+	            WVJBIframe.style.display = 'none';
+	            WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+	            document.documentElement.appendChild(WVJBIframe);
+	            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+	        }
+	        setupWebViewJavascriptBridge(function(bridge) {                                
+	            bridge.callHandler('getUserTokenAndUUID',function callback(response) {
+
+	                token = response.token;
+	                uid = response.uuid;
+	                getIndex(token,uid);
+	            })  
+	        });
+			
+		})
+	})
+</script>
+</html>

@@ -1,0 +1,133 @@
+.main-nav li:nth-of-type(2) a {
+    color: #FF6E33;
+}
+.content {
+    background-color:#F9F9F9;
+}
+.content>.container>p {
+    padding: 30px ;
+    font-size: 16px;
+    color: #FF6E33;
+    margin-bottom: 0;
+}
+.content>.container>p>span:nth-of-type(2) {
+    font-family: 黑体;
+    margin: 0 12px;
+}
+.filter {
+    margin-bottom: 10px;
+}
+.content .filter,.content-item {
+    padding: 40px;
+    background-color: #fff;
+}
+.filter>ul:nth-of-type(1) {
+    margin: 30px 0;
+}
+.filter>p {
+    color: #000000;
+    font-size: 20px;
+}
+.filter>ul {
+font-size: 16px;
+}
+.filter>.list-inline {
+    margin-left: 0px;
+}
+.filter li {
+    margin-right: 66px;
+}
+/*.filter li:nth-of-type(2) {*/
+    /*background-color: #FF5E33;*/
+    /*color:#ffffff;*/
+/*}*/
+.content-item>p:nth-of-type(2) {
+    /*margin-right: 90px;*/
+}
+
+.content-item {
+    color: #999999;
+    font-size: 14px;
+    margin-bottom: 2px;
+}
+.content-item p {
+margin-bottom: 0;
+}
+.content-item>p:nth-of-type(1) {
+    font-size: 20px;
+    /*margin-bottom: 20px;*/
+    color: #333333;
+}
+.content-item>p>i {
+    color: #FF5E33;
+    font-size: 36px;
+}
+.content-item>p:nth-of-type(3){
+    /*margin-right: 75px;*/
+}
+.content-item>p:nth-of-type(4) span {
+    font-size: 20px;
+    color: #666666;
+}
+.content-item>p:nth-of-type(4) {
+    /*margin-right: 75px;*/
+    padding-top: 16px;
+}
+.content-item>p:nth-of-type(5) {
+    width: 180px;
+    height: 6px;
+    background-color: #EDEDED;
+    border-radius: 3px;
+    margin-right: 7px;
+    margin-top: 30px;
+    position: relative;
+}
+.content-item>p:nth-of-type(5) span {
+    display: inline-block;
+    /*width: 102px;*/
+    height: 6px;
+    background-color: #FF5E33;
+    border-radius: 3px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+}
+
+.content-item .btn {
+    border:1px solid #FF5E33 ;
+    width: 118px;
+    height: 38px;
+    margin-top: 10px;
+    color:#FF5E33 ;
+    border-radius: 2px;
+    font-size: 18px;
+    background-color: #fff;
+}
+.content-item>.col-lg-2,.content-item>.col-lg-3 {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.btn:hover {
+    background-color:#FF5E33;
+    color: #ffffff;
+}
+.btn:hover .buyBtn{
+    color: #ffffff;
+}
+.content-item>span {
+    padding-top: 22px;
+    margin-right: 70px;
+}
+.fenye {
+    padding: 30px 0 30px 400px;
+    background-color: #fff;
+    margin-top: 30px;
+    margin-bottom:  30px;
+}
+.color {
+    background-color: #FF5E33;
+    color: #ffffff;
+}
+
+

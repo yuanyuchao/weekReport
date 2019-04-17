@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>签到</title>
+    <script type="text/javascript" src="../js/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/fastclick.js"></script>
+    <script src="../../common.js"></script>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+        ul{
+            list-style: none;
+        }
+        html,body{
+            width: 100%;
+            height: 100%;
+        }
+        body{
+            background-color: #f9f9f9;
+        }
+        #schedule-box{
+            width: 100%;
+            margin: 0 auto;
+            font-size:0.28rem;
+            margin-bottom: 0.24rem;
+        }
+        .schedule-hd{
+            display: flex;
+            justify-content: space-between;
+            height: 0.88rem;
+            line-height: 0.88rem;
+        }
+        .next{
+            display: block;
+            width: 1rem;
+            height: 0.88rem;
+            background-color: #eee;
+            /*position: absolute;
+            z-index: 1000000;*/
+        }
+        .today{
+            flex: 1;
+            text-align: center;
+            font-size: 0.32rem;
+        }
+        .ul-box{
+            overflow: hidden;
+
+        }
+        .boxBorder{
+            border-top:1px solid #DBDBDB;
+            border-bottom: 1px solid #DBDBDB;
+        }
+        .ul-box > li{
+            float: left;
+            width: 14.28%;
+            text-align: center;
+            /*padding:0.3rem 0;*/
+            height: 0.88rem;
+            line-height: 0.88rem;
+            font-size: 0.28rem;
+        }
+        .other-month{
+            color: #999999;
+        }
+        .current-month{
+            color: #333333;
+        }
+        .today-style{
+            border-radius: 50%;
+            background: #58d321;
+        }
+        .arrow{
+            cursor: pointer;
+        }
+        .dayStyle{
+            display: inline-block;
+            width: 0.48rem;
+            height: 0.48rem;
+            font-size: 0.28rem;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 0.48rem;
+            /*background-color: #FF5E33;*/
+            cursor: pointer;
+            position: relative;
+        }
+        /*.current-month > .dayStyle:hover{
+            background: #00BDFF;
+            color: #ffffff;
+        }*/
+        .today-flag{
+            background: #FF5E33;
+            color: #fff;
+        }
+        /*.boxshaw{
+            box-shadow: 2px 2px 15px 2px #e3e3e3;
+        }*/
+        .selected-style {
+            background: #FF5E33;
+            color: #ffffff;
+            border-bottom: none;
+        }
+        .selected-style[data-state='mark_day']:after {
+            content: '';
+            background-color: transparent !important;
+        }
+        #money{
+            width: 100%;
+            height: 0.88rem;
+            box-sizing: border-box;
+            color:white;
+            padding: 0.3rem 0.24rem;
+            background-color: #FF993B;
+            font-size: 0.28rem;
+            margin-bottom: 0.24rem;
+        }
+        #money p{
+            display: block;
+            height: 0.33rem;
+            line-height: 0.33rem;
+        }
+        #money p:first-child{
+            float: left;
+        }
+        #money p:last-child{
+
+            float: right;
+        }
+        .mark{
+            width: 100%;
+            height: 2.04rem;
+            box-sizing: border-box;
+            padding:0.3rem 0.24rem;
+            margin-bottom: 0.24rem;
+            background-color: white;
+        }
+
+        .mark div{
+            width: 100%;
+            height: 0.26rem;
+        }
+
+        .mark div p{
+            display: block;
+            height: 0.26rem;
+            font-size: 0.28rem;
+            line-height: 0.26rem;
+        }
+        .mark_day{
+            background-color: #FFEBD9;
+        }
+        .dayStyle[data-state='mark_day']:after {
+            content: '';
+            display: block;
+            width: 8px;
+            height: 8px;
+            background-color: #FFB169;
+            /*background:url() no-repeat 0 0;*/
+            border-radius: 1rem;
+            position: absolute;
+            top: 0;
+            right: 0;
+        }
+        .markName{
+            color:#333333;
+        }
+        .term{
+            color:#FF993B;
+        }
+        .benjin,.shouyi,.cost,.profit{
+            color: #666666;
+        }
+        .markName,.benjin,.shouyi{
+            float: left;
+        }
+        .term,.cost,.profit{
+            float: right;
+        }
+        .otherDay{
+            color: black;
+        }
+        #prevMonth{
+            background: url(img/left@2x.png) no-repeat 0 0;
+            background-size: contain;
+        }
+        #nextMonth{
+            background: url(img/right@2x.png) no-repeat 0 0;
+            background-size: contain;
+        }
+        img{
+            display:block;
+            width: 100%;
+            height:4.2rem;
+
+        }
+        .imgHead{
+            width:100%;
+            height:4.2rem;
+            background: url(img/signIn.png) no-repeat 0 0;
+            -webkit-background-size: cover;
+            background-size: cover;
+            position: relative;
+        }
+        .qdMsg{
+            width: 100%;
+            position: absolute;
+            height: 0.7rem;
+            font-family: 微软雅黑;
+            font-size:0.7rem;
+            text-align: center;
+            top:1.56rem;
+            color: white;
+            line-height: 0.7rem;
+        }
+        .jdz{
+            width: 100%;
+            position: absolute;
+            height: 0.28rem;
+            font-family: 微软雅黑;
+            font-size:0.28rem;
+            text-align: center;
+            top:3rem;
+            color: white;
+            line-height: 0.28rem;
+        }
+        .qdd{
+            width: 100%;
+            position: absolute;
+            height: 0.24rem;
+            font-family: 微软雅黑;
+            font-size:0.24rem;
+            text-align: center;
+            top:3.47rem;
+            color: white;
+            line-height: 0.24rem;
+        }
+        .gonglue{
+            width: 1.3rem;
+            height:0.46rem;
+            text-align: center;
+            line-height:0.46rem ;
+            font-size: 0.28rem;
+            color: white;
+            position: absolute;
+            top:0.45rem;
+            right:0.55rem;
+            background-color: #FF9256;
+            border-radius: 0.06rem;
+        }
+        .shadow{
+            display: none;
+            width:100%;
+            height:100%;
+            position: absolute;
+            z-index: 99;
+            top:0;
+            left:0;
+            background-color: rgba(0,0,0,0.3);
+        }
+        .qdContent{
+            width: 6.4rem;
+            height:9rem;
+            position: absolute;
+            top:1.08rem;
+            left:0.55rem;
+            background-color: white;
+            border-radius: 0.12rem;
+            z-index: 99;
+            box-sizing: border-box;
+            padding:0.41rem 0.42rem 0 0.42rem;
+        }
+        .qdContent  p{
+            display: block;
+            width: 100%;
+        }
+        .contentH{
+            font-size: 0.32rem;
+            color: #333333;
+            margin-bottom:0.6rem ;
+            text-align: center;
+        }
+        .contentD{
+            font-size: 0.28rem;
+            color: #666666;
+            line-height: 0.44rem;
+            margin-bottom: 0.4rem;
+        }
+        .iKnow{
+            width:5.4rem ;
+            height: 0.88rem;
+            background-color: #FF5E33;
+            border-radius: 0.06rem;
+            color: white;
+            text-align: center;
+            line-height: 0.88rem;
+            position: relative;
+            left: 50%;
+            margin-left: -2.7rem;
+            font-size: 0.32rem;
+        }
+        .qdResult{
+            display: none;
+            width:100%;
+            height:100%;
+            position: absolute;
+            z-index: 99;
+            top:0;
+            left:0;
+            background-color: rgba(0,0,0,0.6);
+        }
+        .qdResultTop,.qdResultDown{
+            display: block;
+            width:100%;
+            font-size: 0.6rem;
+            color: white;
+            font-weight: bold;
+            position: absolute;
+            text-align: center;
+        }
+        .qdResultTop{
+            top: 4.2rem;
+        }
+        .qdResultDown{
+            top: 5.25rem;
+        }
+        .otherM{
+            color:white;
+        }
+        .qdDay{
+            margin: 0 0.1rem;
+        }
+        .qdDay{
+            margin-left: 0.1rem;
+        }
+    </style>
+</head>
+
+<script type="text/javascript">
+    $(function() {
+
+        FastClick.attach(document.body);
+        $(".gonglue").on("click",function(){
+            $(".shadow").css("display","block");
+        })
+        $(".iKnow").on("click",function(){
+            $(".shadow").css("display","none");
+        })
+    });
+</script>
+<body>
+<div class="qdResult">
+    <p class="qdResultTop">今日签到成功</p>
+    <p class="qdResultDown">金豆值+<span class="qdJindou">0</span></p>
+</div>
+<div class="shadow">
+    <div class="qdContent">
+        <p class="contentH">签到攻略</p>
+        <p class="contentD" >＊每日打开app后可在“签到”页面签到，当天未签到不可再补；<br /></p>
+        <p class="contentD">＊ 连续签到天数仅限当月有效，次月重新开始，上月获得的金豆不清零（如果中断签到，则从10金豆开始增加）。<br />
+                －连续签到第1天，可获10金豆<br />
+                －连续签到第2天，可获20金豆<br />
+                －连续签到第3天，可获30金豆<br />
+                －连续签到第4天，可获40金豆<br />
+                －连续签到第5天，可获50金豆<br />
+                －连续签到5天以上，可获50金豆<br /></p>
+        <p class="contentD">＊  奖励的金豆请前往“金豆商城”查看。</p>
+        <div class="iKnow">我知道了</div>
+    </div>
+</div>
+<div class="imgHead">
+    <div class="gonglue">签到攻略</div>
+    <p class="qdMsg">签到成功</p>
+    <p class="jdz">金豆值:<span class="jdNum">0</span></p>
+    <p class="qdd">连续签到<span class="qdDay">0</span>天</p>
+</div>
+<div id='schedule-box' class="boxshaw">
+
+</div>
+</body>
+<script>
+    (function (undefined) {
+        select =[];
+        var indexDate =  new Date(),
+            indexYear = indexDate.getFullYear(),
+            indexMonth = indexDate.getMonth() + 1,
+            indexDay = indexDate.getDate();
+        indexMonth = (indexMonth.toString())[1] ? indexMonth : '0'+indexMonth;
+        indexDay = (indexDay.toString())[1] ? indexDay : '0'+indexDay;
+        var indexmonth  = indexYear+'-'+indexMonth ;
+        var indexday = indexYear+'-'+indexMonth+'-'+indexDay;
+
+
+
+        u = navigator.userAgent, app = navigator.appVersion;
+        isAndroid = u.indexOf('Android') > -1 || u.indexOf('Linux') > -1; //android终端或者uc浏览器
+        isiOS = !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/); //ios终端
+
+        /*var getInit= function(token,uid){
+            $.ajax({
+                type: 'GET',
+                url: "http://47.etongjin.net:8081/user/returnCalendar/auth" ,
+                headers:{"token":token,"uid":uid},
+                data: {"tmonth":indexmonth,"tday":indexday} ,
+                dataType: "json",
+                success:function(data,status,req){
+                    select = data.data.showDay;
+                    if(data.code == 200){
+                        $(".yinghui").text(data.data.showMonth.endProfit);
+                        $(".yihui").text(data.data.showMonth.withdrawPrincipal);
+                        if(isiOS){
+                            setupWebViewJavascriptBridge(function(bridge) {
+                                bridge.callHandler('setUserToken',{'token':req.getResponseHeader("token")},function callback(response) {
+                                })
+                            });
+                        }else if(isAndroid){
+                            setupWebViewJavascriptBridge(function(bridge) {
+                                bridge.callHandler('setUserToken',req.getResponseHeader('token'),function(responseData) {
+                                })
+                            });
+                        }
+
+                    }
+                    init();
+                },
+                error:function(){
+
+                }
+            });
+        }*/
+        var getIndex = function(token,uid){
+            $.ajax({
+                type: 'GET',
+                url: url + "/activity/doSign/auth" ,
+                headers:{"token":token,"uid":uid},
+                data: {"tmonth":indexmonth,"tday":indexday} ,
+                dataType: "json",
+                success:function(data,status,req){
+                    console.log(data);
+                    if(data.code == 200){
+                        $(".qdResult").css("display","block");
+                        $(".qdResultTop").text(data.msg);
+                        $(".qdJindou").text(data.data);
+                        $(".qdMsg").text("签到成功");
+                        setTimeout(function (){
+                            $(".qdResult").css("display","none");
+                        },1000);
+                    }else if(data.code == 400){
+                        $(".qdResult").css("display","none");
+                        $(".qdMsg").text("签到成功");
+                    }else{
+                        $(".qdResult").css("display","block");
+                        $(".qdResultTop").text(data.msg);
+                        $(".qdMsg").text("签到失败");
+                        $(".qdJindou").text("0");
+                        setTimeout(function(){
+                            $(".qdResult").css("display","none");
+                        },1000);
+                    }
+
+                    $.ajax({
+                        type: 'GET',
+                        url: url + "/activity/getSginDay/auth" ,
+                        headers:{"token":token,"uid":uid},
+                        data: {"tmonth":indexmonth,"tday":indexday} ,
+                        /*dataType: "json",*/
+                        success:function(data,status,req){
+                            console.log(data);
+                            /*select = data.data.days;*/
+
+                            if(data.code == 200){
+                                var data= data.data;
+                                for(var i=0;i<data.days.length;i++ ){
+                                    var pjData = indexYear +"-"+indexMonth +"-"+data.days[i];
+                                    console.log(pjData);
+                                    select.push(pjData);
+                                }
+                                $(".jdNum").text(data.beanVal);
+                                $(".qdDay").text(data.sginNum);
+                                var mySchedule = new Schedule({
+                                    el: '#schedule-box',
+
+                                });
+                            }
+                        },
+                        error:function(){
+
+                        }
+                    });
+                    /*init();*/
+                },
+                error:function(){
+
+                }
+            });
+        }
+
+
+
+
+
+
+        // 安卓端
+        function connectWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) {
+                callback(WebViewJavascriptBridge)
+            } else {
+                document.addEventListener(
+                    'WebViewJavascriptBridgeReady'
+                    , function() {
+                        callback(WebViewJavascriptBridge)
+                    },
+                    false
+                );
+            }
+        }
+
+        // iOS端
+        function setupWebViewJavascriptBridge(callback) {
+            if (window.WebViewJavascriptBridge) { return callback(WebViewJavascriptBridge); }
+            if (window.WVJBCallbacks) { return window.WVJBCallbacks.push(callback); }
+            window.WVJBCallbacks = [callback];
+            var WVJBIframe = document.createElement('iframe');
+            WVJBIframe.style.display = 'none';
+            WVJBIframe.src = 'wvjbscheme://__BRIDGE_LOADED__';
+            document.documentElement.appendChild(WVJBIframe);
+            setTimeout(function() { document.documentElement.removeChild(WVJBIframe) }, 0)
+        }
+
+        var u = navigator.userAgent;
+        if (isAndroid) {
+            connectWebViewJavascriptBridge(function(bridge) {
+                //document.getElementById("show").innerHTML = "android WebViewJavascriptBridge inited"
+                window.WebViewJavascriptBridge.callHandler(
+                    'getUserTokenAndUUID'
+                    , '9999999'
+                    , function(responseData) {
+                        var responseData = JSON.parse(responseData);
+                        var token = responseData.token;
+                        var uid = responseData.uuid;
+                        getIndex(token,uid);
+                    }
+                );
+            })
+        } else {
+            setupWebViewJavascriptBridge(function(bridge) {
+                //document.getElementById("show").innerHTML = "iOS WebViewJavascriptBridge inited"
+                window.WebViewJavascriptBridge.callHandler(
+                    'getUserTokenAndUUID'
+                    , '9999999'
+                    , function(responseData) {
+                        var token = responseData.token;
+                        var uid = responseData.uuid;
+                        getIndex(token,uid);
+                    }
+                );
+            })
+        }
+
+        var _global;
+        //工具函数
+        //配置合并
+        function extend (def,opt,override) {
+            for(var k in opt){
+                if(opt.hasOwnProperty(k) && (!def.hasOwnProperty(k) || override)){
+                    def[k] = opt[k]
+                }
+            }
+            return def;
+        }
+        //日期格式化
+        function formartDate (y,m,d,symbol) {
+            symbol = symbol || '-';
+            m = (m.toString())[1] ? m : '0'+m;
+            d = (d.toString())[1] ? d : '0'+d;
+            return y+symbol+m+symbol+d;
+        }
+        //月份格式化
+        function formartMonth(y,m,symbol) {
+            symbol = symbol || '-';
+            m = (m.toString())[1] ? m : '0'+m;
+            return y+symbol+m;
+        }
+
+        function Schedule (opt) {
+            var def = {},
+                opt = extend(def,opt,true),
+                curDate = opt.date ? new Date(opt.date) : new Date(),
+                year = curDate.getFullYear(),
+                month = curDate.getMonth(),
+                day = curDate.getDate(),
+                currentYear = curDate.getFullYear(),
+                currentMonth = curDate.getMonth(),
+                currentDay = curDate.getDate(),
+                selectedDate = '',
+                el = document.querySelector(opt.el) || document.querySelector('body'),
+                _this = this;
+            /*var bindEvent = function (){
+                el.addEventListener('click',function(e){
+                    switch (e.target.id) {
+                        case 'nextMonth':
+                            _this.nextMonthFun();
+                            break;
+                        case 'nextYear':
+                            _this.nextYearFun();
+                            break;
+                        case 'prevMonth':
+                            _this.prevMonthFun();
+                            break;
+                        case 'prevYear':
+                            _this.prevYearFun();
+                            break;
+                        default:
+                            break;
+                    };
+
+                    if(e.target.className.indexOf('currentDate') > -1){
+                        opt.clickCb && opt.clickCb(year, month+1, e.target.innerHTML);
+                        selectedDate = e.target.title;
+                        day = e.target.innerHTML;
+                        render();
+                    }
+                },false)
+            }*/
+            init = function () {
+                var scheduleHd = '<div class="schedule-hd">'+
+                    '<div class="today">'+formartMonth(year,month+1,'-')+'</div>'+
+                    '</div>'
+                var scheduleWeek = '<ul class="week-ul ul-box boxBorder">'+
+                    '<li class="other-month">日</li>'+
+                    '<li>一</li>'+
+                    '<li>二</li>'+
+                    '<li>三</li>'+
+                    '<li>四</li>'+
+                    '<li>五</li>'+
+                    '<li class="other-month">六</li>'+
+                    '</ul>'
+                var scheduleBd = '<ul class="schedule-bd ul-box" ></ul>';
+                el.innerHTML = scheduleHd + scheduleWeek + scheduleBd;
+               /* bindEvent();*/
+                render();
+            }
+            var render = function () {
+                var fullDay = new Date(year,month+1,0).getDate(), //当月总天数
+                    startWeek = new Date(year,month,1).getDay(), //当月第一天是周几
+                    total = (fullDay+startWeek)%7 == 0  ? (fullDay+startWeek) : fullDay+startWeek+(7-(fullDay+startWeek)%7),//元素总个数
+                    lastMonthDay = new Date(year,month,0).getDate(), //上月最后一天
+                    eleTemp = [];
+                for(var i = 0; i < total; i++){
+                    if(i<startWeek){//要在本月显示的上个月的天数，本月1号前的部分
+                        eleTemp.push('<li class="other-month"><span class="dayStyle otherM">'+(lastMonthDay-startWeek+1+i)+'</span></li>')
+                    }else if(i<(startWeek+fullDay)){//除下个月以外在本月要显示的所有的天数
+                        var nowDate = formartDate(year,month+1,(i+1-startWeek),'-');
+                        var addClass = '';
+                        var markClass ='';
+                        var setIsCurrentMonth = 'other-month';
+                        var setIsCurrentDay = '';
+                        var otherDay = 'otherDay';
+                        if (select.indexOf(nowDate) >= 0) {//检索从后台获取需要在当前月标记的日期
+                            markClass = 'mark_day'
+                            setIsCurrentMonth = 'current-month';
+                            setIsCurrentDay = 'currentDate'
+                        }
+                        formartDate(currentYear,currentMonth+1,currentDay,'-') == nowDate && (addClass = 'today-flag');
+                        selectedDate == nowDate && (addClass = 'selected-style');
+                        if (new Date(nowDate).getDay() === 6 || new Date(nowDate).getDay() === 0)//标记周六和周日
+                            eleTemp.push('<li class="other-month" ><span title='+nowDate+' data-state="'+ markClass +'" class="'+ setIsCurrentDay+' dayStyle '+addClass+' '+markClass+'">'+(i+1-startWeek)+'</span></li>')
+                        else
+                            eleTemp.push('<li class="'+setIsCurrentMonth +'" ><span title='+nowDate+' data-state="'+ markClass +'" class="'+ setIsCurrentDay+' dayStyle '+addClass+' '+markClass+' '+otherDay+'">'+(i+1-startWeek)+'</span></li>')
+                    }else{//要在本月展示的下个月的天数
+                        eleTemp.push('<li class="other-month"><span class="dayStyle otherM">'+(i+1-(startWeek+fullDay))+'</span></li>')
+                    }
+                }
+                el.querySelector('.schedule-bd').innerHTML = eleTemp.join('');
+                el.querySelector('.today').innerHTML = formartMonth(year,month+1,'-');
+            };
+            this.nextMonthFun = function () {
+                if(month+1 > 11){
+                    year += 1;
+                    month = 0;
+                }else{
+                    month += 1;
+                }
+                render();
+                opt.nextMonthCb && opt.nextMonthCb(year,month+1,day);
+            },
+                this.prevMonthFun = function () {
+                    if(month-1 < 0){
+                        year -= 1;
+                        month = 11;
+                    }else{
+                        month -= 1;
+                    }
+                    render();
+                    opt.prevMonthCb && opt.prevMonthCb(year,month+1,day);
+                }
+            init();
+        }
+        //将插件暴露给全局对象
+        _global = (function(){return this || (0,eval)('this')}());
+        if(typeof module !== 'undefined' && module.exports){
+            module.exports = Schedule;
+        }else if (typeof define === "function" && define.amd){
+            define(function () {
+                return Schedule;
+            })
+        }else {
+            !('Schedule' in _global) && (_global.Schedule = Schedule);
+        }
+
+    }());
+
+</script>
+
+
+
+
+<script>
+    var docEl = document.documentElement;
+    var width = docEl.getBoundingClientRect().width;
+    if (width > 450) {width = 450};
+    var rootRem = width / 375 * 50;
+    docEl.style.fontSize = rootRem + 'px';
+</script>
+
+
+</html>
