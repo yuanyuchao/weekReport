@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="always" name="referrer">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>自备药管理</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/public/reset.css">
+    <link rel="stylesheet" href="../../css/selfMedicine.css">
+<body>
+    <header>
+        <div id="menu"></div>
+    </header>
+    <div class="has_medicine">
+        <div class="self_title">
+            <span>自备药管理</span>
+            <a href="medicineRecord.html" class="medicine_record">查看记录</a>
+        </div>
+        <section style="display: none;">
+            <table>
+                <thead>
+                <tr>
+                    <th>规格名称</th>
+                    <th>单位</th>
+                    <th>自备量</th>
+                    <th>剩余</th>
+                </tr>
+                </thead>
+                <tbody>
+                <!--<tr>-->
+                    <!--<td>碳酸镧咀嚼片/500mg</td>-->
+                    <!--<td>片</td>-->
+                    <!--<td>12</td>-->
+                    <!--<td>9</td>-->
+                <!--</tr>-->
+                </tbody>
+            </table>
+        </section>
+    </div>
+    <!--无自备药-->
+    <div class="no_medicine" style="display: none">
+        <div class="medicine_img">
+            <img src="../../img/icon/no_medicine.png" />
+        </div>
+        <div class="no_medicine_info">暂无自备药</div>
+    </div>
+</body>
+<script src="../../js/public/jquery.min.js"></script>
+<script src="../../js/public/flexible2.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/public/common.js"></script>
+<script>
+    $('#menu').load('../public/menu2.html');
+    layui.use('layer', function () {
+        var layer = layui.layer;
+    });
+    $.ajax({
+        type: "POST",
+        url: '/patientControllerAPP.do?getSubsistingList',
+        dataType: 'json',
+        success: function (data) {
+            // console.log(data);
+            if(data.status==0){
+                var datas=data.data;
+                if(data.data.length!=0){
+                    $("section").show();
+                    var html="";
+                    $.each(datas, function (index, item) {
+                        html+='<tr>' +
+                                    '<td>'+item.product_name+'</td>' +
+                                    '<td>'+item.unit+'</td>' +
+                                    '<td>'+item.amount+'</td>' +
+                                    '<td>'+item.stock+'</td>' +
+                                '</tr>';
+                    });
+                    $("table tbody").html(html);
+                }else{
+                    $(".no_medicine").show();
+                };
+            }else if (data.status == 1){
+                layer.msg(data.msg);
+            }else if (data.status == 2){
+                layer.msg(data.msg);
+                window.location.href='../login/login.html';
+            };;
+        }
+    });
+</script>
+</html>

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="always" name="referrer">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>费用记录</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/public/mui.min.css">
+    <link rel="stylesheet" href="../../css/public/mui.picker.min.css">
+    <link rel="stylesheet" href="../../css/public/reset.css">
+    <link rel="stylesheet" href="../../css/expenseManagement.css">
+</head>
+<body>
+    <header>
+        <div id="menu"></div>
+    </header>
+    <div class="contain">
+        <div class="self_title">
+            <div class="title_tab">
+                <span class="cost_record tab_select">费用记录</span>
+                <span class="charge_record">扣费记录</span>
+            </div>
+            <span class="filter">筛选</span>
+        </div>
+        <div class="content">
+            <div class="main-content">
+            </div>
+            <div class="shadow"></div>
+            <div class="filter-content">
+                <div class="date-select">
+                    <p>缴费日期</p>
+                    <div class="date_interval">
+                        <div class="date-start">
+                            <div class="layui-inline">
+                                <div class="layui-input-inline">
+                                    <input type="text" class="layui-input" id="date-start" placeholder="" value="">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="hr"></div>
+                        <div class="date-end">
+                            <div class="layui-input-inline">
+                                <input type="text" class="layui-input" id="date-end" placeholder="" value="">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="btn-grounp">
+                    <div class="btn-cancle">取消</div>
+                    <div class="btn-confirm">确定</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="../../js/public/jquery.min.js"></script>
+<script src="../../js/public/flexible2.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/public/mui.min.js"></script>
+<script src="../../js/public/mui.picker.min.js"> </script>
+<script src="../../js/public/common.js"></script>
+<script>
+    $('#menu').load('../public/menu2.html');
+    layui.use('layer', function () {
+        var layer = layui.layer;
+    });
+    var start="";
+    var endDate="";
+    freeAdd(start,endDate);
+    function freeAdd(start,endDate){ //费用记录
+        layui.use('flow', function() {
+            var flow = layui.flow;
+            flow.load({
+                elem: '.main-content' //流加载容器
+                // ,scrollElem: '.main-content' //滚动条所在元素，一般不用填，此处只是演示需要。
+                ,end:'已没有更多'
+                , done: function (page, next) { //执行下一页的回调
+                    //模拟数据插入
+                    setTimeout(function () {
+                        var lis = [];
+                        $.ajax({
+                            type: "POST",
+                            url: '/patientControllerAPP.do?getFeeAddList',
+                            dataType: 'json',
+                            data: {page: page,rows:10,startDate:start,endDate:endDate},
+                            success: function (data) {
+                                // console.log(data);
+                                if(data.status==0) {
+                                    var total = data.data.Total;
+                                    var datas = data.data.FeeAddList;
+                                    var htmls = '';
+                                    for (var i = 0; i < datas.length; i++) {
+                                        var html_month = '';
+                                        var html_top = '';
+                                        var html_detail = '';
+                                        var html_item = '';
+                                        html_month += '<div class="monthly"><div class="month">' + datas[i].date + '</div><div class="items">';
+                                        var listArr = datas[i].list;
+                                        for (var j = 0; j < listArr.length; j++) {
+                                            html_top = '<div class="item">' +
+                                                '<div class="item_top">' +
+                                                '<div class="item_left">' +
+                                                '<p>日期：<span class="dialysis_date">' + listArr[j].create_date + '</span></p>' +
+                                                '<p><span class="countFree">共计充值:</span>' + listArr[j].add_money + '元</p>' +
+                                                '</div>' +
+                                                '<div class="item_right">' +
+                                                '<span class="isOpen">查看</span>' +
+                                                '</div>' +
+                                                '</div>' +
+                                                '<div class="detail">' +
+                                                '<table>' +
+                                                '<thead>' +
+                                                '<tr>' +
+                                                '<th>项目</th>' +
+                                                '<th>单价</th>' +
+                                                '<th>数量</th>' +
+                                                '<th>金额</th>' +
+                                                '</tr>' +
+                                                '</thead>' +
+                                                '<tbody>';
+                                            var listArr2 = listArr[j].feeAddProjectList;
+                                            for (var k = 0; k < listArr2.length; k++) {
+                                                html_detail += '<tr>' +
+                                                    '<td><span>' + listArr2[k].project_name + '</span></td>' +
+                                                    '<td><span>' + listArr2[k].price + '</span></td>' +
+                                                    '<td><span>' + listArr2[k].amount + '</span></td>' +
+                                                    '<td><span>' + listArr2[k].total_money + '</span></td>' +
+                                                    '</tr>';
+                                            }
+                                            ;
+                                            html_item += html_top + html_detail + '</tbody></table></div></div>';
+                                        }
+                                        ;
+                                        htmls += html_month + html_item + '</div></div></div>';
+                                    }
+                                    ;
+                                    // $(".main-content").append(htmls);
+                                    lis.push(htmls);
+                                    //执行下一页渲染，第二参数为：满足“加载更多”的条件，即后面仍有分页
+                                    //pages为Ajax返回的总页数，只有当前页小于总页数的情况下，才会继续出现加载更多
+                                    next(lis.join(''), page < Math.ceil(total / 10)); //假设总页数为 10
+                                }else if (data.status == 1){
+                                    layer.msg(data.msg);
+                                }else if (data.status == 2){
+                                    layer.msg(data.msg);
+                                    window.location.href='../login/login.html';
+                                };
+                            }
+                        });
+                    }, 500);
+                }
+            });
+        });
+    };
+    function freeReduce(start,endDate){ //扣费记录
+        layui.use('flow', function() {
+            var flow = layui.flow;
+            flow.load({
+                elem: '.main-content'
+                ,scrollElem: '.main-content'
+                ,end:'已没有更多'
+                , done: function (page, next) {
+                    //模拟数据插入
+                    setTimeout(function () {
+                        var lis = [];
+                        $.ajax({
+                            type: "POST",
+                            url: '/patientControllerAPP.do?getFeeReduceList',
+                            dataType: 'json',
+                            data: {"page": page, "rows": 10, "startDate": start, "endDate": endDate},
+                            success: function (data) {
+                                    // console.log(data);
+                                if (data.status == 0){
+                                    var total=data.data.Total;
+                                    var datas = data.data.FeeReduceList;
+                                    var htmls = '';
+                                    for (var i = 0; i < datas.length; i++) {
+                                        var html_month = '';
+                                        var html_top = '';
+                                        var html_detail = '';
+                                        var html_item = '';
+                                        html_month += '<div class="monthly"><div class="month">' + datas[i].date + '</div><div class="items">';
+                                        var listArr = datas[i].list;
+                                        for (var j = 0; j < listArr.length; j++) {
+                                            html_top = '<div class="item">' +
+                                                            '<div class="item_top">' +
+                                                                '<div class="item_left">' +
+                                                                    '<p>日期：<span class="dialysis_date">' + listArr[j].create_date + '</span></p>' +
+                                                                    '<p style="color:#FF2F2F;"><span class="countFree">共计缴费:</span>' + listArr[j].reduce_money + '元</p>' +
+                                                                '</div>' +
+                                                                '<div class="item_right">' +
+                                                                    '<span class="isOpen">查看</span>' +
+                                                                '</div>' +
+                                                            '</div>' +
+                                                            '<div class="detail">' +
+                                                                '<table>' +
+                                                                    '<thead>' +
+                                                                        '<tr>' +
+                                                                            '<th>项目</th>' +
+                                                                            '<th>单价</th>' +
+                                                                            '<th>数量</th>' +
+                                                                            '<th>金额</th>' +
+                                                                        '</tr>' +
+                                                                    '</thead>' +
+                                                                    '<tbody>';
+                                            var listArr2 = listArr[j].feeReduceProjectList;
+                                            for (var k = 0; k < listArr2.length; k++) {
+                                                html_detail += '<tr>' +
+                                                    '<td><span>' + listArr2[k].project_name + '</span></td>' +
+                                                    '<td><span>' + listArr2[k].price + '</span></td>' +
+                                                    '<td><span>' + listArr2[k].amount + '</span></td>' +
+                                                    '<td><span>' + listArr2[k].total_money + '</span></td>' +
+                                                    '</tr>';
+                                            };
+                                            html_item += html_top + html_detail + '</tbody></table></div></div>';
+                                        };
+                                        htmls += html_month + html_item + '</div></div></div>';
+                                    };
+                                    // $(".main-content").append(htmls);
+                                    lis.push(htmls);
+                                    next(lis.join(''), page < Math.ceil(total/10)); //假设总页数为 10
+                                }else if (data.status == 1){
+                                    layer.msg(data.msg);
+                                }else if (data.status == 2){
+                                    layer.msg(data.msg);
+                                    window.location.href='../login/login.html';
+                                };
+                            }
+                        });
+                    }, 500);
+                }
+            })
+        })
+    }
+    function filter(){   // 筛选数据
+        var start=$('#date-start').val();
+        var endDate=$('#date-end').val();
+        if($(".title_tab span").hasClass("cost_record")){
+            freeAdd(start,endDate);
+        }else if($(".title_tab span").hasClass("charge_record")){
+            freeReduce(start,endDate);
+        };
+    };
+
+    // 切换tab
+    $(".title_tab span").click(function(){
+        $(".main-content").html("");
+        if($(this).hasClass("cost_record")){
+            freeAdd(start,endDate);
+            $(this).addClass("tab_select").siblings().removeClass("tab_select");
+        }else if($(this).hasClass("charge_record")){
+            freeReduce(start,endDate);
+            $(this).addClass("tab_select").siblings().removeClass("tab_select");
+        };
+    });
+
+    // 筛选确定
+    $('.btn-confirm').on('click',function () {
+        $('.main-content').empty();
+        filter();
+    });
+
+    //查看收起
+    $(document.body).on('click','.item_right', function () {
+        $(this).parents('.item_top').siblings(".detail").slideToggle("slow");
+        if ($(this).hasClass("open_yes")) {
+            $(this).find('span').text('查看');
+            $(this).removeClass("open_yes");
+        } else {
+            $(this).find('span').text('收起');
+            $(this).addClass("open_yes");
+        };
+    });
+
+</script>
+</html>

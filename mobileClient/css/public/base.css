@@ -1,0 +1,196 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+@font-face {
+    font-family: 'myFont';
+    src: url('./PingFangSC-Medium.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+
+ul {
+    list-style: none;
+}
+
+a:hover{
+    text-decoration:none;
+}
+body {
+    background-color: #EDEDED;
+    color: #666666;
+    font-size: 0.4rem !important;
+    width: 100%;
+    font:0.4rem Helvetica;
+    font-variant-numeric: tabular-nums;
+}
+@charset "utf-8";
+/*html{color:#fff;font-family:myFont,sans-serif}*/
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,strong{padding:0;margin:0;}
+table{border-collapse:collapse;border-spacing:0;}
+fieldset,img{border:0;}
+a{text-decoration:none; color:#124199; outline:none;}/*此处待添加默认链接颜色*/
+var,em,strong{font-style:normal;}
+address,caption,cite,code,dfn,em,strong,th,var, optgroup{font-style:inherit;font-weight:inherit;}
+del,ins{text-decoration:none;}
+li{list-style:none;}
+caption,th{text-align:left;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+q:before,q:after{content:'';}
+abbr,acronym{border:0;font-variant:normal;}
+sup{vertical-align:baseline;}
+sub{vertical-align:baseline;}
+legend{color:#000;}
+input,button,textarea,select,optgroup,option{font-family:inherit; font-size:inherit;font-style:inherit;font-weight:inherit;}
+input,button,textarea,select{*font-size:100%;}
+*{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; }
+
+.clear {clear:both;overflow:hidden;}
+.nowrap{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.fl{float:left;}
+.fr{float:right;}
+.dis-no{display: none;}
+input{border:0; outline: none;}
+
+::-webkit-input-placeholder {
+    color: #D9D9D9;
+}
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: #D9D9D9;
+}
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #D9D9D9;
+}
+:-ms-input-placeholder {
+    color: #D9D9D9;
+}
+
+.isOpen {
+    cursor: pointer;
+}
+
+/*顶部列表*/
+.header-top {
+    height:1.17rem;
+    background-color: #fff;
+    padding-left: 0.64rem;
+    padding-right: 0.32rem;
+}
+.header-top > .logo {
+    width: 1.79rem;
+    height: 0.59rem;
+    margin-top: 0.37rem;
+}
+.header-top > .logo img{
+    width: 100%;
+    height: 100%;
+}
+.header-top > .down_list {
+    width: 0.707rem;
+    height: 0.7rem;
+    cursor: pointer;
+    position: relative;
+    margin-top:0.25rem;
+}
+.header-top > .down_list img{
+    position: absolute;
+    left: 50%;
+    top:50%;
+}
+.down_false{
+    width: 0.507rem;
+    height: 0.427rem;
+    margin-left: -0.25rem;
+    margin-top: -0.213rem;
+}
+.down_true{
+    width: 0.4rem;
+    height: 0.37rem;
+    margin-left: -0.2rem;
+    margin-top: -0.19rem;
+}
+.menu {
+    height: 100%;
+    position: fixed;
+    top: 1.17rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 101;
+    border-top: 1px solid #d9d9d9;
+    display: none;
+}
+.menu-list {
+    font-size:0.37rem;
+    padding: 0.11rem 0.32rem 0.11rem 0.64rem;
+    background-color: #fff;
+}
+.menu-list li a{
+    display: block;
+    height: 1.17rem;
+}
+.menu-list .list_img{
+    width: 0.59rem;
+    height: 1.17rem;
+    float: left;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+}
+.menu-list .list_img img{
+    vertical-align: middle;
+    position: absolute;
+    left: 50%;
+    top:50%;
+}
+.menu-list .list_img1 img {
+    width: 0.43rem;
+    height: 0.53rem;
+    margin-top: -0.26rem;
+    margin-left: -0.21rem;
+}
+.menu-list .list_img2 img {
+    width: 0.43rem;
+    height: 0.53rem;
+    margin-top: -0.26rem;
+    margin-left: -0.21rem;
+}
+.menu-list .list_img3 img {
+    width: 0.51rem;
+    height: 0.51rem;
+    margin-top: -0.25rem;
+    margin-left: -0.25rem;
+}
+.menu-list .list_img4 img {
+    width: 0.45rem;
+    height: 0.43rem;
+    margin-top: -0.21rem;
+    margin-left: -0.22rem;
+}
+.menu-list li a span {
+    display: block;
+    color: #666666;
+    height: 100%;
+    line-height: 1.17rem;
+    border-bottom: 0.01rem solid #D9D9D9;
+    text-indent: 0.16rem;
+    margin-left: 0.91rem;
+}
+.menu-list li:last-of-type a span {
+    border-bottom: none;
+}
+.mask {
+    position: fixed;
+    top: 1.17rem;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.3;
+    z-index: 100;
+    display: none;
+}

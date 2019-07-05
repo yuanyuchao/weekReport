@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div>
+    <div id="menu"></div>
+    <p>1 <span></span></p>
+    <p>2 <span></span></p>
+    <p>3 <span></span></p>
+    <p>4 <span></span></p>
+    <p>5 <span></span></p>
+</div>
+</body>
+<script src="../js/public/jquery.min.js"></script>
+<script>
+    var arr = [];
+    $('p').click(function () {
+        $(this).attr('name',1);
+        arr.push($('p')[name]);
+        console.log(arr);
+    })
+    console.log($('p').length);
+
+</script>
+</html>

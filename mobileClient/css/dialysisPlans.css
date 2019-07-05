@@ -1,0 +1,174 @@
+body {
+    background-color: #EDEDED;
+}
+/* 媒体查询 */
+.dialysis_content{
+    padding:0 4%;
+    width:92%;
+}
+.dialysis_title{
+    font-size:0.48rem;
+    /*font-weight:500;*/
+    color:rgba(26,26,26,1);
+    line-height:0.67rem;
+    margin:0.32rem 0 0.48rem 0;
+}
+.time_month{
+    background:rgba(255,255,255,1);
+    border-radius:0.29rem;
+    font-size:0.32rem;
+    /*font-weight:500;*/
+    color:rgba(26,26,26,1);
+    line-height:0.45rem;
+    margin-bottom: 0.32rem;
+    display: inline-block;
+    padding: 0.05rem 0.27rem;
+}
+.list{
+    background-color: #fff;
+    border-radius:0.13rem;
+    padding:0 4%;
+    padding-top:0.1px;
+    padding-bottom: 0.32rem;
+    margin-bottom: 0.32rem;
+    position: relative;
+    text-align: center;
+}
+.pai_time{
+    font-size:0.32rem;
+    /*font-weight:500;*/
+    color:rgba(102,102,102,1);
+    line-height:0.45rem;
+    margin:0.32rem 0;
+    text-align: left;
+}
+.pai_info{
+    font-size:0.4rem;
+    /*font-weight:500;*/
+    color:rgba(26,26,26,1);
+    line-height:0.56rem;
+    text-align: left;
+}
+.pai_info p{
+    margin-bottom: 0.32rem;
+
+}
+.apply{
+    display: inline-block;
+    background:rgba(1,158,155,1);
+    border-radius:0.59rem;
+    font-size:0.4rem;
+    line-height:0.53rem;
+    margin:0.28rem auto 0rem;
+    text-align: center;
+    padding:0.19rem 1.06rem;
+}
+.apply a{
+    color:rgba(255,255,255,1);
+}
+.position_status{
+    position: absolute;
+    right: 0;
+    top:0;
+}
+.wait{
+    background-color:#D9D9D9;
+}
+.fail{
+    width: 1.28rem;
+    height: 1.28rem;
+    background: url("../img/dialysisPlans/fail.png") no-repeat center center;
+    -webkit-background-size:1.28rem 1.28rem;
+    background-size:1.28rem 1.28rem;
+}
+.passed{
+    width: 1.28rem;
+    height: 1.28rem;
+    background: url("../img/dialysisPlans/passed.png") no-repeat center center;
+    -webkit-background-size:1.28rem 1.28rem;
+    background-size:1.28rem 1.28rem;
+}
+
+.apply_title{
+    font-size:0.48rem;
+    /*font-weight:500;*/
+    color:rgba(26,26,26,1);
+    line-height:0.67rem;
+    margin:0.32rem 0 0.48rem 0;
+    padding:0 4%;
+}
+.apply_info{
+    font-size:0.37rem;
+    /*font-weight:500;*/
+    color:rgba(102,102,102,1);
+    line-height: 1.15rem;
+    background-color: #fff;
+    padding:0 4%;
+}
+.apply_info ul{
+    padding-bottom: 0.64rem;
+}
+.apply_info li{
+    border-bottom:1px solid #D9D9D9;
+}
+.apply_info li:last-of-type{
+    border-bottom:none;
+}
+.apply_info li b{
+    font-weight: normal;
+    color:rgba(26,26,26,1);
+    float: right;
+}
+.apply_info .apply_date,.apply_info .apply_class{
+    background: url("../img/dialysisPlans/enter.png")no-repeat right center;
+    background-size:0.24rem 0.43rem;
+}
+.apply_info .apply_date b,.apply_info .apply_class b{
+    padding-right: 0.4rem;
+}
+.apply_info li input{
+    text-align: right;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+    height: auto;
+}
+.apply_reason{
+    margin-top:0.59rem;
+    line-height: 0;
+}
+.apply_reason textarea{
+    width: 94%;
+    min-height: 2.67rem;
+    border: 1px solid #D9D9D9;
+    outline: none;
+    padding: 0.3rem 3%;
+}
+.apply_reason textarea{
+
+}
+.apply_btn{
+    width: 100%;
+    height: 1.17rem;
+}
+.apply_btn button{
+    width: 50%;
+    height: 100%;
+    background-color: #D9D9D9;
+    outline: none;
+    border: 0;
+    display: inline-block;
+    font-size:0.4rem;
+    /*font-weight:600;*/
+    color:rgba(255,255,255,1);
+    line-height:0.56rem;
+}
+.apply_btn .cancel{
+    float: left;
+}
+.apply_btn .sure{
+    background-color: #019E9B;
+    float: right;
+}
+

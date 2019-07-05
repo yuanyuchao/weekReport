@@ -1,0 +1,150 @@
+/*费用管理*/
+.content_Balance {
+    background-color: #fff;
+    width: 9.36rem;
+    margin: 0 auto;
+    border-radius:0.13rem;
+}
+.content_Balance .zhye {
+    padding: 0.48rem 0rem 0.32rem 0.32rem;
+    font-size:0.35rem;
+    /*font-weight:500;*/
+    color:rgba(102,102,102,1);
+    line-height:0.48rem;
+}
+.content_Balance .accountBalance {
+    padding-left: 0.32rem;
+    padding-bottom: 0.13rem;
+    font-size:1.04rem;
+    /*font-weight:500;*/
+    color:rgba(1,158,155,1);
+    line-height:1.44rem;
+    border-bottom: 0.03rem solid #D9D9D9;
+}
+.content_Balance>.account_times{
+    width:100%;
+    font-size:0.37rem;
+    /*font-weight:500;*/
+    color:rgba(102,102,102,1);
+    line-height:1.17rem;
+}
+.content_Balance>.account_times thead{
+    height: 1.17rem;
+    border-bottom: 0.03rem solid #D9D9D9;
+}
+.content_Balance>.account_times thead tr th{
+    text-align: center;
+}
+.content_Balance>.account_times thead tr th:nth-of-type(1) {
+    width: 6.5rem;
+}
+.content_Balance>.account_times thead tr th:nth-of-type(1):after{
+    /*content: "|";*/
+    /*color: #D9D9D9;*/
+    content: " ";
+    width: 0.03rem;
+    height: 0.53rem;
+    float: right;
+    background-color: #d9d9d9;
+    margin-top: 0.35rem;
+}
+.content_Balance>.account_times tbody tr>td {
+    overflow: hidden;
+    line-height: 0.53rem;
+    text-align: center;
+    padding: 0.32rem 4%;
+}
+.content_Balance>.account_times tbody tr>td:nth-of-type(1){
+    text-align: left;
+}
+
+/*费用记录*/
+.content {
+    padding: 0.32rem;
+}
+.monthly{
+    padding-bottom: 0.16rem;
+}
+.month {
+    display: inline-block;
+    font-size:0.32rem;
+    /*font-weight:500;*/
+    color:rgba(26,26,26,1);
+    line-height:0.45rem;
+    padding:0.08rem 0.27rem;
+    background-color: #fff;
+    border-radius:0.29rem;
+    margin-bottom: 0.48rem;
+    margin-top: 0rem;
+}
+
+.content_no{
+    font-size: 0.35rem;
+    list-height:0.5rem;
+    font-family: PingFang-SC-Medium;
+    /*font-weight: 500;*/
+    color: rgba(26,26,26,1);
+    padding: 0 4%;
+    margin-top: 1rem;
+}
+
+.item {
+    background-color: #fff;
+    margin-bottom: 0.32rem;
+    border-radius:0.13rem;
+    padding:0 0.32rem;
+}
+
+.item:last-of-type {
+    margin-bottom: 0.32rem;
+}
+.item_top {
+    padding: 0.32rem 0;
+    position: relative;
+}
+.item_top .item_left p:nth-of-type(1) {
+    font-size:0.32rem;
+    /*font-weight:500;*/
+    color:rgba(102,102,102,1);
+    line-height:0.45rem;
+    margin-bottom: 0.32rem;
+}
+.item_top .item_left p:nth-of-type(2) {
+    font-size:0.4rem;
+    /*font-weight:500;*/
+    color:rgba(26,26,26,1);
+    line-height:0.56rem;
+}
+.item_top .item_right {
+    font-size:0.32rem;
+    /*font-weight:500;*/
+    color:rgba(255,255,255,1);
+    line-height:0.45rem;
+    background:rgba(109,186,67,1);
+    border-radius:0.31rem;
+    padding:0.08rem 0.29rem;
+    position: absolute;
+    right: 0rem;
+    top:0.69rem;
+    cursor: pointer;
+}
+
+.detail {
+    display: none;
+    border-top: 1px solid #D9D9D9;
+}
+.detail table{
+    width:100%;
+    height:100%;
+    font-size:0.37rem;
+    /*font-weight:500;*/
+    color:rgba(102,102,102,1);
+    line-height:1.17rem;
+    border: none;
+}
+.detail thead th{
+    border-bottom: 1px solid #D9D9D9;
+}
+.detail tbody tr td:nth-of-type(1){
+    min-width:5rem;
+}

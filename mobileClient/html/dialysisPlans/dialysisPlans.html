@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="always" name="referrer">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>治疗计划</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/public/reset.css">
+    <link rel="stylesheet" href="../../css/dialysisPlans.css">
+</head>
+<body>
+    <header>
+        <div id="menu"></div>
+    </header>
+    <div class="dialysis_content">
+        <div class="dialysis_title">治疗计划</div>
+        <div class="plan_lists"></div>
+    </div>
+</body>
+
+<script src="../../js/public/jquery.min.js"></script>
+<script src="../../js/public/flexible2.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/public/common.js"></script>
+<script>
+    $('#menu').load('../public/menu2.html');
+    layui.use('layer', function () {
+        var layer = layui.layer;
+    });
+    getAlbum(); 
+    var dataAll='';
+    function getAlbum(){
+        layui.use('flow', function() {
+            var flow = layui.flow;
+            flow.load({
+                elem: '.plan_lists'
+                ,end:'已没有更多'
+                , done: function (page, next) {
+                    //模拟数据插入
+                    setTimeout(function () {
+                        var liss = [];
+                        $.ajax({
+                            type: "POST",
+                            url:'/patientControllerAPP.do?getDialysisPlanList',
+                            dataType:'json',
+                            data: {"page":page,"rows":10},
+                            success: function(data){
+                                // console.log(data);
+                                if (data.status == 0) {
+                                    var total=data.data.Total;
+                                    var html="";
+                                    var datas= data.data.DialysisPlanList;
+                                    var htmls="";
+                                    $.each(datas, function (index, item) {
+                                        var html1="";
+                                        var html2="";
+                                        var html3="";
+                                        var html4="";
+                                        var arrLen2=item.list;
+                                        html1 += '<section>'+
+                                            '<div class="time_month">'+item.date+'</div>'+
+                                            '<div class="plan_list">';
+                                        for(var i=0;i<arrLen2.length;i++){
+                                            var html21="";
+                                            var html22="";
+                                            var obj=arrLen2[i];
+                                            html21='<div class="list" >'+
+                                                '<div class="pai_time">'+
+                                                '透析排班：<span>'+obj.plan_date+'</span>'+
+                                                '</div>'+
+                                                '<div class="pai_info">'+
+                                                '<div class="classes fl">'+
+                                                '<p>班次：<span>'+ obj.class_name +'</span></p>'+
+                                                '<p>机号：<span>'+obj.number+'</span></p>'+
+                                                '</div>'+
+                                                '<div class="area fr">'+
+                                                '<p>区域：<span>'+obj.area_name+'</span></p>'+
+                                                '<p>透析模式：<span>'+obj.dialysis_name+'</span></p>'+
+                                                '</div>'+
+                                                '</div>';
+                                            //状态 1：调班待确认   2：未通过  3：已通过
+                                            // obj.status=null;
+                                            if(obj.status==null){
+                                                html22='<div class="apply clear">'+
+                                                    '<a href="applyShift.html?dialysis_plan_id='+obj.dialysis_plan_id+'">申请调班</a>'+
+                                                    '</div>'+
+                                                    '</div>';
+                                            }else if(obj.status==1){
+                                                html22='<div class="apply clear wait">'+
+                                                    '<a href="###">调班待确认</a>'+
+                                                    '</div>'+
+                                                    '</div>';
+                                            }else if(obj.status==2){
+                                                html22='<div class="apply clear">'+
+                                                    '<a href="applyShift.html?dialysis_plan_id='+obj.dialysis_plan_id+'">申请调班</a>'+
+                                                    '</div>'+
+                                                    '<div class="position_status fail"></div>'+
+                                                    '</div>';
+                                            }else if(obj.status==3){
+                                                html22='<div class="apply clear">'+
+                                                    '<a href="applyShift.html?dialysis_plan_id='+obj.dialysis_plan_id+'">申请调班</a>'+
+                                                    '</div>'+
+                                                    '<div class="position_status passed"></div>'+
+                                                    '</div>';
+                                            };
+                                            html3+=html21+html22;
+                                        };
+                                        html4='</div></section>';
+                                        htmls+=html1+html2+html3+html4;
+                                    });
+                                    // $(".plan_lists").append(htmls);
+                                    liss.push(htmls);
+                                    next(liss.join(''), page < Math.ceil(total/10));
+
+                                }else if (data.status == 1){
+                                    layer.msg(data.msg);
+                                }else if (data.status == 2){
+                                    layer.msg(data.msg);
+                                    window.location.href='../login/login.html';
+                                };
+                            },error: function () {
+                                console.log('加载失败')
+                            }
+                        });
+                    }, 500);
+                }
+            });
+        });
+    };
+</script>
+</html>

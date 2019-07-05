@@ -1,0 +1,94 @@
+body {
+    background-color: #fff;
+    width: 92%;
+    padding:0 4%;
+}
+.title{
+    font-size:0.43rem;
+    /*font-weight:600;*/
+    color:rgba(21,26,38,1);
+    line-height:1.44rem;
+    border-bottom:1px solid #D9D9D9;
+    margin-top: 0.64rem;
+}
+.input_type{
+    font-size:0.37rem;
+    /*font-weight:500;*/
+    color:rgba(102,102,102,1);
+    line-height:1.44rem;
+    border-bottom:1px solid #D9D9D9;
+}
+.input_type input{
+    /*font-weight:500;*/
+    color:rgba(26,26,26,1);
+    border: none;
+    outline: none;
+    margin-left: 0.32rem;
+}
+.slide{
+    display: inline-block;
+    width:0.03rem;
+    height:0.48rem;
+    background: #d9d9d9;
+    vertical-align: middle;
+    margin-top:0.48rem;
+}
+.area_code{
+    display: inline-block;
+    width:1.5rem;
+}
+.code_title{
+    display: inline-block;
+    width:1.5rem;
+}
+.del_img{
+    display: inline-block;
+    width: 0.29rem;
+    height:0.29rem;
+    background:url("../img/login/del_img.png")no-repeat center center;
+    background-size:0.29rem 0.29rem;
+    margin-top: 0.59rem;
+    margin-right: 0.32rem;
+}
+.getCode{
+    display:inline-block;
+    padding:0.16rem 0.32rem;
+    background:rgba(109,186,67,1);
+    border-radius:2px;
+    font-size:0.37rem;
+    /*font-weight:500;*/
+    color:rgba(255,255,255,1);
+    line-height:0.53rem;
+    margin-top: 0.29rem;
+}
+.msg{
+    font-size:0.32rem;
+    /*font-weight:500;*/
+    color:rgba(153,153,153,1);
+    line-height:0.45rem;
+    margin-top:0.32rem;
+}
+.next{
+    width:7.44rem;
+    height:1.17rem;
+    background:rgba(109,186,67,1);
+    box-shadow:0rem 0.11rem 0.27rem 0rem rgba(109,186,67,0.4);
+    border-radius:0.59rem;
+    font-size:0.37rem;
+    font-family:PingFangSC-Semibold;
+    /*font-weight:600;*/
+    color:rgba(255,255,255,1);
+    line-height:1.17rem;
+    margin: 4.29rem auto 0;
+    text-align: center;
+    cursor: pointer;
+}
+
+/* 媒体查询 */
+@media screen and (max-width: 370px) {
+    .input_type input {
+        width: 4rem;
+    }
+}
+
+

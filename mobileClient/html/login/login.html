@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <meta content="always" name="referrer">
+    <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>登录</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/public/reset.css">
+    <link rel="stylesheet" href="../../css/login.css">
+</head>
+
+<body>
+    <div class="title">请输入手机号</div>
+    <div class="input_type phone">
+        <div class="area_code">
+            <span class="befor_num">+86</span>
+            <span class="slide fr"></span>
+        </div>
+        <input type="text" placeholder="请输入手机号" id="phone_num" value="">
+        <div class="del_img fr"></div>
+    </div>
+    <div class="input_type code">
+        <span class="code_title">验证码</span>
+        <input type="text" placeholder="请输入验证码" id="code_num" value="">
+        <span class="getCode fr">获取验证码</span>
+    </div>
+    <p class="msg">请使用在医院预留手机号进行验证</p>
+    <!-- <p class="propmt" style="display:none;">验证码已发送至您的手机，请查看。</p> -->
+    <div class="next">下一步</div>
+
+</body>
+<script src="../../js/public/jquery.min.js"></script>
+<script src="../../js/public/flexible2.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/public/common.js"></script>
+<script>
+
+    //页面加载完就开始获取openid进行免登陆
+    $(function () {
+        //判断当前页面是否在微信浏览器打开,并且在域名下
+        var ua = navigator.userAgent.toLowerCase();
+        var isWeixin = ua.indexOf('micromessenger') != -1;
+        if (isWeixin && window.location.href.indexOf("fscmedical.cn")!=-1) {
+            //判断当前url是否含有code
+            if(window.location.href.indexOf("?code=")==-1 ){
+                //不包含，则为第一次请求
+                //h5获取code
+                //这里放回调页面地址，为防止回调后循环处理，这里跳转到首页，回调url进行urlEncode处理
+                var pageUrl = "http://hdis.fscmedical.cn/wap/mobileClient/html/login/login.html"
+                    .replace(/[/]/g, "%2f")
+                    .replace(/[:]/g, "%3a")
+                    .replace(/[#]/g, "%23")
+                    .replace(/[&]/g, "%26")
+                    .replace(/[=]/g, "%3d");
+                var APPID = "wx163747a743a7d839";
+                var url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" +
+                    APPID +
+                    "&redirect_uri=" +
+                    pageUrl +
+                    "&response_type=code&scope=snsapi_base&state=STATE&connect_redirect=1#wechat_redirect";
+                //修改地址，开始请求
+                window.location.href = url;
+
+            }else{
+                //包含，则为接收返回值
+                //获取url里的code
+                var CODE = window.location.href.split("?code=")[1].split("&state=")[0];
+                //根据code获取openId
+                $.ajax({
+                    url:'/patientControllerAPP.do?getUserOppenId',
+                    type:'get',
+                    dataType: 'json',
+                    data:{
+                        "code":CODE
+                    },
+                    success:function(data) {
+                        if(data.status == 0){
+                            //存在用户，微信免登录，跳转到首页
+                            $('#phone_num').val('');
+                            $('#code_num').val('');
+                            layer.msg(data.msg);//login successful
+                            window.location.href = '../index/index.html';
+                        }else{
+                            //从未绑定过微信openid，需要先绑定手机号
+//                            layer.msg(data.msg);
+                        }
+                    }
+                });
+            }
+
+
+
+        }
+    });
+
+
+
+    layui.use('layer', function () {
+        var layer = layui.layer;
+    });
+    //click事件
+    $('.getCode').on('click',function () {
+        if ($(".send_code").hasClass("send_already")) {
+            return;
+        } else {
+            sendCode();
+        };
+    });
+    $('.next').on('click',function () {
+        goLogin();
+    });
+    $('.del_img').on('click',function () {
+        $("#phone_num").val("");
+    });
+
+    //Send the verification code
+    function sendCode() {
+        $(".send_code").addClass("send_already");
+        var phone_num = $('#phone_num').val().toString();
+        if ($('#number_input').val() == "") { //Verify phone number
+            layer.msg("手机号不能为空");
+        };
+        if (!/^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}|(170[059])[0-9]{6}$/i.test($('#phone_num').val())) {
+            layer.msg("请输入正确的手机号");
+            return;
+        };
+        $.ajax({
+            type: "POST",
+            url: '/patientControllerAPP.do?sendSmsCode',
+            dataType: 'json',
+            data: { "phone": phone_num },
+            success: function (data) {
+                if (data.status == 1) {
+                    layer.alert(data.msg);//Failed to send
+                };
+                if (data.status == 0) {
+                    layer.alert(data.msg);//Send successfully
+                    var leftTime = 60;
+                    var timer = setInterval(function () {  //倒计时
+                        $(".send_code").html('<span>' + leftTime + '</span>S获取');//发送验证码倒计时
+                        // $(".propmt").show();
+                        leftTime--;
+                        if (leftTime == 0) { //Resend
+                            clearInterval(timer);
+                            $(".send_code").html('重新获取');
+                            // $(".propmt").hide();
+                            $(".send_code").removeClass("send_already");
+                        }
+                    }, 1000);
+                };
+            }
+        })
+    };
+
+    // GO Login
+    function goLogin() {
+        var phone_num = $('#phone_num').val().toString();
+        var code_num = $('#code_num').val().toString();
+        if ($('#phone_num').val() == "") {    //Verify phone number
+            layer.msg("手机号不能为空");
+        };
+        if (!/^(13[0-9]|15[012356789]|17[0-9]|18[0-9]|14[57])[0-9]{8}|(170[059])[0-9]{6}$/i.test($('#phone_num').val())) {
+            layer.msg("请输入正确的手机号");
+            return;
+        };
+        if ($("#code_num").val() == "") {
+            layer.msg("验证码不能为空");
+            return;
+        };
+
+        $.ajax({
+            type: "POST",
+            url: '/patientControllerAPP.do?patientLogin',
+            dataType: 'json',
+            data: { "phone": phone_num, "code": code_num },
+            success: function (data) {
+                console.log(data);
+                if (data.status == 1) {
+                    layer.msg(data.msg);//Please get the verification code first
+                    $(".getCode").html('重新获取');//
+                    // $(".propmt").hide(); 
+                };
+                if (data.status == 0) {
+                    $('#phone_num').val('');
+                    $('#code_num').val('');
+                    layer.msg(data.msg);//login successful
+                    window.location.href = '../index/index.html';
+                };
+            }, error: function (data) {
+                layer.msg(data.msg);
+            }
+        })
+    };
+
+</script>
+
+</html>

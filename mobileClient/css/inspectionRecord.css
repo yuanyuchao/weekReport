@@ -1,0 +1,45 @@
+section {
+    padding: 0.34rem !important;
+}
+.title {
+    font-size: 0.51rem;
+    color: #1A1A1A;
+    /*font-weight: 500;*/
+    margin-bottom: 0.34rem;
+}
+.record-content {
+    background-color: #fff;
+    font-size: 0.4rem;
+    border-radius: 0.14rem;
+}
+section ul li {
+    overflow: hidden;
+    padding: 0.46rem 0;
+    margin: 0 0.34rem;
+    border-bottom: 0.03rem solid #D9D9D9;
+}
+.record-content li:last-of-type {
+    border-bottom: none;
+}
+.record-content li span:nth-of-type(1) {
+    color: #1A1A1A;
+    /*font-weight: 500;*/
+    float: left;
+    /*font-family: myFont, sans-serif;*/
+    display: inline-block;
+}
+
+.record-content li div {
+    float: right;
+    display: inline-block;
+    color: #019E9B;
+}
+
+.record-content li img {
+    width: 0.24rem;
+    height: 0.43rem;
+    margin-left: 0.17rem;
+    margin-bottom: 0.03rem;
+}
+
+

@@ -1,0 +1,347 @@
+@charset "utf-8";
+@font-face {
+    font-family: 'myFont';
+    src: url('./PingFangSC-Medium.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+* {margin: 0;padding: 0;}
+*{-webkit-tap-highlight-color:rgba(0,0,0,0);}
+body,div,dl,dt,dd,ul,ol,li,h1,h2,h3,h4,h5,h6,pre,code,form,fieldset,legend,input,button,textarea,p,blockquote,th,td,strong{padding:0;margin:0;}
+address,caption,cite,code,dfn,em,strong,th,var, optgroup{font-style:inherit;font-weight:inherit;}
+h1,h2,h3,h4,h5,h6{font-size:100%;font-weight:normal;}
+input,button,textarea,select,optgroup,option{font-family:inherit; font-size:inherit;font-style:inherit;font-weight:inherit;}
+input,button,textarea,select{*font-size:100%;}
+input[type=button], input[type=submit], input[type=file], button { cursor: pointer; -webkit-appearance: none; }
+table{border-collapse:collapse;border-spacing:0;}
+a{text-decoration:none; color:#124199; outline:none;}/*此处待添加默认链接颜色*/
+li{list-style:none;}
+
+.clear {clear:both;overflow:hidden;}
+.nowrap{overflow: hidden;text-overflow: ellipsis;white-space: nowrap;}
+.fl{float:left;}
+.fr{float:right;}
+.dis-no{display: none;}
+input{border:0; outline: none;}
+
+body {
+    background-color:#ededed;
+    color: #666666;
+    font-size: 0.4rem !important;
+    width: 100%;
+    /*font-family:myFont,sans-serif;*/
+    /*font-family: "Chinese Quote",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";*/
+    /*font:0.4rem "Chinese Quote",-apple-system,BlinkMacSystemFont,"Segoe UI","PingFang SC","Hiragino Sans GB","Microsoft YaHei","Helvetica Neue",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";*/
+    font:0.4rem Helvetica;
+    font-variant-numeric: tabular-nums;
+}
+/*placeholder*/
+::-webkit-input-placeholder {
+    color: #D9D9D9;
+}
+:-moz-placeholder {
+    /* Firefox 18- */
+    color: #D9D9D9;
+}
+::-moz-placeholder {
+    /* Firefox 19+ */
+    color: #D9D9D9;
+}
+:-ms-input-placeholder {
+    color: #D9D9D9;
+}
+
+/*顶部列表*/
+.header-top {
+    height:1.17rem;
+    background-color: #fff;
+    padding-left: 0.64rem;
+    padding-right: 0.32rem;
+}
+.header-top > .logo {
+    width: 1.79rem;
+    height: 0.59rem;
+    margin-top: 0.37rem;
+}
+.header-top > .logo img{
+    width: 100%;
+    height: 100%;
+}
+.header-top > .down_list {
+    width: 0.707rem;
+    height: 0.7rem;
+    cursor: pointer;
+    position: relative;
+    margin-top:0.25rem;
+}
+.header-top > .down_list img{
+    position: absolute;
+    left: 50%;
+    top:50%;
+}
+.down_false{
+    width: 0.507rem;
+    height: 0.427rem;
+    margin-left: -0.25rem;
+    margin-top: -0.213rem;
+}
+.down_true{
+    width: 0.4rem;
+    height: 0.37rem;
+    margin-left: -0.2rem;
+    margin-top: -0.19rem;
+}
+.menu {
+    height: 100%;
+    position: fixed;
+    top: 1.17rem;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 101;
+    border-top: 1px solid #d9d9d9;
+    display: none;
+}
+.menu-list {
+    font-size:0.37rem;
+    /*font-weight: 500;*/
+    padding: 0.11rem 0.32rem 0.11rem 0.64rem;
+    background-color: #fff;
+}
+.menu-list li a{
+    display: block;
+    height: 1.17rem;
+}
+.menu-list .list_img{
+    width: 0.59rem;
+    height: 1.17rem;
+    float: left;
+    vertical-align: middle;
+    text-align: center;
+    position: relative;
+}
+.menu-list .list_img img{
+    vertical-align: middle;
+    position: absolute;
+    left: 50%;
+    top:50%;
+}
+.menu-list .list_img1 img {
+    width: 0.43rem;
+    height: 0.53rem;
+    margin-top: -0.26rem;
+    margin-left: -0.21rem;
+}
+.menu-list .list_img2 img {
+    width: 0.43rem;
+    height: 0.53rem;
+    margin-top: -0.26rem;
+    margin-left: -0.21rem;
+}
+.menu-list .list_img3 img {
+    width: 0.51rem;
+    height: 0.51rem;
+    margin-top: -0.25rem;
+    margin-left: -0.25rem;
+}
+.menu-list .list_img4 img {
+    width: 0.45rem;
+    height: 0.43rem;
+    margin-top: -0.21rem;
+    margin-left: -0.22rem;
+}
+.menu-list li a span {
+    display: block;
+    color: #666666;
+    height: 100%;
+    line-height: 1.17rem;
+    border-bottom: 0.01rem solid #D9D9D9;
+    text-indent: 0.16rem;
+    margin-left: 0.91rem;
+}
+.menu-list li:last-of-type a span {
+    border-bottom: none;
+}
+.mask {
+    position: fixed;
+    top: 1.17rem;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: #000;
+    opacity: 0.3;
+    z-index: 100;
+    display: none;
+}
+
+/*页面title*/
+.self_title {
+    overflow: auto;
+    padding: 0.32rem 0.32rem 0.48rem 0.32rem;
+}
+.self_title > span {
+    font-size:0.4rem;
+    /*font-weight:500;*/
+    color:rgba(26,26,26,1);
+}
+.self_title .medicine_record {
+    font-size:0.35rem;
+    /*font-weight:500;*/
+    color:rgba(1,158,155,1);
+    line-height:0.48rem;
+    float: right;
+}
+.self_title .title_tab{  /*tab切换*/
+    color:#666;
+    float: left;
+}
+.self_title .title_tab span{
+    font-size:0.48rem;
+    font-family:PingFangSC-Semibold;
+    /*font-weight:500;*/
+    line-height:0.6rem;
+    display: inline-block;
+    margin-right: 0.8rem;
+}
+.self_title .title_tab .tab_select{
+    color:rgba(1,158,155,1);
+    border-bottom:0.05rem solid #019E9B;
+    /*font-weight:500;*/
+}
+.self_title .filter {
+    font-size:0.35rem;
+    /*font-weight:500;*/
+    color:rgba(1,158,155,1);
+    line-height:0.48rem;
+    float: right;
+}
+
+/*筛选弹框样式*/
+.filter-content {
+    display: none;
+    background-color: #fff;
+    position: fixed;
+    top: 2.48rem;
+    left: 0;
+    width: 100%;
+    z-index: 11;
+    border-top: 0.01rem solid #D9D9D9;
+}
+.shadow {
+    position: fixed;
+    top: 2.48rem;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: #000;
+    opacity: 0.3;
+    display: none;
+    z-index: 10;
+}
+.mode-select {
+    padding: 0.11rem 0.12rem 0.24rem 0.12rem;
+    border-top: 0.01rem solid #D9D9D9;
+    border-bottom: 0.01rem solid #D9D9D9;
+}
+.mode-select > p, .date-select > p {
+    /*font-weight: 500;*/
+}
+.filter-content > p {
+    font-size: 0.15rem;
+    color: #666666;
+}
+.filter-content li {
+    height: 0.33rem;
+    display: inline-block;
+    font-size: 0.16rem;
+    border-radius: 16px;
+    margin-right: 0.22rem;
+    text-align: center;
+    line-height: 0.33rem;
+    border: 1px solid #D9D9D9;
+}
+.filter-content li:nth-of-type(1), .filter-content li:nth-of-type(2) {
+    width: 0.66rem;
+}
+.filter-content ul:nth-of-type(1) > li:nth-of-type(3) {
+    width: 0.75rem;
+}
+.filter-content ul:nth-of-type(2) > li:nth-of-type(3) {
+    width: 1.04rem;
+
+}
+.filter-content ul:nth-of-type(1) {
+    margin: 0.24rem 0 0.18rem 0;
+}
+.btn-grounp {
+    width: 100%;
+    font-size:0.4rem;
+    /*font-weight:500;*/
+    color:rgba(102,102,102,1);
+    line-height:0.56rem;
+    overflow: auto;
+}
+.btn-grounp > div {
+    float: left;
+    width: 50% !important;
+    height: 1.17rem;
+    text-align: center;
+    line-height: 1.17rem;
+}
+.btn-cancle {
+    background-color: #D9D9D9;
+}
+.btn-confirm {
+    background-color: #019E9B;
+    color: white;
+}
+.date-select {
+    padding: 0.32rem 0.32rem 0.96rem 0.32rem;
+    overflow: auto;
+    font-size:0.4rem;
+    /*font-weight:500;*/
+    color:rgba(102,102,102,1);
+    line-height:0.56rem;
+}
+.date-select .date_interval {
+    display: flex;
+    justify-content:space-between;
+}
+.date-start, .date-end {
+    width: 4.11rem;
+    height: 0.96rem;
+    line-height: 0.96rem;
+    text-align: center;
+    border: 1px solid #D9D9D9;
+    border-radius: 0.08rem;
+}
+.date-start .layui-inline, .date-end .layui-inline{
+    vertical-align: top;
+}
+.date-start .layui-input-inline, .date-end .layui-input-inline{
+    height: 0.96rem;
+    vertical-align: top;
+}
+.layui-input-inline > input {
+    border: none;
+    height: 0.96rem;
+    background: url("../../img/icon/dataSelect@2x.png") no-repeat 3.2rem center;
+    background-size: 0.5rem 0.5rem;
+    margin-bottom: 0.05rem;
+}
+.hr {
+    width:0.48rem;
+    height:0.03rem;
+    background-color: #D9D9D9;
+    margin: 0.48rem 0 0 0;
+}
+.date-select > p {
+    margin-bottom: 0.64rem;
+}
+
+
+
+/*日期插件*/
+.date_btn_box{
+    height: 1.14rem;
+}

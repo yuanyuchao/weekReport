@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Expires" content="0">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Cache" content="no-cache">
+    <title>治疗记录</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/public/mui.min.css">
+    <link rel="stylesheet" href="../../css/public/mui.picker.min.css">
+    <link rel="stylesheet" href="../../css/public/base.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <script>
+        document.write('<link rel="stylesheet" href="../../css/acography.css?time='+new Date().getTime()+'">');
+    </script>
+
+</head>
+
+<body>
+    <header>
+        <div id="menu"></div>
+    </header>
+    <div class="title">
+        <span>治疗记录</span>
+        <span class="filter">筛选</span>
+    </div>
+    <div class="content">
+        <div class="main-content">
+        </div>
+        <div class="no-record">
+            <img src="../../img/acography/zanwu@2x.png" alt="">
+            <p>暂无记录</p>
+        </div>
+        <div class="shadow"></div>
+        <div class="filter-content">
+            <div class="mode-select">
+                <p>透析模式</p>
+                <ul>
+                    <li class="type-bgc">全部</li>
+                    <li typeCode="1">HD</li>
+                    <li typeCode="2">HDF</li>
+                </ul>
+                <ul>
+                    <!--<li typeCode="3">HP</li>-->
+                    <!--<li typeCode="5">HF</li>-->
+                    <li typeCode="4">HFHD</li>
+                </ul>
+            </div>
+            <div class="date-select">
+                <p>透析日期</p>
+                <div class="date-start">
+                            <input type="text" class="layui-input" id="date-start" placeholder="2019-04-01"
+                                value="2019-04-01">
+                </div>
+                <div class="hr"></div>
+                <div class="date-end">
+                        <input type="text" class="layui-input" id="date-end" placeholder="2019-04-01"
+                            value="2019-04-01">
+                </div>
+            </div>
+            <div class="btn-grounp">
+                <div class="btn-cancle">取消</div>
+                <div class="btn-confirm">确定</div>
+            </div>
+        </div>
+
+
+    </div>
+</body>
+<script src="../../js/public/flexible2.js"></script>
+<script src="../../js/public/jquery.min.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/public/mui.min.js"></script>
+<script src="../../js/public/mui.picker.min.js"> </script>
+<script src="../../js/public/common.js"></script>
+<script>
+    document.write('<script src="../../js/acography/acography.js?time='+new Date().getTime()+'"><'+'/'+'script>');
+</script>
+</html>

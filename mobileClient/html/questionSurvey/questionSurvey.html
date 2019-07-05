@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="always" name="referrer">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <title>问卷调查</title>
+    <link rel="stylesheet" href="../../js/layui/css/layui.css">
+    <link rel="stylesheet" href="../../css/public/reset.css">
+    <link rel="stylesheet" href="../../css/questionSurvey.css">
+    <style>
+        input, textarea {
+            -webkit-user- select: auto!important;
+            -khtml-user-select: auto!important;
+            -moz-user-select: auto!important;
+            -ms-user-select: auto!important;
+            -o-user-select: auto!important;
+            user-select: auto!important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div id="menu"></div>
+    </header>
+    <div class="question_content"  style="display: none;">
+        <div class="qes_intro">
+        </div>
+        <div class="question_lists">
+        </div>
+        <div class="submit_btn">
+            <a href="###">提交</a>
+        </div>
+    </div>
+    <!--暂无调查问卷-->
+    <div class="no_survey" style="display: none;"></div>
+</body>
+<script src="../../js/public/jquery.min.js"></script>
+<script src="../../js/public/flexible2.js"></script>
+<script src="../../js/layui/layui.js"></script>
+<script src="../../js/public/common.js"></script>
+<script>
+    $('#menu').load('../public/menu2.html');
+    $.ajax({
+        type: "POST",
+        url: '/patientControllerAPP.do?getQuestionSurveyList',
+        dataType: 'json',
+        success: function (data) {
+            // console.log(data);
+            if(data.status==0){
+                $(".question_content").show();
+                var html="";
+                $(".qes_intro").text(data.data[0].name);
+                $(".qes_intro").attr("paper_id",data.data[0].id);
+                var questions=data.data[0].QuestionSurveyItemList;
+                $.each(questions, function (index, item) {
+                    var html1="";
+                    var html2="";
+                    var html3="";
+                    var html4="";
+                    if(item.ques_type!==3){
+                        html1='<div class="question_list" id="'+item.id+'" ques_type="'+item.ques_type+'" ques_id>' +
+                            '<div class="topic">'+item.ques+'('+item.ques_type_name+')'+'</div>' +
+                            '<div class="answer">' +
+                            '<ul>';
+                        html3='</ul></div></div>';
+                        for (var key in item){
+                            if(key!="id"&&key!="ques"&&key!="ques_type"&&key!="ques_type_name"&key!="status"){
+                                var ques_id=key.substring(6,key.length);
+                                html2+='<li qes_id="'+ques_id+'"><span class="select_img qes_no"></span>'+item[key]+'</li>';
+                            };
+                        };
+                        html+=html1+html2+html3;
+                    }else{
+                        html4='<div class="question_list feedback" id="'+item.id+'" ques_type="'+item.ques_type+'">' +
+                            '<p>'+item.ques+'</p>' +
+                            '<textarea placeholder="请输入" value="" autofocus="autofocus"></textarea>' +
+                            '</div>';
+                        html+=html4;
+                    };
+                });
+                $(".question_lists").append(html);
+                //题是否做完
+                function checkSelect(){
+                    var lists=$(".question_lists .question_list");
+                    for(var t=0;t<lists.length;t++){
+                        if($(lists[t]).attr("ques_id")==""){
+                            $(".submit_btn a").css({"background-color": "#D9D9D9"});
+                            $(".submit_btn a").css({"color": "#666666"});
+                            $(".submit_btn").removeClass("submit_sure");
+                            return;
+                        }else{
+                            $(".submit_btn a").css({"background-color": "#019E9B"});
+                            $(".submit_btn a").css({"color": "#fff"});
+                            $(".submit_btn").addClass("submit_sure");
+                        };
+                    };
+                };
+
+                //选择答案
+                $(".answer li").click(function() {
+                    if($(this).parents(".question_list").attr("ques_type")==1){
+                        $(this).parents(".question_list").attr("ques_id",$(this).attr("ques_id"));
+                        $(this).children(".select_img").removeClass("qes_no").addClass("qes_yes");
+                        $(this).siblings("li").children(".select_img").removeClass("qes_yes").addClass("qes_no");
+                        $(this).parents(".question_list").attr("ques_id",$(this).attr("qes_id"));
+                    }else if($(this).parents(".question_list").attr("ques_type")==2){
+                        if($(this).children(".select_img").hasClass("qes_no")){
+                            $(this).children(".select_img").removeClass("qes_no").addClass("qes_yes");
+                        }else{
+                            $(this).children(".select_img").removeClass("qes_yes").addClass("qes_no");
+                        };
+                        var arr=[];
+                        var imgs=$(this).parent().find(".select_img");
+                        for(var j=0;j<imgs.length;j++){
+                            if($(imgs[j]).hasClass("qes_yes")){
+                                var qesId=$(imgs[j]).parent("li").attr("qes_id");
+                                arr.push(qesId);
+                            };
+                        };
+                        var str=arr.join(",");
+                        $(this).parents(".question_list").attr("ques_id",str);
+                    };
+                    checkSelect();
+                });
+                //填空
+                var textareas=document.getElementsByTagName('textarea');
+                console.log($(textareas));
+                for(var i=0;i<textareas.length;i++){
+                    textareas[i].addEventListener('blur',function(){
+                        var str=$(this).val();
+                        $(this).parents(".question_list").attr("ques_id",str);
+                        checkSelect();
+                    });
+                };
+
+            }else if(data.status==1){
+                $(".no_survey").show();
+                $(".no_survey").text(data.msg);
+            }else if (data.status == 2){
+                layer.msg(data.msg);
+                window.location.href='../login/login.html';
+            };
+        }
+    });
+
+    //问卷提交
+    $(".submit_btn").click(function(){
+        if($(this).hasClass("submit_sure")){
+            var list_arr=[];
+            var lists=$(".question_lists .question_list");
+            for(var s=0;s<lists.length;s++){
+                var dataJson={
+                    "id": Number($(lists[s]).attr("id")),
+                    "ques_type": $(lists[s]).attr("ques_type"),
+                    "answer": $(lists[s]).attr("ques_id")
+                };
+                list_arr.push(dataJson);
+            };
+            var plan={
+                "questionSurveyId":$(".qes_intro").attr("paper_id"),
+                "questionRecordItemList":JSON.stringify(list_arr)
+            };
+            console.log(plan);
+            $.ajax({
+                type: "POST",
+                url: '/patientControllerAPP.do?addQuestionRecord',
+                dataType: 'json',
+                data:plan,
+                success: function (data) {
+                    // console.log(data);
+                    if(data.status==0){
+                        window.location.href='questionOver.html';
+                    }else if (data.status == 1){
+                        layer.msg(data.msg);
+                    }else if (data.status == 2){
+                        layer.msg(data.msg);
+                        window.location.href='../login/login.html';
+                    };
+                }
+            });
+        };
+    });
+</script>
+</html>
